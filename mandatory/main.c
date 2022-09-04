@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/08/26 12:45:26 by clorcery         ###   ########.fr       */
+/*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
+/*   Updated: 2022/09/04 11:45:26 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-#include "../Libft/all_h.h"
-
-#endif
+int	main(int argc, char *argv[])
+{
+	(void) argc;
+	(void) argv;
+	ft_printf("test\n");
+	return (0);
+}
