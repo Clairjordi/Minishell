@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/08/26 12:55:38 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/04 11:42:05 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ YELLOW:="\033[1;33m"
 EOC:="\033[0;0m"
 # /* ~~~~~~~~~~~~~~ */
 
-SRCS = Mandatory/main.c
+SRCS = mandatory/main.c
 
 OBJS = ${SRCS:.c=.o}
 
 NAME = minishell
 
-LIBFT = ./Libft/libft.a
+LIBFT = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -g
 
@@ -34,14 +34,14 @@ all: ${NAME}
 	@gcc ${FLAGS} -c $< -o $@
 
 ${LIBFT}:
-		@make -C ./Libft --no-print-directory
+		@make -C ./libft --no-print-directory
 
 ${NAME}: ${OBJS} ${LIBFT}
 		@gcc ${FLAGS} ${OBJS} ${LIBFT} -o ${NAME}		
 		@echo ${GREEN}"compilation complete"${EOC}
 
 clean:
-	@make -C ./Libft clean --no-print-directory
+	@make -C ./libft clean --no-print-directory
 	@${RM} ${OBJS}
 	@echo ${YELLOW}"clean ok"${EOC}
 
