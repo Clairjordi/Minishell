@@ -1,5 +1,6 @@
 *.o
 *.swp
 *.swo
+*.txt
 minishell
-
+libft/libft.a
