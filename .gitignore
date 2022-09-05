@@ -1,6 +1,7 @@
-*.o
-*.swp
-*.swo
+mandatory/*.o
+mandatory/*.swp
+mandatory/*.swo
 *.txt
 minishell
 libft/libft.a
+libft/objs
