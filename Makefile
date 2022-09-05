@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/04 11:42:05 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/04 16:26:13 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,22 +26,24 @@ LIBFT = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -g
 
+INC = -lreadline -I includes
+
 RM = rm -rf
 
 all: ${NAME}
 
 .c.o:
-	@gcc ${FLAGS} -c $< -o $@
+	@gcc ${FLAGS} ${INC} -c $< -o $@
 
 ${LIBFT}:
 		@make -C ./libft --no-print-directory
 
 ${NAME}: ${OBJS} ${LIBFT}
-		@gcc ${FLAGS} ${OBJS} ${LIBFT} -o ${NAME}		
+		@gcc ${FLAGS} ${OBJS} ${INC} ${LIBFT} -o ${NAME}		
 		@echo ${GREEN}"compilation complete"${EOC}
 
 clean:
-	@make -C ./libft clean --no-print-directory
+	@make -C ./libft/ clean --no-print-directory
 	@${RM} ${OBJS}
 	@echo ${YELLOW}"clean ok"${EOC}
 
