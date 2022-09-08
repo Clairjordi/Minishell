@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/08 19:04:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:11:39 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_print_envp(char **envp, t_shell *shell, char *opt)
 	int		i;
 
 	i = 0;
-
+	//utiliser pustr_fd pour le print car possibilite de redirection des fd
 	if (ft_strcmp(opt, "env") == 0)
 		ft_recup_env(envp, shell);
 	else if (ft_strcmp(opt, "export") == 0)
