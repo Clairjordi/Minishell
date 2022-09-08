@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/07 17:44:45 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:49:29 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,19 @@
 
 typedef struct s_minishell
 {
-	char	*str;
-	//pid_t	pid;
+	char	**copy_envp;
 }	t_shell;
 
+//INIT STRUCT
+void	ft_init_shell(t_shell *shell);
+void	init_prompt(void);
+
+//SIGNALS
+void	handler(int sig);
+
+
+
+//FREE
+void	ft_free_shell(t_shell *shell);
 
 #endif

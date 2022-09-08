@@ -1,19 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 11:56:06 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/08 16:41:24 by clorcery         ###   ########.fr       */
+/*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
+/*   Updated: 2022/09/08 18:49:07 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_h.h"
+#include "minishell.h"
 
-void	ft_error(char *str)
+void	ft_init_shell(t_shell *shell)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
+	shell->copy_envp = NULL;
+}
+
+void	init_prompt(void)
+{
+	char	*str;
+
+	while (1)
+	{
+		str = readline ("$>");
+		if (!str || !ft_strncmp("exit", str, 4))
+		{
+			ft_putstr_fd("exit\n", 1);
+			exit (0);
+		}
+		if (str)
+			add_history(str);
+		free(str);
+	}
 }

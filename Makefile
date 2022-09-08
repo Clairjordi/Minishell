@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/07 17:51:46 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/08 18:56:22 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ YELLOW:="\033[1;33m"
 EOC:="\033[0;0m"
 # /* ~~~~~~~~~~~~~~ */
 
-SRCS = mandatory/main.c
+SRCS = mandatory/main.c \
+	   mandatory/init.c \
+	   mandatory/free.c \
+	   mandatory/signals.c
 
 OBJS = ${SRCS:.c=.o}
 

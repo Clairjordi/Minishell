@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/04 21:00:04 by clorcery          #+#    #+#              #
-#    Updated: 2022/08/22 14:16:19 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/08 17:06:52 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRCS	= libft/ft_isalpha.c \
 			libft/ft_putnbr_fd.c \
 			libft/ft_putnbr_base.c \
 			libft/ft_error.c \
+			libft/ft_join_loop.c \
 			libft/ft_lstnew.c \
 			libft/ft_lstadd_front.c \
 			libft/ft_lstsize.c \

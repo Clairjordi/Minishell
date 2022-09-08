@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 11:56:06 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/08 16:41:24 by clorcery         ###   ########.fr       */
+/*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
+/*   Updated: 2022/09/08 18:16:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_h.h"
+#include "minishell.h"
 
-void	ft_error(char *str)
+void	ft_free_shell(t_shell *shell)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
+	ft_free_tab_char(shell->copy_envp);
 }

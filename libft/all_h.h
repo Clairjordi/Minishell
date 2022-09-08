@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 17:34:18 by clorcery          #+#    #+#             */
-/*   Updated: 2022/05/02 17:35:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/08 16:41:04 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <errno.h>
 # include "includes/libft.h"
 # include "includes/get_next_line.h"
 # include "includes/printf.h"
