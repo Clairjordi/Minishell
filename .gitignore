@@ -8,3 +8,4 @@ minishell/*.swo
 minishell/minishell
 libft/libft.a
 libft/objs
+.nfs*
