@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/09 09:17:19 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/09 14:57:26 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,12 @@ EOC:="\033[0;0m"
 # /* ~~~~~~~~~~~~~~ */
 
 SRCS = mandatory/main.c \
-	   mandatory/init.c \
-	   mandatory/free.c \
-	   mandatory/signals.c 
+	   mandatory/init/init.c \
+	   mandatory/free/free.c \
+	   mandatory/signals/signals.c \
+	   mandatory/builtins/env.c \
+	   mandatory/builtins/export.c 
+
 
 OBJS = ${SRCS:.c=.o}
 
@@ -29,7 +32,7 @@ LIBFT = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -g
 
-INC = -lreadline -I includes -lncurses
+INC = -lreadline -I includes
 
 RM = rm -rf
 
