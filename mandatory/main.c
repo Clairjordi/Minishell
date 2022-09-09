@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/08 19:11:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/09 09:20:55 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,18 @@ void	ft_export(char **envp, t_shell *shell)
 	}
 }
 
-void	ft_print_envp(char **envp, t_shell *shell, char *opt)
+void	ft_print_envp(char **envp, t_shell *shell, char *opt, int fd)
 {
 	int		i;
 
 	i = 0;
-	//utiliser pustr_fd pour le print car possibilite de redirection des fd
 	if (ft_strcmp(opt, "env") == 0)
 		ft_recup_env(envp, shell);
 	else if (ft_strcmp(opt, "export") == 0)
 		ft_export(envp, shell);
 	while (shell->copy_envp[i] != NULL)
 	{
-		ft_printf("%s\n", shell->copy_envp[i]);
+		ft_putendl_fd(shell->copy_envp[i], fd);
 		i++;
 	}
 	ft_free_shell(shell);
@@ -111,7 +110,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	ft_init_shell(&shell);
-	ft_print_envp(envp, &shell, "export");
+	ft_print_envp(envp, &shell, "export", 1);
 	//ft_print_env(envp, &shell);
 	//init_prompt();
 	return (0);
