@@ -6,11 +6,11 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/09 15:33:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:48:40 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_recup_env(char **envp, t_shell *shell)
 {

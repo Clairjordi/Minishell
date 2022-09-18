@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/09 11:53:56 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:13:19 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct s_minishell
 {
 	char	**copy_envp;
+	char	**copy_export;
 }	t_shell;
 
 //INIT
@@ -45,5 +46,6 @@ void	handler(int sig);
 
 //FREE
 void	ft_free_shell(t_shell *shell);
+void	ft_free_malloc(t_shell *shell);
 
 #endif

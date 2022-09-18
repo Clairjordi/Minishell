@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/09 14:57:26 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/17 17:47:47 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -g
 
-INC = -lreadline -I includes
+INC = -lreadline
 
 RM = rm -rf
 

@@ -6,11 +6,11 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:45:27 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/08 18:45:52 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:48:35 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	handler(int sig)
 {
