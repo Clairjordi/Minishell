@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/17 18:13:19 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:32:10 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,23 @@ typedef struct s_minishell
 {
 	char	**copy_envp;
 	char	**copy_export;
+	char	*test_add_env; // A SUPPR
 }	t_shell;
 
 //INIT
 void	ft_init_shell(t_shell *shell);
 void	init_prompt(void);
 
+//UTILS
+char	**ft_realloc_tab_char(t_shell *shell, char **old_tab);
+
 //BUILTINS
 void	ft_sort_export(t_shell *shell);
+int		ft_len_va(char *var, int start, char c);
+void	ft_create_copy_export(t_shell *shell);
 void	ft_export(char **envp, t_shell *shell);
 void	ft_recup_env(char **envp, t_shell *shell);
-
+void	ft_add_envp(char **envp, t_shell *shell);
 //SIGNALS
 void	handler(int sig);
 

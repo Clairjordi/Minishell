@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/17 17:48:40 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:31:49 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,22 @@ void	ft_recup_env(char **envp, t_shell *shell)
 	{
 		shell->copy_envp[i] = ft_strdup(envp[i]);
 		if (shell->copy_envp[i] == NULL)
-		{
-			ft_free_shell(shell);
-			ft_error("Malloc");
-		}
+			ft_free_malloc(shell);
 		i++;
 	}
 	shell->copy_envp[i] = NULL;
+}
+
+void	ft_add_envp(char **envp, t_shell *shell)
+{
+	//parametre : ajout de la cmd et peut du nombre de case a ajouter (?)
+	if (!shell->copy_envp)
+		ft_recup_env(envp, shell);
+	/*
+	//verification si la commande n'est pas NULL puis ajout d'une case
+	//(gerer quand il y en a plusieurs car l'on peut creer plusieurs variables a la suite)
+	if (\cmd/ != NULL)
+		shell->copy_envp = ft_realloc_tab_char(shell, shell->copy_envp);
+		//peut etre creer une boucle
+	*/
 }

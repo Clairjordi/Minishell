@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/17 19:19:23 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:35:58 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,26 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
+	(void) argc;
 	(void) argv;
+	(void) envp;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
-	if (argc != 1)
-	{
-		ft_putendl_fd("No argument requiered", 2);
-		exit(1);
-	}
+	/* if (argc != 1) */
+	/* { */
+	/* 	ft_putendl_fd("No argument requiered", 2); */
+	/* 	exit(1); */
+	/* } */
 	ft_init_shell(&shell);
+	/*
+	shell.test_add_env = argv[1];
+	ft_print_envp(envp, &shell);
+	if (shell.test_add_env != NULL)
+		ft_add_envp(envp, &shell);
+	ft_printf("---------------------------------------------------------\n");
 	ft_print_export(envp, &shell);
+	*/
+	init_prompt();
 	ft_free_shell(&shell);
-	//init_prompt();
 	return (0);
 }

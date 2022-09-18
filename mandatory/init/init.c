@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/17 18:38:13 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/18 14:17:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init_shell(t_shell *shell)
 {
 	shell->copy_envp = NULL;
 	shell->copy_export = NULL;
+	shell->test_add_env = NULL; //A SUPPR
 }
 
 void	init_prompt(void)
