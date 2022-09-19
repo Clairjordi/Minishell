@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/09 14:57:26 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/19 18:48:00 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,9 @@ SRCS = mandatory/main.c \
 	   mandatory/free/free.c \
 	   mandatory/signals/signals.c \
 	   mandatory/builtins/env.c \
-	   mandatory/builtins/export.c 
+	   mandatory/builtins/export.c \
+	   mandatory/utils/utils.c \
+	   mandatory/parsing/parsing.c
 
 
 OBJS = ${SRCS:.c=.o}
@@ -32,7 +34,7 @@ LIBFT = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -g
 
-INC = -lreadline -I includes
+INC = -lreadline
 
 RM = rm -rf
 
