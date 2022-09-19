@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 11:45:52 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:32:34 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <termios.h>
 
+#include <termios.h>
 #include <curses.h>
 #include <term.h>
 
@@ -38,7 +38,7 @@ void	ft_init_shell(t_shell *shell);
 void	init_prompt(void);
 
 //UTILS
-char	**ft_realloc_tab_char(t_shell *shell, char **old_tab);
+char	**ft_realloc_tab_char(t_shell *shell, char **old_tab, char *new_var);
 
 //BUILTINS
 void	ft_sort_export(t_shell *shell);

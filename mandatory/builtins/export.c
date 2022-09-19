@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:48:59 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 12:04:47 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/19 14:26:28 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_len_va(char *var, int start, char c)
 	return (i);
 }
 
-static char	*annoying_malloc(char *tab_val, t_shell *shell)
+static char	*add_quotes(char *tab_val, t_shell *shell)
 {
 	tab_val = ft_strjoin_free("\"", tab_val, '2');
 	if (tab_val == NULL)
@@ -85,7 +85,7 @@ void	ft_create_copy_export(t_shell *shell)
 				ft_len_va(shell->copy_envp[i], size, '\0'));
 		if (tab_val == NULL)
 			ft_free_malloc(shell);
-		tab_val = malloc_qui_fait_suer(tab_val, shell);
+		tab_val = add_quotes(tab_val, shell);
 		shell->copy_export[i] = ft_strjoin_free(tab_var, tab_val, 3);
 		free(tab_var);
 		free(tab_val);
