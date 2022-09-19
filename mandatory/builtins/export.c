@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:48:59 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 14:26:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:07:01 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,6 @@ void	ft_sort_export(t_shell *shell)
 		}
 		i++;
 	}
-}
-
-int	ft_len_va(char *var, int start, char c)
-{
-	int	i;
-
-	i = start;
-	while (var[i])
-	{
-		if (var[i] == c)
-		{
-			i++;
-			return (i);
-		}
-		i++;
-	}
-	if (var[i] == '\0')
-		i++;
-	return (i);
 }
 
 static char	*add_quotes(char *tab_val, t_shell *shell)
@@ -116,6 +97,20 @@ void	ft_export(char **envp, t_shell *shell)
 				shell->copy_export[i], '2');
 		if (shell->copy_export[i] == NULL)
 			ft_free_malloc(shell);
+		i++;
+	}
+}
+
+void	ft_print_export(char **envp, t_shell *shell)
+{
+	int		i;
+
+	i = 0;
+	if (!shell->copy_export)
+		ft_export(envp, shell);
+	while (shell->copy_export[i] != NULL)
+	{
+		ft_printf("%s\n", shell->copy_export[i]);
 		i++;
 	}
 }

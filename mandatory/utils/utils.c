@@ -6,11 +6,30 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 14:34:19 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:06:22 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_len_va(char *var, int start, char c)
+{
+	int	i;
+
+	i = start;
+	while (var[i])
+	{
+		if (var[i] == c)
+		{
+			i++;
+			return (i);
+		}
+		i++;
+	}
+	if (var[i] == '\0')
+		i++;
+	return (i);
+}
 
 char	**ft_realloc_tab_char(t_shell *shell, char **old_tab, char *new_var)
 {

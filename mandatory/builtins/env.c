@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 14:34:05 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:08:07 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ void	ft_add_envp(char **envp, t_shell *shell)
 		shell->copy_envp = ft_realloc_tab_char(shell, shell->copy_envp, \cmd/);
 		//peut etre creer une boucle
 	*/
+}
+
+void	ft_print_envp(char **envp, t_shell *shell)
+{
+	int		i;
+
+	i = 0;
+	if (!shell->copy_envp)
+		ft_recup_env(envp, shell);
+	while (shell->copy_envp[i] != NULL)
+	{
+		ft_printf("%s\n", shell->copy_envp[i]);
+		i++;
+	}
 }
