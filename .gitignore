@@ -5,9 +5,9 @@ mandatory/*/*.swp
 mandatory/*.swp
 mandatory/*/*.swo
 mandatory/*.swo
-minishell/*.txt
-minishell/*.swp
-minishell/*.swo
+*.txt
+*.swp
+*.swo
 minishell
 libft/libft.a
 libft/objs
