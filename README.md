@@ -26,6 +26,9 @@ Cas a gerer :
   gestion du heredoc
   gestion env
   
-  
+
+  MEMO : 
+  	gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
+		possibilite de faire une specificite dans add_env - si pas de egal l'ajouter seulement a export sans "=""" - l'ajouter avec un realloc
 
   
