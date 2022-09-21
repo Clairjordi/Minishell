@@ -27,8 +27,19 @@ Cas a gerer :
   gestion env
   
 
-  MEMO : 
-  	gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
-		possibilite de faire une specificite dans add_env - si pas de egal l'ajouter seulement a export sans "=""" - l'ajouter avec un realloc
+Exemple de quotes:
+	echo "lol papa" -> lol papa
+	echo "kwsv db'eb" -> kwsv db'eb
+	echo "gfd"tre" -> NE PAS LE GERER donc retirer la double quote : gfdtre
+	echo "'hihi 'ret'" -> 'hihi 'ret'
+	echo 
 
-  
+
+
+
+  MEMO : 
+-gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
+		possibilite de faire une specificite dans add_env - si pas de egal l'ajouter seulement a export sans "=""" - l'ajouter avec un realloc.
+-verifier les includes dans le h vraiment necessaire
+-gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure.
+-

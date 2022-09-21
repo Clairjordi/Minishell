@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/21 10:19:32 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/21 19:15:35 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/export.c \
 	   mandatory/utils/utils.c \
+	   mandatory/utils/create_lst_cmds.c \
+	   mandatory/utils/split_minishell.c \
 	   mandatory/parsing/parsing.c \
 	   mandatory/test/print.c
 
@@ -54,6 +56,11 @@ clean:
 	@make -C ./libft/ clean --no-print-directory
 	@${RM} ${OBJS}
 	@echo ${YELLOW}"clean ok"${EOC}
+
+run:
+	./$(NAME)
+run2:
+	valgrind ./$(NAME)
 
 fclean: clean
 	@${RM} ${LIBFT}

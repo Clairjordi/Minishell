@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/21 10:13:15 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/21 10:43:51 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_init_shell(t_shell *shell, t_cmds *cmds)
 void	ft_init_prompt(t_shell *shell, t_cmds *cmds)
 {
 	char	*str;
+	//(void) *shell;
+	//(void) *cmds;
 
 	while (1)
 	{
@@ -39,8 +41,8 @@ void	ft_init_prompt(t_shell *shell, t_cmds *cmds)
 		}
 		if (str)
 		{
-			add_history(str);
 			ft_parsing(str, shell, cmds);
+			add_history(str);
 		}
 		free(str);
 	}

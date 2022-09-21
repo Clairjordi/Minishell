@@ -1,11 +1,11 @@
 #include "../../includes/minishell.h"
 
-void	ft_print_test(t_shell *shell, t_cmds *cmds)
+void	ft_print_test(t_shell *shell, t_cmds **cmds)
 {
 	t_cmds	*tmp;
 	(void) 	*shell;
 
-	tmp = cmds;
+	tmp = *cmds;
 	while (tmp != NULL)
 	{
 		ft_printf("valeur = %s\n", tmp->cmd);
