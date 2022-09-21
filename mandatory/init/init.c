@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 18:31:15 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/21 10:13:15 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_init_shell(t_shell *shell, t_cmds *cmds)
 {
 	shell->copy_envp = NULL;
 	shell->copy_export = NULL;
-	shell->test_add_env = NULL; //A SUPPR
 	cmds->prev = NULL;
 	cmds->next = NULL;
 	cmds->cmd = NULL;
@@ -41,7 +40,7 @@ void	ft_init_prompt(t_shell *shell, t_cmds *cmds)
 		if (str)
 		{
 			add_history(str);
-			ft_parsing(str, shell);
+			ft_parsing(str, shell, cmds);
 		}
 		free(str);
 	}

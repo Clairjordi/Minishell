@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/20 11:27:07 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/21 10:19:32 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/export.c \
 	   mandatory/utils/utils.c \
-	   mandatory/parsing/parsing.c
+	   mandatory/parsing/parsing.c \
+	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}
 
