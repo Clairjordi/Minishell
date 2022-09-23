@@ -6,41 +6,49 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/23 10:43:35 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:59:57 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_delete_quotes(char *str, t_shell *shell, t_cmds *cmds)
+int	ft_len_without_quote(char *str)
 {
-	int		i;
-	int		j;
-	char	*new_str;
-	int		size;
-	int		size_copy;
+	int	i;
+	int	size;
 
 	i = 0;
 	size = 0;
-	size_copy = 0;
 	while (str[i])
 	{
 		if (str[i] != '\"')
 			size++;
 		i++;
 	}
+	return (size);
+}
+
+char	*ft_delete_quotes(char *str, t_shell *shell, t_cmds *cmds)
+{
+	int		i;
+	char	*new_str;
+	int		size;
+	int		size_copy;
+
+	size = ft_len_without_quote(str);
 	new_str = ft_calloc(sizeof(char *), (size + 1));
 	if (!new_str)
 		ft_free_error(shell, cmds, "Malloc");
-	j = 0;
-	while (str[j])
+	i = 0;
+	size_copy = 0;
+	while (str[i])
 	{
-		if (str[j] != '\"')
+		if (str[i] != '\"')
 		{
-			new_str[size_copy] = str[j];
+			new_str[size_copy] = str[i];
 			size_copy++;
 		}
-		j++;
+		i++;
 	}
 	free(str);
 	new_str[size_copy] = '\0';
@@ -50,13 +58,13 @@ char	*ft_delete_quotes(char *str, t_shell *shell, t_cmds *cmds)
 int	ft_verif_quote(char *str)
 {
 	int	i;
-	int		quote;
+	int	quote;
 
 	i = 0;
 	quote = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(str[i] == '\"')
+		if (str[i] == '\"')
 			quote++;
 		i++;
 	}
@@ -73,15 +81,25 @@ int	ft_verif_pipe(char *s, t_shell *shell, t_cmds *cmds)
 	i = 0;
 	pipe = 0;
 	if (s[i] == '|')
-		ft_free_error(shell, cmds, "Wrong pipes syntax"); // relancer un prompt
+	{
+		ft_putendl_fd("Wrong quotes syntax", 2);
+		return (-1);
+	}
 	while (s[i])
 	{
 		if (s[i] == '|')
 			pipe++;
 		if (s[i + 1] == '\0' && s[i] == '|')
-			ft_free_error(shell, cmds, "Wrong pipes syntax"); // relancer un prompt
+		{
+			ft_putendl_fd("Wrong quotes syntax", 2);
+			return (-1);
+		}
+		//A mettre dans une autre fonction apres le split ?
 		/* if (s[i] == '|' && s[i + 1] == '|') */
-		/* 	ft_free_error(shell, cmds, "Wrong pipes syntax"); // relancer un prompt */
+		/* { */
+		/* 	ft_putendl_fd("Wrong quotes syntax", 2); */
+		/* 	return (-1); */
+		/* } */
 		i++;
 	}
 	return (pipe);
@@ -107,9 +125,11 @@ void	ft_parsing(char *str, t_shell *shell, t_cmds *cmds, char **envp)
 	(void) envp;
 	if (ft_verif_quote(str) == 1)
 	{
-		ft_free_shell(shell);
-		ft_error("Wrong quotes syntax"); //relancer un prompt
+		ft_putendl_fd("Wrong quotes syntax", 2);
+		return ;
 	}
+	if (ft_verif_pipe(str, shell, cmds) == -1)
+		return ;
 	else
 	{
 		shell->tab_cmd = ft_split_shell(str);
@@ -117,12 +137,6 @@ void	ft_parsing(char *str, t_shell *shell, t_cmds *cmds, char **envp)
 			ft_free_error(shell, cmds, "Malloc");
 	}
 	ft_verif_pipe(str, shell, cmds);
-	/* int	i = 0; */
-	/* while (shell->tab_cmd[i]!= NULL) */
-	/* { */
-	/* 	shell->tab_cmd[i] = ft_delete_quotes(shell->tab_cmd[i], shell, cmds); */
-	/* 	i++; */
-	/* } */
 	ft_create_linked_lst(&cmds, shell);
 	ft_print_test(shell, cmds); //A SUPPR
 	ft_free_tab_char(shell->tab_cmd);
