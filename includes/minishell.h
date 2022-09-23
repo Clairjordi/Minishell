@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/21 19:16:48 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/23 12:02:34 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,41 @@
 
 typedef struct s_lst_cmd
 {
-	char				*cmd;
+	int					fill;
+	char				**cmd;
+	char				*value;
 	char				*opt;
 	int					infile;
 	int					outfile;
 	char				heredoc;
 	char				dollar;
 	int					pipe;
+	int					pipe_fd[2];
+	char				*cmd_path;
+	char				quote;
 	struct s_lst_cmd	*prev;
 	struct s_lst_cmd	*next;
 }	t_cmds;
 
 typedef struct s_minishell
 {
+	char	**tab_cmd;
 	char	**copy_envp;
 	char	**copy_export;	
 }	t_shell;
 
 //A SUPPR ////////////////////////////////////////////////////////////////////////
-void	ft_print_test(t_shell *shell, t_cmds **cmds);
+void	ft_print_test(t_shell *shell, t_cmds *cmds);
 //
 
 //INIT
-void	ft_init_shell(t_shell *shell, t_cmds *cmds);
-void	ft_init_prompt(t_shell *shell, t_cmds *cmds);
+void	ft_init_shell(t_shell *shell);
+void	ft_init_prompt(t_shell *shell, t_cmds *cmds, char **envp);
+void	ft_init_struct(t_shell *shell, t_cmds *cmds);
+void	ft_init_cmds(t_cmds *cmds);
 
 //PARSING
-void	ft_parsing(char *s, t_shell *shell, t_cmds *cmds);
+void	ft_parsing(char *s, t_shell *shell, t_cmds *cmds, char **envp);
 
 //BUILTINS
 void	ft_sort_export(t_shell *shell);
@@ -70,7 +78,7 @@ char	**ft_realloc_tab_char(t_shell *shell, char **old_tab, char *new_var);
 int		ft_len_va(char *var, int start, char c);
 t_cmds	*ft_lstnew_cmd(char *s);
 void	ft_lstaddback_cmd(t_cmds **list, t_cmds *new_elem);
-char	**ft_split_shell(char const *s, char c);
+char	**ft_split_shell(char *s);
 
 //FREE
 void	ft_free_shell(t_shell *shell);
