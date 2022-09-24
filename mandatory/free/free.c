@@ -6,31 +6,35 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/23 12:01:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:39:51 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free_error(t_shell *shell, t_cmds *cmds, char *s)
+void	ft_free(t_shell *shell, t_cmds *cmds, char *s)
 {
 	ft_free_shell(shell);
-	ft_free_cmds(cmds);
+	ft_free_cmds(cmds, shell);
+	shell->fill_lst = 0;
 	if (s != NULL)
-		ft_error(s);
+		perror(s);
 }
 
-void	ft_free_cmds(t_cmds *cmds)
+void	ft_free_cmds(t_cmds *cmds, t_shell *shell)
 {
 	t_cmds	*tmp;
 	t_cmds	*buf;
 
+	while (cmds->prev != NULL)
+		cmds = cmds->prev;
 	tmp = cmds;
-	if (cmds->fill == 0)
+	if (shell->fill_lst == 0)
 		return ;
 	while (tmp != NULL)
 	{
 		buf = tmp->next;
+		free(tmp->value);
 		free(tmp);
 		tmp = buf;
 	}
@@ -47,8 +51,9 @@ void	ft_free_shell(t_shell *shell)
 		ft_free_tab_char(shell->tab_cmd);
 }
 
-void	ft_free_malloc(t_shell *shell)
+void	ft_free_malloc(t_shell *shell, t_cmds *cmds)
 {
 	ft_free_shell(shell);
-	ft_error("Malloc");
+	ft_free_cmds(cmds, shell);
+	ft_error("Malloc error");
 }

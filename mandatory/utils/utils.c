@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/21 10:10:18 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:50:04 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_len_va(char *var, int start, char c)
 	return (i);
 }
 
-char	**ft_realloc_tab_char(t_shell *shell, char **old_tab, char *new_var)
+char	**ft_realloc_tab_char(char **old_tab, char *new_var)
 {
 	char	**new_tab;
 	int		i;
@@ -43,7 +43,7 @@ char	**ft_realloc_tab_char(t_shell *shell, char **old_tab, char *new_var)
 		size++;
 	new_tab = ft_calloc(sizeof(char *), (size + 2));
 	if (!new_tab)
-		ft_free_malloc(shell);
+		return (NULL);
 	while (old_tab[i] != NULL)
 	{
 		new_tab[i] = old_tab[i];

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/23 12:03:00 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:38:25 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	ft_init_shell(t_shell *shell)
 	shell->copy_envp = NULL;
 	shell->copy_export = NULL;
 	shell->tab_cmd = NULL;
+	shell->fill_lst = 0;
 }
 
 void	ft_init_cmds(t_cmds *cmds)
 {
-	cmds->fill = 0;
 	cmds->prev = NULL;
 	cmds->next = NULL;
 	cmds->value = NULL;

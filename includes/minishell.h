@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/23 12:02:34 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/24 15:19:59 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 
 typedef struct s_lst_cmd
 {
-	int					fill;
 	char				**cmd;
 	char				*value;
 	char				*opt;
@@ -45,6 +44,7 @@ typedef struct s_lst_cmd
 
 typedef struct s_minishell
 {
+	int		fill_lst;
 	char	**tab_cmd;
 	char	**copy_envp;
 	char	**copy_export;	
@@ -65,16 +65,18 @@ void	ft_parsing(char *s, t_shell *shell, t_cmds *cmds, char **envp);
 
 //BUILTINS
 void	ft_sort_export(t_shell *shell);
-void	ft_create_copy_export(t_shell *shell);
-void	ft_export(char **envp, t_shell *shell);
-void	ft_recup_env(char **envp, t_shell *shell);
-void	ft_add_envp(char **envp, t_shell *shell);
+void	ft_create_copy_export(t_shell *shell, t_cmds *cmds);
+void	ft_export(char **envp, t_shell *shell, t_cmds *cmds);
+void	ft_print_export(char **envp, t_shell *shell, t_cmds *cmds);
+void	ft_recup_env(char **envp, t_shell *shell, t_cmds *cmds);
+void	ft_add_envp(char **envp, t_shell *shell, t_cmds *cmds);
+void	ft_print_envp(char **envp, t_shell *shell, t_cmds *cmds);
 
 //SIGNALS
 void	handler(int sig);
 
 //UTILS
-char	**ft_realloc_tab_char(t_shell *shell, char **old_tab, char *new_var);
+char	**ft_realloc_tab_char(char **old_tab, char *new_var);
 int		ft_len_va(char *var, int start, char c);
 t_cmds	*ft_lstnew_cmd(char *s);
 void	ft_lstaddback_cmd(t_cmds **list, t_cmds *new_elem);
@@ -82,9 +84,8 @@ char	**ft_split_shell(char *s);
 
 //FREE
 void	ft_free_shell(t_shell *shell);
-void	ft_free_cmds(t_cmds *shell);
-void	ft_free_malloc(t_shell *shell);
-void	ft_free_cmds(t_cmds *cmds);
-void	ft_free_error(t_shell *shell, t_cmds *cmds, char *s);
+void	ft_free_malloc(t_shell *shell, t_cmds *cmds);
+void	ft_free_cmds(t_cmds *cmds, t_shell *shell);
+void	ft_free(t_shell *shell, t_cmds *cmds, char *s);
 
 #endif

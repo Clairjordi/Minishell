@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/23 10:59:47 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:44:04 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_init_struct(&shell, &cmds);
 	ft_init_prompt(&shell, &cmds, envp);
-	ft_free_shell(&shell);
-	ft_free_cmds(&cmds);
+	ft_free(&shell, &cmds, NULL);
 	return (0);
 }
