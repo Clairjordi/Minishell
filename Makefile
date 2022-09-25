@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/21 19:15:35 by clorcery         ###   ########.fr        #
+#    Updated: 2022/09/24 18:59:53 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,9 @@ SRCS = mandatory/main.c \
 	   mandatory/utils/create_lst_cmds.c \
 	   mandatory/utils/split_minishell.c \
 	   mandatory/parsing/parsing.c \
+	   mandatory/parsing/quotes.c \
+	   mandatory/parsing/pipes.c \
+	   mandatory/parsing/list.c \
 	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}

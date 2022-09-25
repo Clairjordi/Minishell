@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:10:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/23 13:22:54 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:51:16 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,53 @@ static void	ft_quote(char c, int *p_i, int *p_count, char **p_s)
 {
 	if (c == '\"')
 	{
-		while ((*p_s)[*p_i] && (*p_s)[*p_i + 1] != '\"')
-			(*p_i)++;
-		if ((ft_sep((*p_s)[*p_i + 2]) == 1
-			|| (*p_s)[*p_i + 2] == '\0'
-			|| ft_sep((*p_s)[*p_i + 2]) == 3)
-			&& (*p_s)[*p_i] != '\"')
+		if ((*p_s)[*p_i + 1] == '\"')
 		{
-			(*p_i)++;
-			(*p_count)++;
+				(*p_i)++;
+			if (ft_sep((*p_s)[*p_i - 2]) != 1 && (*p_s)[*p_i + 1] == '\0')
+				(*p_count)++;
 		}
+		else
+		{
+			while ((*p_s)[*p_i] && (*p_s)[*p_i + 1] != '\"')
+				(*p_i)++;
+			if ((ft_sep((*p_s)[*p_i + 2]) == 1
+				|| (*p_s)[*p_i + 2] == '\0'
+				|| ft_sep((*p_s)[*p_i + 2]) == 3)
+				&& (*p_s)[*p_i] != '\"')
+			{
+				(*p_i)++;
+				(*p_count)++;
+			}
+		}
+		if ((*p_s)[*p_i + 1] != '\0')
+			(*p_i)++;
 	}
-	else if (c == '\'')
+	else if ((*p_s)[*p_i + 1] != '\0' && c == '\'')
 	{
-		while ((*p_s)[*p_i] && (*p_s)[*p_i + 1] != '\'')
-			(*p_i)++;
-		if ((ft_sep((*p_s)[*p_i + 2]) == 1
-			|| (*p_s)[*p_i + 2] == '\0'
-			|| ft_sep((*p_s)[*p_i + 2]) == 3) && (*p_s)[*p_i] != '\'')
+		if ((*p_s)[*p_i + 1] == '\'')
 		{
-			(*p_i)++;
-			(*p_count)++;
+				(*p_i)++;
+			if (ft_sep((*p_s)[*p_i - 2]) != 1 && (*p_s)[*p_i + 1] == '\0')
+				(*p_count)++;
 		}
+		else
+		{
+			while ((*p_s)[*p_i] && (*p_s)[*p_i + 1] != '\'')
+				(*p_i)++;
+			if ((ft_sep((*p_s)[*p_i + 2]) == 1
+				|| (*p_s)[*p_i + 2] == '\0'
+				|| ft_sep((*p_s)[*p_i + 2]) == 3) && (*p_s)[*p_i] != '\'')
+			{
+				(*p_i)++;
+				(*p_count)++;
+			}
+		}
+		if ((*p_s)[*p_i + 1] != '\0')
+			(*p_i)++;
 	}
 }
+
 
 static int	ft_count_words(char *s)
 {
@@ -61,30 +84,47 @@ static int	ft_count_words(char *s)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		if ((ft_sep(s[i]) == 3 && ft_sep(s[i + 1]) != 3)
+		if (s[i] && ((ft_sep(s[i]) == 3 && ft_sep(s[i + 1]) != 3)
 			|| ((ft_sep(s[i]) != 1 && ft_sep(s[i]) != 2 && ft_sep(s[i]) != 3
 					&& (ft_sep(s[i + 1]) == 3 || ft_sep(s[i + 1]) == 1
-						|| s[i + 1] == '\0'))))
+						|| s[i + 1] == '\0')))))
 			count++;
 		else if (ft_sep(s[i]) == 2)
 			ft_quote(s[i], &i, &count, &s);
+		if (s[i] != '\'' && s[i] != '\"' && s[i + 1] == '\0')
+			count++;
 		i++;
 	}
 	return (count);
 }
 
+
+/* static int	ft_count_words(char *s) */
+/* { */
+/* 	int	count; */
+/*  */
+/* 	count = 0; */
+/*  */
+/* 	return (count); */
+/* } */
+
 static int	ft_slen(char *s, int i)
 {
 	int	len;
+	char	c;
 
 	len = 0;
 	while (s[i] && ft_sep(s[i]) != 1)
 	{
 		if (ft_sep(s[i]) == 2)
 		{
+			if (s[i] == '\"')
+				 c = '\"';
+			else if (s[i] == '\'')
+				c = '\'';
 			i++;
 			len++;
-			while (ft_sep(s[i]) != 2)
+			while (s[i] != c)
 			{
 				len++;
 				i++;
