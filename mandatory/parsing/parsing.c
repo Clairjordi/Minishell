@@ -6,11 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/09/19 19:09:40 by mcloarec         ###   ########.fr       */
-=======
-/*   Updated: 2022/09/24 19:26:58 by clorcery         ###   ########.fr       */
->>>>>>> 6eeb4578dda52a0dbeed1961ac43b733c948b81b
+/*   Updated: 2022/09/26 15:11:29 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +21,6 @@ int	ft_check_redirection(t_shell *shell)
 	size = 0;
 	while (shell->tab_cmd[i])
 	{
-<<<<<<< HEAD
-		ft_printf("%s\n", tab_cmd[i++]);
-		i++;
-	}
-	ft_free_tab_char(tab_cmd);
-	//
-	cmds = ft_lstnew_cmd(tab_cmd[0]);
-	while (tab_cmd[j]!= NULL)
-	{
-		new_elem = ft_lstnew_cmd(tab_cmd[j]);
-		ft_lstaddback_cmd(&cmds, new_elem);
-		j++;
-	}
-
-=======
 		if ((shell->tab_cmd[i][0] == '<' && shell->tab_cmd[i][1] == '>')
 				|| (shell->tab_cmd[i][0] == '>' && shell->tab_cmd[i][1] == '<'))
 		{
@@ -58,7 +39,6 @@ int	ft_check_redirection(t_shell *shell)
 		i++;
 	}
 	return (size);
->>>>>>> 6eeb4578dda52a0dbeed1961ac43b733c948b81b
 }
 
 int	ft_verif_parsing(t_shell *shell)
@@ -70,9 +50,35 @@ int	ft_verif_parsing(t_shell *shell)
 	return (0);
 }
 
+int	ft_verif_if_str(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '\"')
+	{
+		if (str[i + 1] == '\"' && str[i + 2] == '\0')
+		{
+			ft_putendl_fd("Command not found", 2);
+			return (-1);
+		}
+	}
+	else if (str[i] == '\'')
+	{
+		if (str[i + 1] == '\'' && str[i + 2] == '\0')
+		{
+			ft_putendl_fd("Command not found", 2);
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 void	ft_parsing(char *str, t_shell *shell, char **envp)
 {
 	(void) envp;
+	if (ft_verif_if_str(str) == -1)
+		return ;
 	if (ft_count_quote(str) == -1)
 		return ;
 	if (ft_verif_pipe(str) == -1)

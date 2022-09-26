@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:10:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/25 17:51:16 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:31:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	ft_sep(char c)
+int	ft_sep(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
@@ -74,7 +74,6 @@ static void	ft_quote(char c, int *p_i, int *p_count, char **p_s)
 	}
 }
 
-
 static int	ft_count_words(char *s)
 {
 	int	i;
@@ -82,6 +81,7 @@ static int	ft_count_words(char *s)
 
 	i = 0;
 	count = 0;
+
 	while (s[i] != '\0')
 	{
 		if (s[i] && ((ft_sep(s[i]) == 3 && ft_sep(s[i + 1]) != 3)
@@ -97,16 +97,6 @@ static int	ft_count_words(char *s)
 	}
 	return (count);
 }
-
-
-/* static int	ft_count_words(char *s) */
-/* { */
-/* 	int	count; */
-/*  */
-/* 	count = 0; */
-/*  */
-/* 	return (count); */
-/* } */
 
 static int	ft_slen(char *s, int i)
 {

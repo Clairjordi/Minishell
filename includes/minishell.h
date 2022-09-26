@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/25 19:07:47 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/26 14:49:54 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ void	ft_free_shell(t_shell *shell);
 void	ft_free_malloc(t_shell *shell);
 void	ft_free_cmds(t_shell *shell);
 void	ft_free(t_shell *shell, char *s);
+int		ft_sep(char c);
 
 #endif

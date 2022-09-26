@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:47:13 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 18:47:50 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:32:07 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	ft_verif_pipe(char *s)
 			ft_putendl_fd("Wrong pipes syntax", 2);
 			return (-1);
 		}
+
 		i++;
 	}
 	return (pipe);
