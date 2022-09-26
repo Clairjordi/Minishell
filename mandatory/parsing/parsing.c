@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 18:44:46 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:09:40 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,9 @@ void	ft_parsing(char *s, t_shell *shell, t_cmds *cmds)
 	//A SUPPR
 	while (tab_cmd[i] != NULL)
 	{
-		while (tab_cmd[i][j])
-		{
-			
-			j++;
-		}
+		ft_printf("%s\n", tab_cmd[i++]);
 		i++;
 	}
-		ft_printf("%s\n", tab_cmd[i++]);
 	ft_free_tab_char(tab_cmd);
 	//
 	cmds = ft_lstnew_cmd(tab_cmd[0]);
