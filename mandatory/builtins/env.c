@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/19 18:08:07 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/24 17:06:10 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_recup_env(char **envp, t_shell *shell)
 		len_double_array++;
 	shell->copy_envp = ft_calloc(sizeof(char *), (len_double_array + 1));
 	if (!shell->copy_envp)
-		ft_error("Malloc");
+		ft_free_malloc(shell);
 	while (envp[i] != NULL)
 	{
 		shell->copy_envp[i] = ft_strdup(envp[i]);
@@ -39,14 +39,13 @@ void	ft_add_envp(char **envp, t_shell *shell)
 	//parametre : ajout de la cmd et peut du nombre de case a ajouter (?)
 	if (!shell->copy_envp)
 		ft_recup_env(envp, shell);
-	if (shell->test_add_env != NULL)
-		shell->copy_envp = ft_realloc_tab_char(shell, shell->copy_envp,
-				shell->test_add_env);
 	/*
 	//verification si la commande n'est pas NULL puis ajout d'une case
 	//(gerer quand il y en a plusieurs car l'on peut creer plusieurs variables a la suite)
 	if (\cmd/ != NULL)
-		shell->copy_envp = ft_realloc_tab_char(shell, shell->copy_envp, \cmd/);
+		shell->copy_envp = ft_realloc_tab_char(shell->copy_envp, \cmd/);
+		if(!shell->copy_env)
+			ft_free_malloc(shell);
 		//peut etre creer une boucle
 	*/
 }

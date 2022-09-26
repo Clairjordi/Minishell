@@ -6,27 +6,26 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/19 19:09:40 by mcloarec         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/24 19:26:58 by clorcery         ###   ########.fr       */
+>>>>>>> 6eeb4578dda52a0dbeed1961ac43b733c948b81b
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_parsing(char *s, t_shell *shell, t_cmds *cmds)
+int	ft_check_redirection(t_shell *shell)
 {
+	int	size;
 	int	i;
-	int	j;
-	t_cmds new_elem;
-	char	**tab_cmd;
 
 	i = 0;
-	j = 1;
-	tab_cmd = ft_split(s, '|');
-	if (!tab_cmd)
-		ft_free_malloc(shell);
-	//A SUPPR
-	while (tab_cmd[i] != NULL)
+	size = 0;
+	while (shell->tab_cmd[i])
 	{
+<<<<<<< HEAD
 		ft_printf("%s\n", tab_cmd[i++]);
 		i++;
 	}
@@ -40,29 +39,53 @@ void	ft_parsing(char *s, t_shell *shell, t_cmds *cmds)
 		j++;
 	}
 
+=======
+		if ((shell->tab_cmd[i][0] == '<' && shell->tab_cmd[i][1] == '>')
+				|| (shell->tab_cmd[i][0] == '>' && shell->tab_cmd[i][1] == '<'))
+		{
+			ft_free(shell, "Wrong redirection syntax");
+			return (-1);
+		}
+		else if (shell->tab_cmd[i][0] == '<' || shell->tab_cmd[i][0] == '>')
+		{
+			size = ft_strlen(shell->tab_cmd[i]);
+			if (size > 2)
+			{
+				ft_free(shell, "Wrong redirection syntax");
+				return (-1);
+			}
+		}
+		i++;
+	}
+	return (size);
+>>>>>>> 6eeb4578dda52a0dbeed1961ac43b733c948b81b
 }
 
-t_cmds	*ft_lstnew_cmd()
+int	ft_verif_parsing(t_shell *shell)
 {
-	t_cmds	*new_dlst;
-
-	new_dlst = malloc(sizeof(t_dlist));
-	if (!new_dlst)
-		return (NULL);
-	new_dlst->data = value;
-	new_dlst->prev = NULL;
-	new_dlst->next = NULL;
-	return (new_dlst);
+	if (ft_check_pipe(shell) == -1)
+		return (-1);
+	if (ft_check_redirection(shell) == -1)
+		return (-1);
+	return (0);
 }
 
-void	ft_lstaddback_cmd(t_cmds **list, t_cmds *new)
+void	ft_parsing(char *str, t_shell *shell, char **envp)
 {
-	t_cmds	*lst;
-
-	lst = *list;
-	while (lst->next)
-		lst = lst->next;
-	new->prev = lst;
-	new->next = NULL;
-	lst->next = new;
+	(void) envp;
+	if (ft_count_quote(str) == -1)
+		return ;
+	if (ft_verif_pipe(str) == -1)
+		return ;
+	else
+	{
+		shell->tab_cmd = ft_split_shell(str);
+		if (shell->tab_cmd == NULL)
+			ft_free_malloc(shell);
+	}
+	if (ft_verif_parsing(shell) == -1) //free fait dans les fonctions
+		return ;
+	ft_create_linked_lst(shell);
+	ft_print_test(shell); //A SUPPR
+	ft_free(shell, NULL);
 }
