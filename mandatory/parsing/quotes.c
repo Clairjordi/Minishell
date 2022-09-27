@@ -6,11 +6,32 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/25 19:06:07 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:43:40 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_skip_quote(int *i, char **s)
+{
+	int	size;
+
+	size = 0;
+	if (ft_sep((*s)[*i]) == 2)
+	{
+		while (ft_sep((*s)[*i + 1]) != 2 && (*s)[*i + 1] != '\0')
+		{
+			(*i)++;
+			size++;
+		}
+		if ((*s)[*i + 1] != '\0')
+		{
+			(*i)++;
+			size++;
+		}
+	}
+	return (size);
+}
 
 int	ft_len_without_quote(char *str)
 {

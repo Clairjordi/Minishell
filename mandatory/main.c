@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 17:31:44 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/27 12:09:13 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
-	(void) argv;
+(void) argv;
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 	if (argc != 1)
