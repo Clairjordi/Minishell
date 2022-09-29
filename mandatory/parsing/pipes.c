@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:47:13 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/27 16:43:09 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/09/28 09:40:33 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	ft_verif_pipe(t_shell *shell, char *s)
 			shell->argc++;
 		i++;
 	}
-	if (ft_check_pipe(s) == -1)
-		return (-1);
 	return (0);
 }
 

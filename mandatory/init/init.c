@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/27 11:36:21 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/09/28 15:39:53 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->outfile = -1;
 	cmd->heredoc = '\0';
 	cmd->dollar = '\0';
-	cmd->pipe = -1;
 	cmd->pipe_fd[2] = -1;
 	cmd->cmd_path = NULL;
 	cmd->quote = '\0';
