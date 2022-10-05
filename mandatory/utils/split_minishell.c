@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:10:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/27 17:01:01 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:56:58 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	ft_sep(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
-	else if (c == '\"' || c == '\'')
+	else if (c == '\"')
 		return (2);
+	else if (c == '\'')
+		return (4);
 	else if (c == '<' || c == '>')
 		return (3);
 	return (0);
@@ -32,7 +34,7 @@ static int	ft_count_words(char *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		if (ft_sep(s[i]) == 2)
+		if (ft_sep(s[i]) == 2 || ft_sep(s[i]) == 4)
 			ft_skip_quote(&i, &s);
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			count++;
@@ -48,7 +50,7 @@ static int	ft_slen(char *s, char c, int i)
 	len = 0;
 	while (s[i])
 	{
-		if (ft_sep(s[i]) == 2)
+		if (ft_sep(s[i]) == 2 || ft_sep(s[i]) == 4)
 			len += ft_skip_quote(&i, &s);
 		if (s[i] != c && s[i] != '\0')
 			len++;

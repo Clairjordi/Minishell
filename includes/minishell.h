@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/28 15:58:51 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/05 16:18:51 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_lst_cmd
 {
 	char				**cmd;
 	char				*value;
+	char 				**value_split;
 	int					infile;
 	int					outfile;
 	char				heredoc;
@@ -39,6 +40,7 @@ typedef struct s_minishell
 {
 	t_cmds	*arg;
 	int		argc;
+	int		quote;
 	char	**tab_cmd;
 	char	**copy_envp;
 	char	**copy_export;	
@@ -57,6 +59,7 @@ void	ft_init_cmds(t_cmds *cmd);
 //////PARSING
 void	ft_parsing(char *s, t_shell *shell, char **envp);
 int		ft_verif_parsing(char *s, t_shell *shell);
+char	**ft_split_value(char *s, char c);
 /*list*/
 void	ft_create_lst(t_shell *shell);
 /*pipes*/

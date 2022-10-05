@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/28 16:44:08 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/05 16:18:10 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ int	ft_verif_parsing(char *str, t_shell *shell)
 	return (0);
 }
 
+void	*ft_free_ptr(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (NULL);
+}
+
 int		ft_check_dollar(char c)
 {
 	if (c == '$')
@@ -56,26 +63,115 @@ int		ft_check_dollar(char c)
 	return (0);
 }
 
-char	*ft_rep(char *s, t_shell *shell, int i)
+char	*ft_cdup(char c)
+{
+	char	*dest;
+
+	dest = malloc(sizeof(char) * 2);
+	if (!dest)
+		return (NULL);
+	dest[0] = c;
+	dest[1] = '\0';
+	return (dest);
+}
+
+char	*ft_charjoin(char *s1, char c)
+{
+	char	*result;
+	int		len;
+	int		i;
+
+	result = NULL;
+	if (!s1 && !c)
+		return (NULL);
+	else if (!s1)
+	{
+		result = ft_cdup(c);
+		return (result);
+	}
+	len = ft_strlen(s1);
+	result = malloc(sizeof(char*) * len + 2);
+	i = 0;
+	while (s1[i])
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = c;
+	i++;
+	result[i] = '\0';
+	free(s1);
+	return (result);
+}
+
+int	ft_open_quote(t_shell *shell, char c)
+{
+	if (c == '\"')
+	{
+		if (shell->quote == 2)
+			shell->quote = 0;
+		else if (shell->quote == 1)
+			shell->quote = 1;
+		else
+			shell->quote = 2;
+	}
+	else if (c == '\'')
+	{
+		if (shell->quote == 1)
+			shell->quote = 0;
+		else if (shell->quote == 2)
+			shell->quote = 2;
+		else
+			shell->quote = 1;
+	}
+	return (shell->quote);
+}
+
+char	*ft_rep(char *s, t_shell *shell, int i, int j)
+{
+	char	*new;
+
+	new = s;
+	shell->quote = ft_open_quote(shell, shell->arg->value_split[i][j]);
+	if (!(shell->arg->value_split[i][j] == '\'' && shell->quote != 2)
+				&& !(shell->arg->value_split[i][j] == '\"' && shell->quote != 1))
+		new = ft_charjoin(s, shell->arg->value_split[i][j]);
+	else
+		return (s);
+	return (new);
+}
 
 int	ft_replace_value(t_shell *shell, char **envp)
 {
-	int		dollar;
+	//int		dollar;
 	int		i;
+	int		j;
 	char	*tmp;
+	(void)envp;
 
-	dollar = 0;
-	i = 0;
-	tmp = NULL;
+	//dollar = 0;
 	while (shell->arg != NULL)
 	{
-		while (shell->arg->value[i])
+		i = 0;
+		while (shell->arg->value_split[i] != NULL)
 		{
-			dollar = ft_check_dollar(shell->arg->value[i]);
-			if (dollar == 1)
-				tmp = ft_rep_if_dollar(tmp, shell, envp, i);
-			else
-				tmp = ft_rep(tmp, shell, i);
+			j = 0;
+			tmp = NULL;
+			while (shell->arg->value_split[i][j])
+			{
+				/* dollar = ft_check_dollar(shell->arg->value[i]); */
+				/* if (dollar == 1) */
+				/* 	tmp = ft_rep_if_dollar(tmp, shell, envp, i); */
+				/* else */
+					tmp = ft_rep(tmp, shell, i, j);
+				j++;
+			}
+			if (tmp != NULL)
+			{
+				shell->arg->value_split[i] = ft_free_ptr(shell->arg->value_split[i]);
+				shell->arg->value_split[i] = tmp;
+				ft_printf("{%s}\n", shell->arg->value_split[i]);
+			}
 			i++;
 		}
 		shell->arg = shell->arg->next;
@@ -96,7 +192,7 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 		return ;
 	if (shell->argc == 1)
 	{
-		shell->tab_cmd = ft_split_pipes(str, ' ');
+		shell->tab_cmd = ft_split_value(str, ' ');
 		if (shell->tab_cmd == NULL)
 			ft_free_malloc(shell);
 	}

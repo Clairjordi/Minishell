@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:17:00 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 22:44:58 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:57:08 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_cmds	*ft_lstnew_cmd(char *s)
 		return (NULL);
 	ft_init_cmds(new_dlst);
 	new_dlst->value = ft_strdup(s);
+	new_dlst->value_split = ft_split_value(new_dlst->value, ' ');
 	new_dlst->prev = NULL;
 	new_dlst->next = NULL;
 	return (new_dlst);

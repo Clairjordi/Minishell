@@ -11,8 +11,6 @@ void	ft_print_test(t_shell *shell)
 		tmp = tmp->next;
 	}
 }
-
-
 /* char *test_add_env; */
 /* test_add_env = argv[1]; */
 /* if (shell.test_add_env != NULL) */
