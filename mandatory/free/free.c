@@ -6,16 +6,16 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 22:47:20 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:21:17 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 void	ft_free(t_shell *shell, char *s)
-{
-	ft_free_shell(shell);
+{	
 	ft_free_cmds(shell);
+	ft_free_shell(shell);
 	if (s != NULL)
 		perror(s);
 }
@@ -25,8 +25,6 @@ void	ft_free_cmds(t_shell *shell)
 	t_cmds	*tmp;
 	t_cmds	*buf;
 
-	/* while (cmds->prev != NULL) */
-	/* 	cmds = cmds->prev; */
 	tmp = shell->arg;
 	if (shell->arg == NULL)
 		return ;
@@ -34,6 +32,7 @@ void	ft_free_cmds(t_shell *shell)
 	{
 		buf = tmp->next;
 		free(tmp->value);
+		ft_free_tab_char(tmp->value_split);
 		free(tmp);
 		tmp = buf;
 	}

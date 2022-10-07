@@ -6,18 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:23:41 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/09/30 18:54:22 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:34:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	ft_check_q(char c)
-{
-	if (c == '\"' || c == '\'')
-		return (1);
-	return (0);
-}
 
 static int	ft_count_w(char *s, char c)
 {
@@ -43,13 +36,13 @@ static int	ft_slen(char *s, char c, int i)
 
 	len = 0;
 	while (s[i])
-	{
+	{	
 		if (ft_check_q(s[i]) == 1)
 			len += ft_skip_quote(&i, &s);
 		if (s[i] != c && s[i] != '\0')
 			len++;
 		else
-			break;
+			break ;
 		i++;
 	}
 	return (len);

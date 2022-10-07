@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:17:00 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/30 16:57:08 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/06 15:57:35 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_cmds	*ft_lstnew_cmd(char *s)
+t_cmds	*ft_lstnew_cmd(char *s, t_shell *shell)
 {
 	t_cmds	*new_dlst;
 
@@ -21,7 +21,11 @@ t_cmds	*ft_lstnew_cmd(char *s)
 		return (NULL);
 	ft_init_cmds(new_dlst);
 	new_dlst->value = ft_strdup(s);
+	if (!new_dlst->value)
+		ft_free_malloc(shell);
 	new_dlst->value_split = ft_split_value(new_dlst->value, ' ');
+	if (!new_dlst->value_split)
+		ft_free_malloc(shell);
 	new_dlst->prev = NULL;
 	new_dlst->next = NULL;
 	return (new_dlst);

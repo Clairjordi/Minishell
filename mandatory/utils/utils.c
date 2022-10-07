@@ -6,11 +6,31 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 14:50:04 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:34:41 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_check_q(char c)
+{
+	if (c == '\'' || c == '\"')
+		return (1);
+	return (0);
+}
+
+int	ft_sep(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	else if (c == '\"')
+		return (2);
+	else if (c == '\'')
+		return (4);
+	else if (c == '<' || c == '>')
+		return (3);
+	return (0);
+}
 
 int	ft_len_va(char *var, int start, char c)
 {
@@ -29,30 +49,4 @@ int	ft_len_va(char *var, int start, char c)
 	if (var[i] == '\0')
 		i++;
 	return (i);
-}
-
-char	**ft_realloc_tab_char(char **old_tab, char *new_var)
-{
-	char	**new_tab;
-	int		i;
-	int		size;
-
-	i = 0;
-	size = 0;
-	while (old_tab[size] != NULL)
-		size++;
-	new_tab = ft_calloc(sizeof(char *), (size + 2));
-	if (!new_tab)
-		return (NULL);
-	while (old_tab[i] != NULL)
-	{
-		new_tab[i] = old_tab[i];
-		i++;
-	}
-	new_tab[i] = ft_strdup(new_var);
-	i++;
-	new_tab[i] = NULL;
-	new_var = NULL;
-	free(old_tab);
-	return (new_tab);
 }

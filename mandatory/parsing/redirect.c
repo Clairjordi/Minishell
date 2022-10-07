@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 17:44:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/09/27 17:44:55 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/06 14:41:47 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,22 @@ int	ft_check_redirect(char *s)
 	char	c;
 
 	i = 0;
-	while (s[i++])
+	while (s[i])
 	{
 		size = 0;
 		ft_skip_quote(&i, &s);
 		if (ft_sep(s[i]) == 3)
 		{
 			c = s[i];
-			while (s[i] == c)
-			{
+			while (s[i++] == c)
 				size++;
-				i++;
-			}
 			if (ft_sep(s[i]) == 3 || (size > 2 && size % 2 != 0))
 			{
 				ft_putendl_fd("Wrong redirection syntax", 2);
 				return (-1);
 			}
 		}
+		i++;
 	}
 	return (0);
 }

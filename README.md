@@ -37,6 +37,19 @@ Exemple de quotes:
 	echo "$USER" -> clorcery
 	echo '$USER' -> $USER
 	export "lol=echo mdr" -> $lol : mdr / "$lol" -> echo mdr: command not found
+	
+Exemples de dollar :
+	echo "$PATH>test" -> /nfs/homes/mcloarec/.local/bin:/nfs/homes/mcloarec/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin>test
+	echo lkom$PATH -> lkom/nfs/homes/mcloarec/.local/bin:/nfs/homes/mcloarec/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+	echo lkom$PATHt -> lkom
+	echo lkom$PATH+test -> lkom/nfs/homes/mcloarec/.local/bin:/nfs/homes/mcloarec/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin+test
+	echo lkom$PATH_test -> lkom
+	echo lkom$PATHhf645test -> lkom
+	echo lkom$PATH'test' -> lkom/nfs/homes/mcloarec/.local/bin:/nfs/homes/mcloarec/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bintest
+
+
+	
+
 
 
 -----------------------
@@ -47,3 +60,4 @@ Exemple de quotes:
 -gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure. pour tester : ulimits -30
 -chaine vide dans le split
 - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
+Gérer lorsqu'on fait entrer dans le prompt directement

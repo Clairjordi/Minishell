@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/05 16:13:44 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:25:21 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_init_shell(t_shell *shell)
 	shell->arg = NULL;
 	shell->argc = 1;
 	shell->quote = 0;
+	shell->tmp = NULL;
 	shell->copy_envp = NULL;
 	shell->copy_export = NULL;
 	shell->tab_cmd = NULL;

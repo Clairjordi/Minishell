@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/05 16:18:51 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/07 17:35:23 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_minishell
 	t_cmds	*arg;
 	int		argc;
 	int		quote;
+	char	*tmp;
 	char	**tab_cmd;
 	char	**copy_envp;
 	char	**copy_export;	
@@ -59,7 +60,6 @@ void	ft_init_cmds(t_cmds *cmd);
 //////PARSING
 void	ft_parsing(char *s, t_shell *shell, char **envp);
 int		ft_verif_parsing(char *s, t_shell *shell);
-char	**ft_split_value(char *s, char c);
 /*list*/
 void	ft_create_lst(t_shell *shell);
 /*pipes*/
@@ -74,6 +74,8 @@ int		ft_skip_quote(int *i, char **s);
 /*redirect*/
 int		ft_check_redirect(char *s);
 int		ft_verif_redirect(char *s);
+/*replace*/
+int		ft_replace_value(t_shell *shell, char **envp);
 
 //////BUILTINS
 /*export*/
@@ -90,12 +92,20 @@ void	ft_print_envp(char **envp, t_shell *shell);
 void	handler(int sig);
 
 //////UTILS
-char	**ft_realloc_tab_char(char **old_tab, char *new_var);
 int		ft_len_va(char *var, int start, char c);
-t_cmds	*ft_lstnew_cmd(char *s);
-void	ft_lstaddback_cmd(t_cmds **list, t_cmds *new_elem);
-char	**ft_split_pipes(char *s, char c);
 int		ft_sep(char c);
+int		ft_check_q(char c);
+/*realloc*/
+char	**ft_realloc_tab_char(char **old_tab, char *new_var);
+char	*ft_cdup(char c);
+char	*ft_charjoin(char *s1, char c);
+/*create_lst_cmds*/
+t_cmds	*ft_lstnew_cmd(char *s, t_shell *shell);
+void	ft_lstaddback_cmd(t_cmds **list, t_cmds *new_elem);
+/*split_minishell*/
+char	**ft_split_pipes(char *s, char c);
+/*split_value*/
+char	**ft_split_value(char *s, char c);
 
 //////FREE
 void	ft_free_shell(t_shell *shell);
