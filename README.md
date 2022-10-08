@@ -47,10 +47,19 @@ Exemples de dollar :
 	echo lkom$PATHhf645test -> lkom
 	echo lkom$PATH'test' -> lkom/nfs/homes/mcloarec/.local/bin:/nfs/homes/mcloarec/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bintest
 
-
+Exemples de redirection : 
+	echo afd> -> wrong redirection syntax
+	echo "esg>" -> "esg>"
+	<infile [cmd] -> affiche le resultat
+	<infile grep long>outfile -> affiche le resultat dans le outfile
+	< infile [cmd] >'>' outfile -> prendre > et fichier sont >, outfile
+	< infile [cmd] >'>'outfile -> prendre > et fichier >outfile
 	
+	 
 
-
+Gestion de pipes :
+- < essai grep g>ile7 | wc -w  > ile8 -> la sortie de la premiere partie du pipe est redirige vers un outfile et donc il n'y a rien dans l'entree du pipe et donc la sortie de la 2eme partie du pipe vaut 0 vu qu'il n'y a rien dans son entree
+- a | t | (fini avec un espace seulement) -> doit afficher une erreur
 
 -----------------------
   MEMO : 
@@ -61,3 +70,12 @@ Exemples de dollar :
 -chaine vide dans le split
 - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
 Gérer lorsqu'on fait entrer dans le prompt directement
+
+
+
+test a faire :
+< essai grep '>'>'>">'outfile [ok]
+gf>earhb>>rB>> [non gere]
+a >> w
+e > p
+

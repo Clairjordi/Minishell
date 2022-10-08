@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:23:41 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/07 17:34:46 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:56:05 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,22 @@ static int	ft_count_w(char *s, char c)
 	{
 		if (ft_check_q(s[i]) == 1)
 			ft_skip_quote(&i, &s);
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if (ft_sep(s[i]) == 3 && s[i + 1] != '\0' && s[i + 1] != c)
+		{
+			while (s[i])/*  && ft_sep(s[i]) == 3) */
+				i++;
 			count++;
-		i++;
+		}
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'
+				|| ft_sep(s[i + 1]) == 3))
+			count++;
+		if (s[i] != '\0')
+			i++;
 	}
 	return (count);
 }
 
-static int	ft_slen(char *s, char c, int i)
+static int	ft_wlen(char *s, char c, int i)
 {
 	int	len;
 
@@ -39,9 +47,20 @@ static int	ft_slen(char *s, char c, int i)
 	{	
 		if (ft_check_q(s[i]) == 1)
 			len += ft_skip_quote(&i, &s);
+		if (ft_sep(s[i]) == 3)
+		{
+			while (s[i] && ft_sep(s[i]) == 3)
+			{
+				i++;
+				len++;
+			}
+			break ;
+		}
 		if (s[i] != c && s[i] != '\0')
 			len++;
-		else
+		if (ft_check_q(s[i]) == 1 && ft_sep(s[i + 1]) == 3)
+			break ;
+		else if (s[i] == c)
 			break ;
 		i++;
 	}
@@ -63,14 +82,14 @@ char	**ft_split_value(char *s, char c)
 	{
 		while (s[i] == c)
 			i++;
-		tab_split[j] = ft_substr(s, i, ft_slen(s, c, i));
+		tab_split[j] = ft_substr(s, i, ft_wlen(s, c, i));
 		if (tab_split == NULL)
 		{
 			ft_free_tab_char(tab_split);
 			return (NULL);
 		}
-		tab_split[j][ft_slen(s, c, i)] = '\0';
-		i = i + ft_slen(s, c, i);
+		tab_split[j][ft_wlen(s, c, i)] = '\0';
+		i = i + ft_wlen(s, c, i);
 		j++;
 	}
 	tab_split[j] = NULL;

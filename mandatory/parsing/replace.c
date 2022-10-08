@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/07 19:34:09 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/08 09:53:57 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ char	*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst)
 			ft_free_malloc(shell);
 		}
 	}
-	else
-		return (shell->tmp);
 	return (new);
 }
 

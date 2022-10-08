@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/06 14:52:12 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/08 10:08:19 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	ft_skip_quote(int *i, char **s)
 	char	c;
 
 	size = 0;
-	c = '\0';
 	if (ft_sep((*s)[*i]) == 2)
 		c = '\"';
 	else if (ft_sep((*s)[*i]) == 4)
 		c = '\'';
+	else
+		return (size);
 	while ((*s)[*i + 1] != c && (*s)[*i + 1] != '\0')
 	{
 		(*i)++;
