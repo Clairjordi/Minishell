@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:23:41 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/08 18:56:05 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:58:50 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ static int	ft_count_w(char *s, char c)
 	{
 		if (ft_check_q(s[i]) == 1)
 			ft_skip_quote(&i, &s);
-		if (ft_sep(s[i]) == 3 && s[i + 1] != '\0' && s[i + 1] != c)
+		if (ft_sep(s[i]) == 3)
 		{
-			while (s[i])/*  && ft_sep(s[i]) == 3) */
+			if (ft_sep(s[i + 1]) == 3)
 				i++;
-			count++;
+			if (ft_check_q(s[i + 1]) == 1 || s[i + 1] == '\0' || s[i + 1] == c
+				|| s[i] != c)
+				count++;
 		}
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'
+		if (ft_sep(s[i]) != 3 && s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'
 				|| ft_sep(s[i + 1]) == 3))
 			count++;
 		if (s[i] != '\0')
@@ -47,12 +49,12 @@ static int	ft_wlen(char *s, char c, int i)
 	{	
 		if (ft_check_q(s[i]) == 1)
 			len += ft_skip_quote(&i, &s);
-		if (ft_sep(s[i]) == 3)
+		if (ft_sep(s[i]) == 3 && len == 0)
 		{
 			while (s[i] && ft_sep(s[i]) == 3)
 			{
-				i++;
 				len++;
+				i++;
 			}
 			break ;
 		}
@@ -60,7 +62,7 @@ static int	ft_wlen(char *s, char c, int i)
 			len++;
 		if (ft_check_q(s[i]) == 1 && ft_sep(s[i + 1]) == 3)
 			break ;
-		else if (s[i] == c)
+		else if (s[i] == c || (ft_sep(s[i + 1]) == 3 && len != 0))
 			break ;
 		i++;
 	}

@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/10/06 11:51:14 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/10/10 18:05:38 by mcloarec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/list.c \
 	   mandatory/parsing/redirect.c \
 	   mandatory/parsing/replace.c \
+	   mandatory/parsing/dollar.c \
 	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}

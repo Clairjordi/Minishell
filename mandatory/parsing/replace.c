@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/08 09:53:57 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:46:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,19 +98,8 @@ int	ft_replace_value_split(t_shell *shell, int i, t_cmds *lst)
 	return (0);
 }
 
-int		ft_check_dollar(char c)
-{
-	if (c == '$')
-		return (1);
-	return (0);
-}
-/*  */
-/* char	*ft_rep_if_dollar(t_shell *shell, char **envp, int i, int j, t_cmds *lst) */
-/* {} */
-
 int	ft_replace_value(t_shell *shell, char **envp)
 {
-	//int		dollar;
 	int		i;
 	int		j;
 	(void)envp;
@@ -126,10 +115,10 @@ int	ft_replace_value(t_shell *shell, char **envp)
 			j = 0;
 			while (lst->value_split[i][j])
 			{
-				/* dollar = ft_check_dollar(lst->value[i]); */
-				/* if (dollar == 1) */
-				/* 	shell->tmp = ft_rep_if_dollar(shell, envp, i, j, lst); */
-				/* else */
+				shell->dollar = ft_check_dollar(lst->value_split[i][j]);
+				if (shell->dollar == 1)
+					shell->tmp = ft_rep_if_dollar(shell, i, &j, lst);
+				else
 					shell->tmp = ft_rep(shell, i, &j, lst);
 				j++;
 			}
