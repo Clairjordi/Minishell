@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/07 15:21:17 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:19:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,11 @@ void	ft_free_malloc(t_shell *shell)
 	ft_free_shell(shell);
 	ft_free_cmds(shell);
 	ft_error("Malloc error");
+}
+
+void	*ft_free_ptr(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (NULL);
 }

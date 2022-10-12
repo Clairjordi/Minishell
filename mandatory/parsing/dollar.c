@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 09:39:51 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/10 19:08:38 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:07:11 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst)
 {
 	char *var;
 	char *tmp;
-	(void)shell;
 
 	var = NULL;
 	tmp = NULL;
@@ -35,20 +34,26 @@ char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst)
 		while (lst->value_split[i][*j])
 		{	
 			tmp = ft_charjoin(tmp, lst->value_split[i][*j]);
-			if (ft_check_q(lst->value_split[i][*j + 1]) == 1)
+			if (ft_isalnum(lst->value_split[i][*j + 1]) == 0)
+			{
+				shell->dollar = 0;
 				break;
+			}
 			(*j)++;
 		}
-		var = getenv(tmp);
+		var = ft_strdup(getenv(tmp));
+		free(tmp);
+		if (shell->tmp != NULL)
+			var = ft_strjoin_free(shell->tmp, var, 3);
 		shell->dollar = 0;
 		return (var);
 	}
-	else if (ft_isalnum(lst->value_split[i][*j + 1]) == 1)
+	else if (ft_isdigit(lst->value_split[i][*j + 1]) == 1)
 	{
 		(*j) = (*j) + 2;
 		while (lst->value_split[i][*j])
 		{
-			tmp = ft_charjoin(tmp, lst->value_split[i][*j]);
+			shell->tmp = ft_charjoin(shell->tmp, lst->value_split[i][*j]);
 			(*j)++;
 		}
 	}
@@ -56,10 +61,10 @@ char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst)
 	{
 		while (lst->value_split[i][*j])
 		{
-			tmp = ft_charjoin(tmp, lst->value_split[i][*j]);
+			shell->tmp = ft_charjoin(shell->tmp, lst->value_split[i][*j]);
 			(*j)++;
 		}
 	}
 	shell->dollar = 0;
-	return (tmp);
+	return (shell->tmp);
 }

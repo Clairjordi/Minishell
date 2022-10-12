@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/06 15:26:52 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:16:54 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv/*, char **envp*/)
 {
 	t_shell	shell;
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 		exit(1);
 	}
 	ft_init_shell(&shell);
-	ft_init_prompt(&shell, envp);
+	ft_init_prompt(&shell/*, envp*/);
 	//ft_free(&shell, NULL);
 	return (0);
 }

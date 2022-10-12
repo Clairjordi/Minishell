@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/08 10:08:19 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:06:20 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_len_without_quote(char *str)
 	return (size);
 }
 
-char	*ft_delete_quotes(char *str, t_shell *shell)
+char	*ft_delete_quotes(char *str)
 {
 	int		i;
 	char	*new_str;
@@ -63,7 +63,7 @@ char	*ft_delete_quotes(char *str, t_shell *shell)
 	size = ft_len_without_quote(str);
 	new_str = ft_calloc(sizeof(char *), (size + 1));
 	if (!new_str)
-		ft_free_malloc(shell);
+		return (NULL);
 	i = 0;
 	size_copy = 0;
 	while (str[i])

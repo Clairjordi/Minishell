@@ -46,6 +46,7 @@ Exemples de dollar :
 	echo lkom$PATH_test -> lkom
 	echo lkom$PATHhf645test -> lkom
 	echo lkom$PATH'test' -> lkom/nfs/homes/mcloarec/.local/bin:/nfs/homes/mcloarec/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bintest
+	echo $USER&lol 
 
 Exemples de redirection : 
 	echo afd> -> wrong redirection syntax

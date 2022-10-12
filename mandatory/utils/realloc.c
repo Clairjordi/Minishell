@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:59:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/06 11:22:14 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:29:14 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ char	*ft_charjoin(char *s1, char c)
 	else if (!s1)
 	{
 		result = ft_cdup(c);
+		if (result == NULL)
+			return (NULL);
 		return (result);
 	}
 	len = ft_strlen(s1);
-	result = malloc(sizeof(char*) * len + 2);
+	result = malloc(sizeof(char) * len + 2);
+	if (!result)
+		return (NULL);
 	i = 0;
 	while (s1[i])
 	{
@@ -72,7 +76,7 @@ char	**ft_realloc_tab_char(char **old_tab, char *new_var)
 		i++;
 	}
 	new_tab[i] = ft_strdup(new_var);
-	if (!new_tab[i])
+	if (new_tab[i] == NULL)
 		return (NULL);
 	i++;
 	new_tab[i] = NULL;

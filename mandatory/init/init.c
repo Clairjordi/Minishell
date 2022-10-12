@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/10 18:22:01 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:16:17 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ void	ft_init_shell(t_shell *shell)
 	shell->quote = 0;
 	shell->dollar = 0;
 	shell->tmp = NULL;
+	shell->tab_cmd = NULL;
 	shell->copy_envp = NULL;
 	shell->copy_export = NULL;
-	shell->tab_cmd = NULL;
 }
 
 void	ft_init_cmds(t_cmds *cmd)
 {
-	cmd->prev = NULL;
-	cmd->next = NULL;
+	cmd->cmd = NULL;
 	cmd->value = NULL;
 	cmd->value_split = NULL;
 	cmd->infile = -1;
@@ -35,9 +34,11 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->heredoc = '\0';
 	cmd->pipe_fd[2] = -1;
 	cmd->cmd_path = NULL;
+	cmd->prev = NULL;
+	cmd->next = NULL;
 }
 
-void	ft_init_prompt(t_shell *shell, char **envp)
+void	ft_init_prompt(t_shell *shell)
 {
 	char	*str;
 
@@ -51,7 +52,7 @@ void	ft_init_prompt(t_shell *shell, char **envp)
 		}
 		if (str)
 		{
-			ft_parsing(str, shell, envp);
+			ft_parsing(str, shell);
 			add_history(str);
 		}
 		free(str);

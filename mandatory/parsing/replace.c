@@ -6,18 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/10 18:46:06 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 17:13:01 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	*ft_free_ptr(void *ptr)
-{
-	if (ptr)
-		free(ptr);
-	return (NULL);
-}
 
 int	ft_open_quote(t_shell *shell, char c)
 {
@@ -50,11 +43,19 @@ char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst)
 	if (ft_sep(lst->value_split[i][*j]) == 2
 			&& ft_sep(lst->value_split[i][*j + 1]) == 2
 			&& lst->value_split[i][*j + 2] == '\0')
+	{
 		space = ft_charjoin(shell->tmp, ' ');
+		if (space == NULL)
+			ft_free_malloc(shell);
+	}
 	else if (ft_sep(lst->value_split[i][*j]) == 4
 			&& ft_sep(lst->value_split[i][*j + 1]) == 4
 			&& lst->value_split[i][*j + 2] == '\0')
+	{
 		space = ft_charjoin(shell->tmp, ' ');
+		if (space == NULL)
+			ft_free_malloc(shell);
+	}
 	return (space);
 }
 
@@ -77,11 +78,8 @@ char	*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst)
 			&& !(lst->value_split[i][*j] == '\"' && shell->quote != 1))
 	{
 		new = ft_charjoin(shell->tmp, lst->value_split[i][*j]);
-		if (!new)
-		{
-			free(new);
+		if (new == NULL)
 			ft_free_malloc(shell);
-		}
 	}
 	return (new);
 }
@@ -98,11 +96,10 @@ int	ft_replace_value_split(t_shell *shell, int i, t_cmds *lst)
 	return (0);
 }
 
-int	ft_replace_value(t_shell *shell, char **envp)
+int	ft_replace_value(t_shell *shell)
 {
 	int		i;
 	int		j;
-	(void)envp;
 	t_cmds	*lst;
 
 	lst = shell->arg;
@@ -120,7 +117,8 @@ int	ft_replace_value(t_shell *shell, char **envp)
 					shell->tmp = ft_rep_if_dollar(shell, i, &j, lst);
 				else
 					shell->tmp = ft_rep(shell, i, &j, lst);
-				j++;
+				if (lst->value_split[i][j] != '\0')
+					j++;
 			}
 			if (ft_replace_value_split(shell, i, lst) == -1)
 				return (-1);

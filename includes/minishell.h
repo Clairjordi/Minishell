@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/10 18:25:35 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 19:07:37 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ typedef struct s_lst_cmd
 {
 	char				**cmd;
 	char				*value;
-	char 				**value_split;
+	char				**value_split;
 	int					infile;
 	int					outfile;
 	char				heredoc;
-	char				dollar;
+	//char				dollar;
 	int					pipe_fd[2];
 	char				*cmd_path;
 	struct s_lst_cmd	*prev;
@@ -54,12 +54,12 @@ void	ft_print_test(t_shell *shell);
 
 //////INIT
 void	ft_init_shell(t_shell *shell);
-void	ft_init_prompt(t_shell *shell, char **envp);
+void	ft_init_prompt(t_shell *shell/*, char **envp*/);
 void	ft_init_struct(t_shell *shell);
 void	ft_init_cmds(t_cmds *cmd);
 
 //////PARSING
-void	ft_parsing(char *s, t_shell *shell, char **envp);
+void	ft_parsing(char *s, t_shell *shell);
 int		ft_verif_parsing(char *s, t_shell *shell);
 /*list*/
 void	ft_create_lst(t_shell *shell);
@@ -68,7 +68,7 @@ int		ft_verif_pipe(t_shell *shell, char *s);
 int		ft_check_pipe(char *s);
 /*quotes*/
 int		ft_len_without_quote(char *str);
-char	*ft_delete_quotes(char *str, t_shell *shell);
+char	*ft_delete_quotes(char *str);
 int		ft_count_quote(char *str);
 void	ft_check_c(char **str, int *d, int *s, int *i);
 int		ft_skip_quote(int *i, char **s);
@@ -76,7 +76,7 @@ int		ft_skip_quote(int *i, char **s);
 int		ft_check_redirect(char *s);
 int		ft_verif_redirect(char *s);
 /*replace*/
-int		ft_replace_value(t_shell *shell, char **envp);
+int		ft_replace_value(t_shell *shell);
 /*dollar*/
 int		ft_check_dollar(char c);
 char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
@@ -116,5 +116,6 @@ void	ft_free_shell(t_shell *shell);
 void	ft_free_malloc(t_shell *shell);
 void	ft_free_cmds(t_shell *shell);
 void	ft_free(t_shell *shell, char *s);
+void	*ft_free_ptr(void *ptr);
 
 #endif

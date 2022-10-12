@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_minishell.c                                  :+:      :+:    :+:   */
+/*   split_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:10:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/06 10:52:47 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:07:27 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**ft_split_pipes(char *s, char c)
 			ft_free_tab_char(tab_split);
 			return (NULL);
 		}
-		tab_split[j][ft_slen(s, c, i)] = '\0';
+		//tab_split[j][ft_slen(s, c, i)] = '\0';
 		i = i + ft_slen(s, c, i);
 		j++;
 	}
