@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/12 17:15:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:38:49 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_parsing(char *str, t_shell *shell)
 	if (shell->tab_cmd == NULL)
 		ft_free_malloc(shell);
 	ft_create_lst(shell);
+	ft_count_argc(shell);
 	if (ft_parsing_bis(shell) == -1)
 		return ;
 	ft_print_test(shell); //A SUPPR

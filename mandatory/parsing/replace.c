@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/12 17:13:01 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:51:58 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst)
 {
 	char	*new;
 
+	/* while (lst->value_split[i][*j] == '$') */
+	/* 	(*j)++; */
 	if (ft_check_q(lst->value_split[i][*j]) == 1)
 	{
 		new = ft_rep_quotes_space(shell, i, j, lst);
@@ -91,8 +93,8 @@ int	ft_replace_value_split(t_shell *shell, int i, t_cmds *lst)
 		lst->value_split[i] = ft_free_ptr(lst->value_split[i]);
 		lst->value_split[i] = shell->tmp;
 	}
-	else
-		return (-1);
+	/* else */
+	/* 	return (-1); */
 	return (0);
 }
 
@@ -109,11 +111,11 @@ int	ft_replace_value(t_shell *shell)
 		while (lst->value_split[i] != NULL)
 		{
 			shell->tmp = NULL;
+			shell->dollar = ft_check_dollar(shell, lst->value_split[i]);
 			j = 0;
 			while (lst->value_split[i][j])
 			{
-				shell->dollar = ft_check_dollar(lst->value_split[i][j]);
-				if (shell->dollar == 1)
+				if (lst->value_split[i][j] == '$' && shell->dollar != 0)
 					shell->tmp = ft_rep_if_dollar(shell, i, &j, lst);
 				else
 					shell->tmp = ft_rep(shell, i, &j, lst);
@@ -124,6 +126,17 @@ int	ft_replace_value(t_shell *shell)
 				return (-1);
 			i++;
 		}
+		/* i = 0; */
+		/* if (shell->test == 0) */
+		/* { */
+		/* 	while (lst->value_split[i + 1] != NULL) */
+		/* 	{ */
+		/* 		lst->value_split[i] = lst->value_split[i + 1]; */
+		/* 		ft_free_ptr(lst->value_split[i + 1]); */
+		/* 		lst->value_split[i + 1] = NULL; */
+		/* 		i++; */
+		/* 	} */
+		/* } */
 		lst = lst->next;
 	}
 	return (0);

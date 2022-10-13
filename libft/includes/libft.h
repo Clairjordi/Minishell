@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:57:33 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/09 13:48:34 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:22:22 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			ft_strcmp(char *s1, char *s2);
 void		ft_swap(int *a, int *b);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_strcat(char *dest, char *src);
-char		*ft_strjoin_free(char const *s1, char const *s2, char f);
+char		*ft_strjoin_free(char const *s1, char const *s2, int f);
 
 //FCT LINKED_LIST
 t_list		*ft_lstnew(void *content);

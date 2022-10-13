@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/12 19:07:37 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:33:40 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_minishell
 	int		argc;
 	int		quote;
 	int		dollar;
+	int		test; /// adelte
 	char	*tmp;
 	char	**tab_cmd;
 	char	**copy_envp;
@@ -78,7 +79,7 @@ int		ft_verif_redirect(char *s);
 /*replace*/
 int		ft_replace_value(t_shell *shell);
 /*dollar*/
-int		ft_check_dollar(char c);
+int		ft_check_dollar(t_shell *shell, char *s);
 char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
 
 //////BUILTINS
@@ -96,6 +97,7 @@ void	ft_print_envp(char **envp, t_shell *shell);
 void	handler(int sig);
 
 //////UTILS
+void	ft_count_argc(t_shell *shell);
 int		ft_len_va(char *var, int start, char c);
 int		ft_sep(char c);
 int		ft_check_q(char c);

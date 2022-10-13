@@ -6,11 +6,29 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/07 17:34:41 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:43:01 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_count_argc(t_shell *shell)
+{
+	t_cmds	*tmp;
+	int		i;
+
+	tmp = shell->arg;
+	i = 0;
+	while (tmp)
+	{
+		while (tmp->value_split[i] != NULL)
+		{
+			shell->argc++;
+			i++;
+		}	
+		tmp = tmp->next;
+	}
+}
 
 int	ft_check_q(char c)
 {

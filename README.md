@@ -72,6 +72,8 @@ Gestion de pipes :
 - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
 Gérer lorsqu'on fait entrer dans le prompt directement
 
+NORME : 
+-charjoin dans utils/realloc.c -> too many lines
 
 
 test a faire :

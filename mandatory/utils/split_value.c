@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:23:41 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/12 17:54:59 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:37:49 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ char	**ft_split_value(char *s, char c)
 			ft_free_tab_char(tab_split);
 			return (NULL);
 		}
-	//	tab_split[j][ft_wlen(s, c, i)] = '\0';
 		i = i + ft_wlen(s, c, i);
 		j++;
 	}

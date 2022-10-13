@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 15:05:45 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/09 13:53:03 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 14:20:20 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ static char	*ft_alloc_mem(char *dest, char *s1, char *s2)
 	return (dest);
 }
 
-static void	ft_free_join(char *s1, char *s2, char f)
+static void	ft_free_join(char *s1, char *s2, int f)
 {
-	if (f == '1')
+	if (f == 1)
 		free((char *)s1);
-	if (f == '2')
+	if (f == 2)
 		free((char *)s2);
-	if (f == '3')
+	if (f == 3)
 	{
 		free((char *)s1);
 		free((char *)s2);
 	}
 }
 
-char	*ft_strjoin_free(char const *s1, char const *s2, char f)
+char	*ft_strjoin_free(char const *s1, char const *s2, int f)
 {
 	char	*dest;
 	int		i;

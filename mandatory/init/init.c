@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/12 17:16:17 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:36:43 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_init_shell(t_shell *shell)
 {
 	shell->arg = NULL;
-	shell->argc = 1;
+	shell->argc = 0;
 	shell->quote = 0;
 	shell->dollar = 0;
 	shell->tmp = NULL;

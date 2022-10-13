@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/12 18:19:13 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:52:23 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ void	*ft_free_ptr(void *ptr)
 {
 	if (ptr)
 		free(ptr);
-	return (NULL);
+	//return (NULL);
 }
