@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/13 18:52:23 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/15 17:27:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_free_cmds(t_shell *shell)
 		buf = tmp->next;
 		free(tmp->value);
 		ft_free_tab_char(tmp->value_split);
+		if (tmp->cmd_path != NULL)
+			free(tmp->cmd_path);
 		free(tmp);
 		tmp = buf;
 	}
@@ -47,6 +49,8 @@ void	ft_free_shell(t_shell *shell)
 		ft_free_tab_char(shell->copy_export);
 	if (shell->tab_cmd != NULL)
 		ft_free_tab_char(shell->tab_cmd);
+	if (shell->tab_cmd != NULL)
+		ft_free_tab_char(shell->path);
 }
 
 void	ft_free_malloc(t_shell *shell)
@@ -60,5 +64,5 @@ void	*ft_free_ptr(void *ptr)
 {
 	if (ptr)
 		free(ptr);
-	//return (NULL);
+	return (NULL);
 }

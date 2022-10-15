@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/13 16:38:49 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/15 15:42:15 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,30 @@ int	ft_verif_if_str(char *str)
 	return (0);
 }
 
-int	ft_verif_parsing(char *str, t_shell *shell)
+int	ft_verif_parsing(char *str)
 {
 	if (ft_verif_if_str(str) == -1)
 		return (-1);
 	if (ft_count_quote(str) == -1)
 		return (-1);
-	if (ft_verif_pipe(shell, str) == -1)
+	if (ft_verif_pipe(str) == -1)
 		return (-1);
 	if (ft_verif_redirect(str) == -1)
 		return (-1);
 	return (0);
 }
 
-int	ft_parsing_bis(t_shell *shell)
+void	ft_parsing(char *str, t_shell *shell, char **envp)
 {
-	if (ft_replace_value(shell) == -1)
-		return (-1);
-	return (0);
-}
-
-void	ft_parsing(char *str, t_shell *shell)
-{
-	if (ft_verif_parsing(str, shell) == -1)
+	//(void) envp;
+	if (ft_verif_parsing(str) == -1)
 		return ;
 	shell->tab_cmd = ft_split_pipes(str, '|');
 	if (shell->tab_cmd == NULL)
 		ft_free_malloc(shell);
 	ft_create_lst(shell);
-	ft_count_argc(shell);
-	if (ft_parsing_bis(shell) == -1)
+	ft_replace_value(shell);
+	if (ft_minishell(shell, envp) == -1)
 		return ;
 	ft_print_test(shell); //A SUPPR
 	ft_free(shell, NULL);

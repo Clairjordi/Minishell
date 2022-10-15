@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:47:13 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/28 09:40:33 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/14 16:28:29 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_verif_pipe(t_shell *shell, char *s)
+int	ft_verif_pipe(char *s)
 {
 	int	i;
 
@@ -28,8 +28,6 @@ int	ft_verif_pipe(t_shell *shell, char *s)
 			ft_putendl_fd("Wrong pipes syntax", 2);
 			return (-1);
 		}
-		if (s[i] == '|')
-			shell->argc++;
 		i++;
 	}
 	return (0);

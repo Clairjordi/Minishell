@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/13 18:33:40 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/15 17:46:39 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ typedef struct s_lst_cmd
 	char				**cmd;
 	char				*value;
 	char				**value_split;
-	int					infile;
-	int					outfile;
-	char				heredoc;
-	//char				dollar;
+	char				*in;
+	char				*out;
+	int					redir_l;
+	int					redir_r;
+	int					heredoc;
+	int					append;
 	int					pipe_fd[2];
 	char				*cmd_path;
 	struct s_lst_cmd	*prev;
@@ -39,11 +41,10 @@ typedef struct s_lst_cmd
 typedef struct s_minishell
 {
 	t_cmds	*arg;
-	int		argc;
 	int		quote;
 	int		dollar;
-	int		test; /// adelte
 	char	*tmp;
+	char	**path;
 	char	**tab_cmd;
 	char	**copy_envp;
 	char	**copy_export;	
@@ -55,17 +56,18 @@ void	ft_print_test(t_shell *shell);
 
 //////INIT
 void	ft_init_shell(t_shell *shell);
-void	ft_init_prompt(t_shell *shell/*, char **envp*/);
+void	ft_init_prompt(t_shell *shell, char **envp);
 void	ft_init_struct(t_shell *shell);
 void	ft_init_cmds(t_cmds *cmd);
 
 //////PARSING
-void	ft_parsing(char *s, t_shell *shell);
-int		ft_verif_parsing(char *s, t_shell *shell);
+int		ft_verif_if_str(char *str);
+void	ft_parsing(char *s, t_shell *shell, char **envp);
+int		ft_verif_parsing(char *s);
 /*list*/
 void	ft_create_lst(t_shell *shell);
 /*pipes*/
-int		ft_verif_pipe(t_shell *shell, char *s);
+int		ft_verif_pipe(char *s);
 int		ft_check_pipe(char *s);
 /*quotes*/
 int		ft_len_without_quote(char *str);
@@ -77,10 +79,25 @@ int		ft_skip_quote(int *i, char **s);
 int		ft_check_redirect(char *s);
 int		ft_verif_redirect(char *s);
 /*replace*/
-int		ft_replace_value(t_shell *shell);
+char	*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst);
+void	ft_replace_value_split(t_shell *shell, int i, t_cmds *lst);
+void	ft_replace_value(t_shell *shell);
+/*replace_utils*/
+int		ft_check_redir(char *s);
+int		ft_open_quote(t_shell *shell, char c);
+char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar*/
 int		ft_check_dollar(t_shell *shell, char *s);
 char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
+
+//////EXECUTE
+/*minishell*/
+int		ft_minishell(t_shell *shell, char **envp);
+/*sort_value*/
+int		check_path_cmd(char *path_cmd);
+int		get_path(t_shell *shell, char *path_cmd, char **envp);
+void	find_path(t_shell *shell, char **envp);
+int		ft_sort_value(t_shell *shell, char **envp);
 
 //////BUILTINS
 /*export*/
@@ -97,7 +114,6 @@ void	ft_print_envp(char **envp, t_shell *shell);
 void	handler(int sig);
 
 //////UTILS
-void	ft_count_argc(t_shell *shell);
 int		ft_len_va(char *var, int start, char c);
 int		ft_sep(char c);
 int		ft_check_q(char c);
