@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/10/15 14:50:41 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/10/16 16:58:07 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,9 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/replace.c \
 	   mandatory/parsing/replace_utils.c \
 	   mandatory/parsing/dollar.c \
+	   mandatory/parsing/dollar_utils.c \
 	   mandatory/execute/minishell.c \
+	   mandatory/execute/path.c \
 	   mandatory/execute/sort_value.c \
 	   mandatory/test/print.c
 

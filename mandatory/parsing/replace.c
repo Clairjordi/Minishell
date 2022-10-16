@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/15 14:26:44 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:37:28 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	ft_replace_value(t_shell *shell)
 		while (lst->value_split[i] != NULL)
 		{
 			shell->tmp = NULL;
-			shell->dollar = ft_check_dollar(shell, lst->value_split[i]);
+			shell->dollar = ft_check_dollar(lst->value_split[i]);
 			j = 0;
 			while (lst->value_split[i][j])
 				ft_replace_value_bis(shell, i, &j, lst);

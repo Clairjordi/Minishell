@@ -62,6 +62,16 @@ Gestion de pipes :
 - < essai grep g>ile7 | wc -w  > ile8 -> la sortie de la premiere partie du pipe est redirige vers un outfile et donc il n'y a rien dans l'entree du pipe et donc la sortie de la 2eme partie du pipe vaut 0 vu qu'il n'y a rien dans son entree
 - a | t | (fini avec un espace seulement) -> doit afficher une erreur
 
+
+Gestion de la premiere position : 
+
+exemples :
+- essai < grep o | cat essai -> bash: grep: No such file or directory // lit le contenu du fichier avec cat
+		=> lit jusqu'au bout et ne coupe pas le prompt
+- essai < grep o | cot essai -> bash: grep: No such file or directory // Command 'cot' not found 
+		=> continue de lire puis s'arrête et relance un prompt
+- grep < essai o | cot essai -> Command 'cot' not found
+		=> s'arrête et relance un prompt
 -----------------------
   MEMO : 
 -gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env

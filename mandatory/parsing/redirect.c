@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 17:44:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/12 15:32:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/16 15:51:37 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	ft_check_redirect(char *s)
 			if (ft_check_redirect_bis(&i, size, s) == -1)
 			{
 				ft_putendl_fd("Wrong redirection syntax", 2);
+				g_status = 1;
 				return (-1);
 			}
 		}
@@ -59,6 +60,7 @@ int	ft_verif_redirect(char *s)
 	if (ft_sep(s[i]) == 3 && s[i + 1] == '\0')
 	{
 		ft_putendl_fd("Wrong redirection syntax", 2);
+		g_status = 1;
 		return (-1);
 	}
 	if (ft_check_redirect(s) == -1)
@@ -70,6 +72,7 @@ int	ft_verif_redirect(char *s)
 			|| (s[i] == '>' && s[i + 1] == '<'))
 		{
 			ft_putendl_fd("Wrong redirection syntax", 2);
+			g_status = 1;
 			return (-1);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/15 17:46:39 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/16 17:22:08 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+
+int	g_status;
 
 typedef struct s_lst_cmd
 {
@@ -87,12 +89,17 @@ int		ft_check_redir(char *s);
 int		ft_open_quote(t_shell *shell, char c);
 char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar*/
-int		ft_check_dollar(t_shell *shell, char *s);
 char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
+/*dollar_utils*/
+int		ft_check_dollar(char *s);
 
 //////EXECUTE
 /*minishell*/
 int		ft_minishell(t_shell *shell, char **envp);
+/*path*/
+int		check_path_cmd(char *path_cmd);
+int		get_path(t_shell *shell, char *path_cmd, char **envp);
+void	find_path(t_shell *shell, char **envp);
 /*sort_value*/
 int		check_path_cmd(char *path_cmd);
 int		get_path(t_shell *shell, char *path_cmd, char **envp);
@@ -113,7 +120,8 @@ void	ft_print_envp(char **envp, t_shell *shell);
 //////SIGNALS
 void	handler(int sig);
 
-//////UTILS
+//////UTILS 
+int		ft_size_lst(t_cmds *lst);
 int		ft_len_va(char *var, int start, char c);
 int		ft_sep(char c);
 int		ft_check_q(char c);

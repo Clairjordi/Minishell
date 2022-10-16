@@ -6,11 +6,26 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/14 16:18:27 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/16 17:20:27 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_size_lst(t_cmds *lst)
+{
+	int	size;
+
+	size = 0;
+	if (lst == NULL)
+		return (0);
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
+}
 
 int	ft_check_q(char c)
 {
