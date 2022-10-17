@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 09:39:51 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/16 16:25:56 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:32:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	ft_rep_if_dollar_num(t_shell *shell, int i, int *j, t_cmds *lst)
 	(*j) = (*j) + 2;
 	while (lst->value_split[i][*j])
 	{
+		if (shell->dollar == 2 && ft_check_q(lst->value_split[i][*j]) == 1)
+			break ;
 		shell->tmp = ft_charjoin(shell->tmp, lst->value_split[i][*j]);
 		(*j)++;
 	}

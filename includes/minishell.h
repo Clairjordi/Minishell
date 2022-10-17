@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/16 17:22:08 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:29:25 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,24 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+# define bool unsigned int
+# define true 1
+# define false 0
+
 int	g_status;
+
+// typedef struct s_token
+// {
+// 	char	**cmd;
+// 	int		infile;
+// 	int		outfile;
+// 	bool	redir_l;
+// 	bool	redir_r;
+// 	bool	append;
+// 	bool	heredoc;
+// 	bool	builtins;
+// 	char	*params;
+// } 
 
 typedef struct s_lst_cmd
 {
@@ -45,6 +62,7 @@ typedef struct s_minishell
 	t_cmds	*arg;
 	int		quote;
 	int		dollar;
+	bool	pipe;
 	char	*tmp;
 	char	**path;
 	char	**tab_cmd;
@@ -91,7 +109,7 @@ char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar*/
 char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar_utils*/
-int		ft_check_dollar(char *s);
+int		ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/

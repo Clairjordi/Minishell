@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:45:51 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/13 16:35:29 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:07:24 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	ft_create_lst(t_shell *shell)
 {
 	int		i;
 	t_cmds	*new;
+	int		count;
 
+	count = 0;
 	i = 1;
 	shell->arg = ft_lstnew_cmd(shell->tab_cmd[0], shell);
 	if (shell->arg == NULL)
@@ -29,4 +31,9 @@ void	ft_create_lst(t_shell *shell)
 		ft_lstaddback_cmd(&shell->arg, new);
 		i++;
 	}
+	count = ft_size_lst(shell->arg);
+	if (count > 1)
+		shell->pipe = true;
+	else
+		shell->pipe = false;
 }

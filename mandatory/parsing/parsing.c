@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/16 15:44:21 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:51:31 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,31 @@ int	ft_verif_if_str(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '\"')
+	while (str[i] == ' ')
 	{
-		if (str[i + 1] == '\"' && str[i + 2] == '\0')
-		{
-			ft_putendl_fd("Command \"\" not found", 2);
-			g_status = 127;
+		if (str[i] == ' ' && str[i + 1] == '\0')
 			return (-1);
-		}
+		i++;
 	}
-	else if (str[i] == '\'')
-	{
-		if (str[i + 1] == '\'' && str[i + 2] == '\0')
-		{
-			ft_putendl_fd("Command \'\' not found", 2);
-			g_status = 127;
-			return (-1);
-		}
-	}
+	/* i = 0; */
+	/* if (str[i] == '\"') */
+	/* { */
+	/* 	if (str[i + 1] == '\"' && str[i + 2] == '\0') */
+	/* 	{ */
+	/* 		ft_putendl_fd("Command \"\" not found", 2); */
+	/* 		g_status = 127; */
+	/* 		return (-1); */
+	/* 	} */
+	/* } */
+	/* else if (str[i] == '\'') */
+	/* { */
+	/* 	if (str[i + 1] == '\'' && str[i + 2] == '\0') */
+	/* 	{ */
+	/* 		ft_putendl_fd("Command \'\' not found", 2); */
+	/* 		g_status = 127; */
+	/* 		return (-1); */
+	/* 	} */
+	/* } */
 	return (0);
 }
 
@@ -53,6 +60,7 @@ int	ft_verif_parsing(char *str)
 
 void	ft_parsing(char *str, t_shell *shell, char **envp)
 {
+	(void) envp;
 	if (ft_verif_parsing(str) == -1)
 		return ;
 	shell->tab_cmd = ft_split_pipes(str, '|');
@@ -60,8 +68,8 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 		ft_free_malloc(shell);
 	ft_create_lst(shell);
 	ft_replace_value(shell);
-	if (ft_minishell(shell, envp) == -1)
-		return ;
+	/* if (ft_minishell(shell, envp) == -1) */
+	/* 	return ; */
 	ft_print_test(shell); //A SUPPR
 	g_status = 0;
 	ft_free(shell, NULL);
