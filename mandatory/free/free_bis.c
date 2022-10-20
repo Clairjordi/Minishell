@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_bis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/20 18:47:55 by clorcery         ###   ########.fr       */
+/*   Created: 2022/10/20 18:50:01 by clorcery          #+#    #+#             */
+/*   Updated: 2022/10/20 18:50:35 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_free_malloc(t_shell *shell)
 {
-	t_shell	shell;
+	ft_free_shell(shell);
+	ft_free_cmds(shell);
+	ft_error("Malloc error");
+}
 
-	(void) argv;
-	signal(SIGINT, handler);
-	signal(SIGQUIT, SIG_IGN);
-	if (argc != 1)
-	{
-		ft_putendl_fd("No argument requiered", 2);
-		exit(1);
-	}
-	ft_init_prompt(&shell, envp);
-	return (0);
+void	*ft_free_ptr(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/16 15:46:41 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:57:30 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	ft_count_quote(char *str)
 	if (dble % 2 != 0 || simple % 2 != 0)
 	{
 		ft_putendl_fd("Wrong quotes syntax", 2);
-		g_status = 1;
+		g_g.status = 1;
 		return (-1);
 	}
 	return (0);

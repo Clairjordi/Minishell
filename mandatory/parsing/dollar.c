@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 09:39:51 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/17 14:32:13 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:42 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*ft_rep_if_interrogation(int i, int *j, t_cmds *lst)
 	status = NULL;
 	if (lst->value_split[i][*j + 1] == '?')
 	{
-		status = ft_itoa(g_status);
+		status = ft_itoa(g_g.status);
 		(*j)++;
 	}
 	return (status);

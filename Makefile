@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/10/16 16:58:07 by clorcery         ###   ########.fr        #
+#    Updated: 2022/10/20 18:59:37 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ EOC:="\033[0;0m"
 SRCS = mandatory/main.c \
 	   mandatory/init/init.c \
 	   mandatory/free/free.c \
+	   mandatory/free/free_bis.c \
 	   mandatory/signals/signals.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/export.c \
@@ -38,6 +39,8 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/dollar_utils.c \
 	   mandatory/execute/minishell.c \
 	   mandatory/execute/path.c \
+	   mandatory/execute/heredoc.c \
+	   mandatory/execute/heredoc_utils.c \
 	   mandatory/execute/sort_value.c \
 	   mandatory/test/print.c
 

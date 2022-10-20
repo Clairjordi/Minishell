@@ -1,3 +1,0 @@
-miroir
-zebre
-arbre

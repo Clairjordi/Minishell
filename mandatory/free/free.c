@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/17 10:38:54 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:50:40 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,18 @@
 void	ft_free(t_shell *shell, char *s)
 {	
 	ft_free_cmds(shell);
+	ft_free_exec(shell);
 	ft_free_shell(shell);
 	if (s != NULL)
 		perror(s);
+}
+
+void	ft_free_exec(t_shell *shell)
+{
+	if (shell->exec->cmd != NULL)
+		ft_free_tab_char(shell->exec->cmd);
+	if (shell->exec->cmd_path != NULL)
+		free(shell->exec->cmd_path);
 }
 
 void	ft_free_cmds(t_shell *shell)
@@ -25,16 +34,16 @@ void	ft_free_cmds(t_shell *shell)
 	t_cmds	*tmp;
 	t_cmds	*buf;
 
-	tmp = shell->arg;
 	if (shell->arg == NULL)
 		return ;
+	tmp = shell->arg;
 	while (tmp != NULL)
 	{
 		buf = tmp->next;
-		free(tmp->value);
-		ft_free_tab_char(tmp->value_split);
-		if (tmp->cmd_path != NULL)
-			free(tmp->cmd_path);
+		if (tmp->value != NULL)
+			free(tmp->value);
+		if (tmp->value_split != NULL)
+			ft_free_tab_char(tmp->value_split);
 		free(tmp);
 		tmp = buf;
 	}
@@ -51,18 +60,9 @@ void	ft_free_shell(t_shell *shell)
 		ft_free_tab_char(shell->tab_cmd);
 	if (shell->path != NULL)
 		ft_free_tab_char(shell->path);
-}
-
-void	ft_free_malloc(t_shell *shell)
-{
-	ft_free_shell(shell);
-	ft_free_cmds(shell);
-	ft_error("Malloc error");
-}
-
-void	*ft_free_ptr(void *ptr)
-{
-	if (ptr)
-		free(ptr);
-	return (NULL);
+	if (shell->exec != NULL)
+	{
+		free(shell->exec);
+		shell->exec = NULL;
+	}
 }

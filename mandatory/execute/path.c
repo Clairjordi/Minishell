@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:57:08 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/17 18:06:36 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/20 17:58:42 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	get_path(t_shell *shell, char *path_cmd, char **envp)
 	find_path(shell, envp);
 	if (access(path_cmd, X_OK) == 0)
 	{
-		shell->arg->cmd_path = ft_strdup(path_cmd);
+		shell->exec->cmd_path = ft_strdup(path_cmd);
 		return (0);
 	}
 	i = 0;
@@ -52,13 +52,13 @@ int	get_path(t_shell *shell, char *path_cmd, char **envp)
 	while (shell->path[i])
 	{
 		path = ft_strjoin(shell->path[i], "/");
-		shell->arg->cmd_path = ft_strjoin(path, path_cmd);
+		shell->exec->cmd_path = ft_strjoin(path, path_cmd);
 		free(path);
-		if (check_path_cmd(shell->arg->cmd_path))
+		if (check_path_cmd(shell->exec->cmd_path))
 			return (0);
-		free(shell->arg->cmd_path);
+		free(shell->exec->cmd_path);
 		i++;
 	}
-	shell->arg->cmd_path = NULL;
+	shell->exec->cmd_path = NULL;
 	return (-1);
 }

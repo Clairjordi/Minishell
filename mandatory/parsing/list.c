@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:45:51 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/17 15:07:24 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:01:06 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_create_lst(t_shell *shell)
 	}
 	count = ft_size_lst(shell->arg);
 	if (count > 1)
-		shell->pipe = true;
+		shell->pipe = TRUE;
 	else
-		shell->pipe = false;
+		shell->pipe = FALSE;
 }

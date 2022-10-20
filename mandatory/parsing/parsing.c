@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/17 14:51:31 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:48:52 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 		ft_free_malloc(shell);
 	ft_create_lst(shell);
 	ft_replace_value(shell);
-	/* if (ft_minishell(shell, envp) == -1) */
-	/* 	return ; */
+	ft_minishell(shell, envp);
 	ft_print_test(shell); //A SUPPR
-	g_status = 0;
+	//g_status = 0;
 	ft_free(shell, NULL);
 }

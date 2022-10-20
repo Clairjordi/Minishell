@@ -78,9 +78,10 @@ exemples :
 		possibilite de faire une specificite dans add_env - si pas de egal l'ajouter seulement a export sans "=""" - l'ajouter avec un realloc.
 -verifier les includes dans le h vraiment necessaire
 -gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure. pour tester : ulimits -30
--chaine vide dans le split
+- chaine vide dans le split
 - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
 Gérer lorsqu'on fait entrer dans le prompt directement
+- ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
 
 NORME : 
 -charjoin dans utils/realloc.c -> too many lines

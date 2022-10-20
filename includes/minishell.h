@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/17 18:29:25 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/20 18:57:30 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,49 +20,49 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
-# define bool unsigned int
-# define true 1
-# define false 0
+# define TRUE 1
+# define FALSE 0
 
-int	g_status;
-
-// typedef struct s_token
-// {
-// 	char	**cmd;
-// 	int		infile;
-// 	int		outfile;
-// 	bool	redir_l;
-// 	bool	redir_r;
-// 	bool	append;
-// 	bool	heredoc;
-// 	bool	builtins;
-// 	char	*params;
-// } 
+typedef struct s_global
+{
+	int		status;
+	char	*limiter;
+	char	*line;
+	int		is_in_heredoc;
+	int		fd_hdoc;
+	pid_t	pid;
+}	t_global;
 
 typedef struct s_lst_cmd
 {
-	char				**cmd;
 	char				*value;
 	char				**value_split;
-	char				*in;
-	char				*out;
-	int					redir_l;
-	int					redir_r;
-	int					heredoc;
-	int					append;
-	int					pipe_fd[2];
-	char				*cmd_path;
+	int					idx_hdoc;
+	int					hdoc;
+	int					count_hdoc;
 	struct s_lst_cmd	*prev;
 	struct s_lst_cmd	*next;
 }	t_cmds;
 
+typedef struct s_exec
+{
+	char	**cmd;
+	int		in;
+	int		out;
+	char	*cmd_path;
+	int		pipe_fd[2];
+	//pid_t	pid;
+} t_exec;
+
 typedef struct s_minishell
 {
+	t_exec	*exec;
 	t_cmds	*arg;
 	int		quote;
 	int		dollar;
-	bool	pipe;
+	int		pipe;
 	char	*tmp;
 	char	**path;
 	char	**tab_cmd;
@@ -70,12 +70,14 @@ typedef struct s_minishell
 	char	**copy_export;	
 }	t_shell;
 
+t_global g_g;
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void	ft_print_test(t_shell *shell);
 //
 
 //////INIT
 void	ft_init_shell(t_shell *shell);
+void	ft_init_exec(t_shell *shell);
 void	ft_init_prompt(t_shell *shell, char **envp);
 void	ft_init_struct(t_shell *shell);
 void	ft_init_cmds(t_cmds *cmd);
@@ -113,7 +115,17 @@ int		ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/
-int		ft_minishell(t_shell *shell, char **envp);
+void	ft_minishell(t_shell *shell, char **envp);
+int 	ft_valid_redirect(char *s); //a deplacer dans un utils
+int		ft_check_error_redirect(t_shell *shell); //a deplacer dans un utils
+/*heredoc*/
+void	ft_status_child(int wstatus);
+void	ft_heredoc(t_shell *shell);
+int		ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst);
+void	ft_init_heredoc(t_shell *shell);
+/*heredoc_utils*/
+void	ft_get_idx_heredoc(t_cmds *lst);
+void	ft_count_heredoc(t_shell *shell);
 /*path*/
 int		check_path_cmd(char *path_cmd);
 int		get_path(t_shell *shell, char *path_cmd, char **envp);
@@ -156,10 +168,13 @@ char	**ft_split_pipes(char *s, char c);
 char	**ft_split_value(char *s, char c);
 
 //////FREE
+/*free*/
 void	ft_free_shell(t_shell *shell);
-void	ft_free_malloc(t_shell *shell);
+void	ft_free_exec(t_shell *shell);
 void	ft_free_cmds(t_shell *shell);
 void	ft_free(t_shell *shell, char *s);
+/*free_bis*/
 void	*ft_free_ptr(void *ptr);
+void	ft_free_malloc(t_shell *shell);
 
 #endif
