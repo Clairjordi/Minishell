@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/20 18:50:40 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/21 18:44:36 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,12 @@ void	ft_free_exec(t_shell *shell)
 	if (shell->exec->cmd != NULL)
 		ft_free_tab_char(shell->exec->cmd);
 	if (shell->exec->cmd_path != NULL)
+	{
 		free(shell->exec->cmd_path);
+		shell->exec->cmd_path = NULL;
+	}
+	shell->exec->in = 0;
+	shell->exec->out = 0;
 }
 
 void	ft_free_cmds(t_shell *shell)

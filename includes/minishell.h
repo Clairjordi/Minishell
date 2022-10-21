@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/20 18:57:30 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/21 19:05:03 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,9 @@ void	ft_init_heredoc(t_shell *shell);
 void	ft_get_idx_heredoc(t_cmds *lst);
 void	ft_count_heredoc(t_shell *shell);
 /*path*/
-int		check_path_cmd(char *path_cmd);
-int		get_path(t_shell *shell, char *path_cmd, char **envp);
-void	find_path(t_shell *shell, char **envp);
-/*sort_value*/
-int		check_path_cmd(char *path_cmd);
-int		get_path(t_shell *shell, char *path_cmd, char **envp);
-void	find_path(t_shell *shell, char **envp);
-int		ft_sort_value(t_shell *shell, char **envp);
+int		ft_check_path_cmd(char *path_cmd);
+int		ft_get_path(t_shell *shell, char *path_cmd, char **envp);
+void	ft_find_path(t_shell *shell, char **envp);
 
 //////BUILTINS
 /*export*/
