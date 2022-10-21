@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/21 19:12:45 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/21 20:24:18 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,12 @@ int	ft_check_first(t_shell *shell, char **envp, char *s)
 /* int	ft_check_cmd(t_exec *exec, t_cmds *lst, int *i, char **envp) */
 /* { */
 /* 	(void) envp; */
-/* 	if (exec->cmd != NULL) */
+/* 	if (exec->cmd == NULL) */
+/*		access(cmd);*/
+/*	else if exec->cmd != NULL 
+ *		&& ft_valid_redirect(lst->value_split[i]) == FALSE 
+ *		&& ft_valid_redirect(lst->value_split[i - 1]) == FALSE  */
+
 /* 	return (TRUE); */
 /* } */
 
