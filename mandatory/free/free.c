@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/21 18:44:36 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:15:14 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,34 @@
 void	ft_free(t_shell *shell, char *s)
 {	
 	ft_free_cmds(shell);
-	ft_free_exec(shell);
+	if (shell->exec != NULL)
+		ft_free_exec(shell);
 	ft_free_shell(shell);
 	if (s != NULL)
 		perror(s);
 }
 
 void	ft_free_exec(t_shell *shell)
-{
-	if (shell->exec->cmd != NULL)
-		ft_free_tab_char(shell->exec->cmd);
+{	
 	if (shell->exec->cmd_path != NULL)
 	{
 		free(shell->exec->cmd_path);
 		shell->exec->cmd_path = NULL;
 	}
-	shell->exec->in = 0;
-	shell->exec->out = 0;
+	if (shell->exec->cmd != NULL)
+		shell->exec->cmd = ft_free_tab_char(shell->exec->cmd);
+	if (shell->exec->fd_in != NULL)
+	{
+		free(shell->exec->fd_in);
+		shell->exec->fd_in = NULL;
+	}
+	if (shell->exec->fd_out != NULL)
+	{
+		free(shell->exec->fd_out);
+		shell->exec->fd_out = NULL;
+	}
+	shell->exec->infile = 0;
+	shell->exec->outfile = 0;
 }
 
 void	ft_free_cmds(t_shell *shell)
@@ -62,9 +73,9 @@ void	ft_free_shell(t_shell *shell)
 	if (shell->copy_export != NULL)
 		ft_free_tab_char(shell->copy_export);
 	if (shell->tab_cmd != NULL)
-		ft_free_tab_char(shell->tab_cmd);
+		shell->tab_cmd = ft_free_tab_char(shell->tab_cmd);
 	if (shell->path != NULL)
-		ft_free_tab_char(shell->path);
+		shell->path = ft_free_tab_char(shell->path);
 	if (shell->exec != NULL)
 	{
 		free(shell->exec);

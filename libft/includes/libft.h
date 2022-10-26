@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 09:57:33 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/13 14:22:22 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:23:35 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			ft_max_int(int *tab, int len);
 int			ft_min_int(int *tab, int len);
 int			ft_next_int(int *tab, int nb, int len);
 int			ft_prev_int(int *tab, int nb, int len);
-char		*ft_free_tab_char(char **tab);
+char		**ft_free_tab_char(char **tab);
 void		ft_error(char *str);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_swap(int *a, int *b);

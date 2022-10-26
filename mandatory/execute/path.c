@@ -6,92 +6,68 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:57:08 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/21 19:03:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:37:52 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_path_cmd(char *path_cmd)
+void	ft_get_path_bis(t_shell *shell, char *path_test)
 {
-	if (access(path_cmd, F_OK | X_OK))
-		return (0);
+	if (shell->exec->cmd_path == NULL)
+	{
+		shell->exec->cmd_path = ft_strdup(path_test);
+		if (!shell->exec->cmd_path)
+			ft_free_malloc(shell);
+	}
 	else
-		return (-1);
+	{
+		free(shell->exec->cmd_path);
+		shell->exec->cmd_path = ft_strdup(path_test);
+		if (!shell->exec->cmd_path)
+			ft_free_malloc(shell);
+	}
 }
 
-void	ft_find_path(t_shell *shell, char **envp)
+char	*ft_check_path(t_shell *shell, char *path_test, char *path_cmd, int i)
 {
 	char	*path;
-	int		i;
 
 	path = NULL;
-	i = 0;
-	while (envp[i])
+	path = ft_strjoin(shell->path[i], "/");
+	if (!path)
+		ft_free_malloc(shell);
+	path_test = ft_strjoin_free(path, path_cmd, 1);
+	if (!path_test)
 	{
-		path = ft_strnstr(envp[i], "PATH", 5);
-		if (path)
-			break ;
-		i++;
+		free(path);
+		ft_free_malloc(shell);
 	}
-	shell->path = ft_split(path + 5, ':');
+	return (path_test);
 }
 
-int	ft_get_path(t_shell *shell, char *path_cmd, char **envp)
+char	*ft_get_path(t_shell *shell, char *path_cmd, char **envp)
 {
-	char	*path;
 	int		i;
+	char	*path_test;
 
-	find_path(shell, envp);
-	if (access(path_cmd, X_OK) == 0)
-	{
-		shell->exec->cmd_path = ft_strdup(path_cmd);
-		return (0);
-	}
+	if (shell->path == NULL)
+		ft_find_path(shell, envp);
+	if (ft_check_access(shell, path_cmd) == TRUE)
+		return (shell->exec->cmd_path);
 	i = 0;
-	path = NULL;
+	path_test = NULL;
 	while (shell->path[i])
 	{
-		path = ft_strjoin(shell->path[i], "/");
-		shell->exec->cmd_path = ft_strjoin(path, path_cmd);
-		free(path);
-		if (check_path_cmd(shell->exec->cmd_path))
-			return (0);
-		free(shell->exec->cmd_path);
+		path_test = ft_check_path(shell, path_test, path_cmd, i);
+		if (ft_check_path_cmd(path_test))
+		{
+			ft_get_path_bis(shell, path_test);
+			free(path_test);
+			return (shell->exec->cmd_path);
+		}
+		free(path_test);
 		i++;
 	}
-	shell->exec->cmd_path = NULL;
-	return (-1);
+	return (NULL);
 }
-
-/* int	get_path(t_shell *shell, char *path_cmd, char **envp) */
-/* { */
-/* 	char	*path; */
-/* 	int		i; */
-/* 	char	*path_test; */
-/*  */
-/* 	find_path(shell, envp); */
-/* 	if (access(path_cmd, X_OK) == 0) */
-/* 	{ */
-/* 		shell->exec->cmd_path = ft_strdup(path_cmd); */
-/* 		return (0); */
-/* 	} */
-/* 	i = 0; */
-/* 	path = NULL; */
-/* 	path_test = NULL; */
-/* 	while (shell->path[i]) */
-/* 	{ */
-/* 		path = ft_strjoin(shell->path[i], "/"); */
-/* 		path_test = ft_strjoin(path, path_cmd); */
-/* 		free(path); */
-/* 		if (check_path_cmd(path_test)) */
-/* 		{ */
-/* 			shell->exec->cmd_path = ft_strdup(path_test); */
-/* 			free(path_test); */
-/* 			return (0); */
-/* 		} */
-/* 		free(path_test); */
-/* 		i++; */
-/* 	} */
-/* 	return (-1); */
-/* } */

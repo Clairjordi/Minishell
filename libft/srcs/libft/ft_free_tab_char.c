@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 19:27:55 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/12 18:19:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:23:03 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../all_h.h"
 
-char	*ft_free_tab_char(char **tab)
+char	**ft_free_tab_char(char **tab)
 {
 	int	i;
 
@@ -20,5 +20,6 @@ char	*ft_free_tab_char(char **tab)
 	while (tab[i] != NULL)
 		free(tab[i++]);
 	free (tab);
-	return (0);
+	tab = NULL;
+	return (tab);
 }

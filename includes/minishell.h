@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/21 19:05:03 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:23:45 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define TRUE 1
 # define FALSE 0
+# define ERROR -1
 
 typedef struct s_global
 {
@@ -49,12 +50,14 @@ typedef struct s_lst_cmd
 typedef struct s_exec
 {
 	char	**cmd;
-	int		in;
-	int		out;
+	int		infile;
+	char	*fd_in;
+	int		outfile;
+	char	*fd_out;
 	char	*cmd_path;
 	int		pipe_fd[2];
-	//pid_t	pid;
-} t_exec;
+	pid_t	pid;
+}	t_exec;
 
 typedef struct s_minishell
 {
@@ -70,7 +73,7 @@ typedef struct s_minishell
 	char	**copy_export;	
 }	t_shell;
 
-t_global g_g;
+t_global	g_g;
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void	ft_print_test(t_shell *shell);
 //
@@ -127,8 +130,12 @@ void	ft_init_heredoc(t_shell *shell);
 void	ft_get_idx_heredoc(t_cmds *lst);
 void	ft_count_heredoc(t_shell *shell);
 /*path*/
+void	ft_get_path_bis(t_shell *shell, char *path_test);
+char	*ft_check_path(t_shell *shell, char *path_test, char *path_cmd, int i);
+char	*ft_get_path(t_shell *shell, char *path_cmd, char **envp);
+/*path_utils*/
+int		ft_check_access(t_shell *shell, char *path_cmd);
 int		ft_check_path_cmd(char *path_cmd);
-int		ft_get_path(t_shell *shell, char *path_cmd, char **envp);
 void	ft_find_path(t_shell *shell, char **envp);
 
 //////BUILTINS

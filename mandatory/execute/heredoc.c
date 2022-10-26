@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/20 16:53:06 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:05:17 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	ft_init_heredoc(t_shell *shell)
 
 	lst = shell->arg;
 	wstatus = 0;
-	ft_count_heredoc(shell);
+//	ft_count_heredoc(shell);
 	if (lst->hdoc == FALSE)
 		return ;
 	while (lst)

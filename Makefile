@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/10/20 18:59:37 by clorcery         ###   ########.fr        #
+#    Updated: 2022/10/26 17:39:28 by mcloarec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,9 @@ SRCS = mandatory/main.c \
 	   mandatory/parsing/dollar_utils.c \
 	   mandatory/execute/minishell.c \
 	   mandatory/execute/path.c \
+	   mandatory/execute/path_utils.c \
 	   mandatory/execute/heredoc.c \
 	   mandatory/execute/heredoc_utils.c \
-	   mandatory/execute/sort_value.c \
 	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}

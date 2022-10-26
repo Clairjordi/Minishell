@@ -84,7 +84,6 @@ Gérer lorsqu'on fait entrer dans le prompt directement
 - ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
 
 NORME : 
--charjoin dans utils/realloc.c -> too many lines
 
 
 test a faire :

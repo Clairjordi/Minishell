@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:59:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/13 14:18:30 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:08:14 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,26 @@ char	*ft_cdup(char c)
 	return (dest);
 }
 
+static char	*ft_charjoin_bis(char *s1, char c, char *result)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i])
+	{
+		result[i] = s1[i];
+		i++;
+	}
+	result[i] = c;
+	i++;
+	result[i] = '\0';
+	return (result);
+}
+
 char	*ft_charjoin(char *s1, char c)
 {
 	char	*result;
 	int		len;
-	int		i;
 
 	result = NULL;
 	if (!s1 && !c)
@@ -44,15 +59,7 @@ char	*ft_charjoin(char *s1, char c)
 	result = malloc(sizeof(char) * len + 2);
 	if (!result)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	result[i] = c;
-	i++;
-	result[i] = '\0';
+	result = ft_charjoin_bis(s1, c, result);
 	free(s1);
 	return (result);
 }
