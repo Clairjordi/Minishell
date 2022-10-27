@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/26 19:05:17 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:54:22 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst)
 	}
 	g_g.is_in_heredoc = 2;
 	free(g_g.limiter);
+	//shell->exec->infile = g_g.fd_hdoc;
 	close(g_g.fd_hdoc);
 	waitpid(pid, &wstatus, 0);
 	g_g.is_in_heredoc = 0;
@@ -104,6 +105,8 @@ void	ft_init_heredoc(t_shell *shell)
 				ft_status_child(wstatus);
 				lst->count_hdoc--;
 			}
+			/* if (lst->count_hdoc == 0) */
+			/* 	ft_check_execute(shell, envp); */
 		}
 		lst = lst->next;
 	}

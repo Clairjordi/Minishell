@@ -82,6 +82,9 @@ exemples :
 - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
 Gérer lorsqu'on fait entrer dans le prompt directement
 - ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
+- retirer les quotes des noms des outfiles avant de les open
+- gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork
+
 
 NORME : 
 

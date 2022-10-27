@@ -6,11 +6,12 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/26 19:05:07 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/27 19:14:32 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 int	ft_valid_redirect(char *s)
@@ -66,7 +67,6 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 			g_g.status = 2;
 			return (FALSE);
 		}
-		exec->fd_in = ft_strdup(tab[i]);
 	}
 	return (TRUE);
 }
@@ -97,7 +97,6 @@ int	ft_check_outfile(t_exec *exec, char **tab, int i)
 			g_g.status = 2;
 			return (FALSE);
 		}
-		exec->fd_out = ft_strdup(tab[i]);
 	}
 	return (TRUE);
 }
@@ -161,8 +160,14 @@ int	ft_check_cmd(t_shell *shell, char *name_cmd, char **envp, char **tab, int i)
 	return (TRUE);
 }
 
-void	ft_execute_cmd(t_exec *exec, char **envp)
+void	ft_execute_cmd(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 {
+	if (lst->hdoc == TRUE)
+	{
+		exec->infile = open(".heredoc", O_RDONLY, 0644);
+		if (exec->infile == ERROR)
+			perror("ERROR infile");
+	}
 	exec->pid = fork();
 	if (exec->pid == ERROR)
 		perror("ERROR pid");
@@ -177,13 +182,72 @@ void	ft_execute_cmd(t_exec *exec, char **envp)
 
 		}
 		if (execve(exec->cmd_path, exec->cmd, envp) == ERROR)
-			perror("ERROR execve");
+		{
+			close (exec->infile);
+			ft_free(shell, "ERROR execve");
+			exit(1);
+		}
 	}
 	else
 	{
 		if (waitpid(exec->pid, NULL, 0) == ERROR)
 			perror("ERROR waitpid");
 	}
+}
+
+void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
+{
+	if (lst->hdoc == TRUE)
+	{
+		exec->infile = open(".heredoc", O_RDONLY, 0644);
+		if (exec->infile == ERROR)
+			perror("ERROR infile");
+	}
+	exec->pid = fork();
+	if (exec->pid == ERROR)
+		perror("ERROR pid");
+	if (exec->pid == 0)
+	{
+		if (lst->prev == NULL)
+		{
+			if (dup2(exec->infile, STDIN_FILENO) == ERROR)
+				perror("ERROR dup 1");
+			if (dup2(lst->pipe_fd[1], STDOUT_FILENO) == ERROR)
+					perror("ERROR dup 2");
+		}
+		else if (lst->next == NULL)
+		{
+			if (dup2(lst->prev->pipe_fd[0], STDIN_FILENO) == ERROR)
+				perror("ERROR dup 3");
+			if (exec->outfile > 2)
+			{
+				if (dup2(exec->outfile, STDOUT_FILENO) == ERROR)
+					perror("ERROR dup 4");
+			}
+		}
+		else
+		{
+			if (dup2(lst->prev->pipe_fd[0], STDIN_FILENO) == ERROR)
+				perror("ERROR dup 5");
+			if (dup2(lst->pipe_fd[1], STDOUT_FILENO) == ERROR)
+					perror("ERROR dup 6");
+		}
+		if (execve(exec->cmd_path, exec->cmd, envp) == ERROR)
+		{
+			close (exec->infile);
+			ft_free(shell, "ERROR execve");
+			exit(1);
+		}
+	}
+	else
+	{
+		if (waitpid(exec->pid, NULL, 0) == ERROR)
+			perror("ERROR waitpid");
+	}
+	if (lst->prev != NULL && lst->next != NULL)
+		close(lst->prev->pipe_fd[0]);
+	if (lst->next != NULL)
+		close(lst->pipe_fd[1]);
 }
 
 void	ft_check_execute(t_shell *shell, char **envp)
@@ -194,38 +258,82 @@ void	ft_check_execute(t_shell *shell, char **envp)
 
 	lst = shell->arg;
 	exec = shell->exec;
-	while (lst)
-	{	
-		i = 0;
-		while (lst->value_split[i])
-		{
-			if (ft_check_first(shell, envp, lst->value_split[0]) == FALSE
-				&& i == 0)
-				break ;
-			if (lst->hdoc == TRUE)
-				ft_init_heredoc(shell);
-			else if (ft_check_infile(exec, lst->value_split, i) == FALSE)
-				break ;
-			else if (ft_check_outfile(exec, lst->value_split, i) == FALSE)
-				break ;
-			else if (ft_check_cmd(shell, lst->value_split[i], envp, lst->value_split, i) == FALSE)
-			 	break ;
-			if (lst->value_split[i] != NULL)
-			i++;
+	if (shell->pipe == 1)
+	{
+		while (lst)
+		{	
+			i = 0;
+			while (lst->value_split[i])
+			{	
+				if (lst->hdoc == FALSE)
+				{
+					if (ft_check_first(shell, envp, lst->value_split[0]) == FALSE
+						&& i == 0)
+						break ;
+					if (ft_check_infile(exec, lst->value_split, i) == FALSE)
+					break ;
+				}
+				if (ft_check_outfile(exec, lst->value_split, i) == FALSE)
+					break ;
+				if (ft_check_cmd(shell, lst->value_split[i], envp, lst->value_split, i) == FALSE)
+					break ;
+				if (lst->value_split[i] != NULL)
+				i++;
+			}
+			if (shell->exec->cmd != NULL)
+				ft_execute_cmd(shell, shell->exec, envp, lst);
+			if (exec->infile > 2)
+				close(exec->infile);
+			if (exec->outfile > 2)
+				close(exec->outfile);
+			if (shell->exec != NULL)
+				ft_free_exec(shell);
+			lst = lst->next;
 		}
-		/* ft_printf("%s\n", exec->cmd[0]); */
-		/* ft_printf("%s\n", exec->cmd[1]); */
-		/* ft_printf("%s\n", exec->cmd[2]); */
-		/* ft_printf("%s\n", exec->cmd[3]); */
-		if (shell->exec->cmd != NULL)
-			ft_execute_cmd(shell->exec, envp);
-		if (exec->infile > 2)
-			close(exec->infile);
-		if (exec->outfile > 2)
-			close(exec->outfile);
-		if (shell->exec != NULL)
-			ft_free_exec(shell);
-		lst = lst->next;
+	}
+	else
+	{
+		while (lst)
+		{	
+			i = 0;
+			if (shell->pipe > 1)
+			{
+				if (pipe(lst->pipe_fd) == ERROR)
+				{
+					perror("ERROR pipe");
+					break ;
+				}
+				shell->pipe--;
+			}
+			while (lst->value_split[i])
+			{
+				if (lst->hdoc == FALSE)
+				{
+					if (ft_check_first(shell, envp, lst->value_split[0]) == FALSE
+						&& i == 0)
+						break ;
+					if (ft_check_infile(exec, lst->value_split, i) == FALSE)
+					break ;
+				}
+				if (ft_check_outfile(exec, lst->value_split, i) == FALSE)
+					break ;
+				if (ft_check_cmd(shell, lst->value_split[i], envp, lst->value_split, i) == FALSE)
+					break ;
+				if (lst->value_split[i] != NULL)
+				i++;
+			}
+			if (shell->exec->cmd != NULL)
+				ft_execute_pipe(shell, shell->exec, envp, lst);
+			if (exec->infile > 2)
+				close(exec->infile);
+			if (exec->outfile > 2)
+				close(exec->outfile);
+			if (shell->exec != NULL)
+				ft_free_exec(shell);
+			if (lst->next == NULL)
+				close(lst->prev->pipe_fd[0]);
+			lst = lst->next;
+		}
 	}
 }
 
@@ -235,5 +343,7 @@ void	ft_minishell(t_shell *shell, char **envp)
 		return ;
 	//ft_init_heredoc(shell);
 	ft_count_heredoc(shell);
+	if (shell->arg->hdoc == TRUE)
+		ft_init_heredoc(shell);
 	ft_check_execute(shell, envp);
 }

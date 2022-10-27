@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/26 18:23:45 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/27 19:14:29 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_lst_cmd
 	int					idx_hdoc;
 	int					hdoc;
 	int					count_hdoc;
+	int					pipe_fd[2];
 	struct s_lst_cmd	*prev;
 	struct s_lst_cmd	*next;
 }	t_cmds;
@@ -51,11 +52,8 @@ typedef struct s_exec
 {
 	char	**cmd;
 	int		infile;
-	char	*fd_in;
 	int		outfile;
-	char	*fd_out;
 	char	*cmd_path;
-	int		pipe_fd[2];
 	pid_t	pid;
 }	t_exec;
 
@@ -118,9 +116,17 @@ int		ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/
+int	ft_valid_redirect(char *s);
+int	ft_check_error_redirect(t_shell *shell);
+int	ft_check_infile(t_exec *exec, char **tab, int i);
+int	ft_check_outfile(t_exec *exec, char **tab, int i);
+int	ft_check_first(t_shell *shell, char **envp, char *s);
+int	ft_add_opt_arg(t_shell *shell, char *s, char **envp);
+int ft_add_cmd(t_shell *shell, char *s, char **envp);
+int	ft_check_cmd(t_shell *shell, char *name_cmd, char **envp, char **tab, int i);
+void	ft_execute_cmd(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
+void	ft_check_execute(t_shell *shell, char **envp);
 void	ft_minishell(t_shell *shell, char **envp);
-int 	ft_valid_redirect(char *s); //a deplacer dans un utils
-int		ft_check_error_redirect(t_shell *shell); //a deplacer dans un utils
 /*heredoc*/
 void	ft_status_child(int wstatus);
 void	ft_heredoc(t_shell *shell);
