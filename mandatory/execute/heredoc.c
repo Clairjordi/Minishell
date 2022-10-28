@@ -6,28 +6,11 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/27 15:54:22 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 17:09:29 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_status_child(int wstatus)
-{
-	if (WIFEXITED(wstatus))
-	{
-		g_g.status = WEXITSTATUS(wstatus);
-	}
-	if (WIFSIGNALED(wstatus))
-	{
-		g_g.status = WTERMSIG(wstatus);
-		if (g_g.status != 131)
-			g_g.status += 128;
-	}
-	/*st ce que l'on doit le gerer dans cat ???? - Ctrl + \ */ 
-	/* if (g_g.status == 131) */
-	/* 	ft_putstr_fd("Quit (core dumped)\n", 2); */
-}
 
 void	ft_heredoc(t_shell *shell)
 {
@@ -39,6 +22,7 @@ void	ft_heredoc(t_shell *shell)
 		{
 			ft_putstr_fd("bash: warning: here-document \
 					at g_g.line 1 delimited by end-of-file\n", 1);
+			g_g.status = 0;
 			break ;
 		}
 		if (ft_strcmp(g_g.line, g_g.limiter) == 0)
@@ -78,9 +62,9 @@ int	ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst)
 	}
 	g_g.is_in_heredoc = 2;
 	free(g_g.limiter);
-	//shell->exec->infile = g_g.fd_hdoc;
 	close(g_g.fd_hdoc);
-	waitpid(pid, &wstatus, 0);
+	if (waitpid(pid, &wstatus, 0) == ERROR)
+		perror("ERROR waitpid");
 	g_g.is_in_heredoc = 0;
 	return (wstatus);
 }
@@ -92,7 +76,6 @@ void	ft_init_heredoc(t_shell *shell)
 
 	lst = shell->arg;
 	wstatus = 0;
-//	ft_count_heredoc(shell);
 	if (lst->hdoc == FALSE)
 		return ;
 	while (lst)
@@ -105,8 +88,6 @@ void	ft_init_heredoc(t_shell *shell)
 				ft_status_child(wstatus);
 				lst->count_hdoc--;
 			}
-			/* if (lst->count_hdoc == 0) */
-			/* 	ft_check_execute(shell, envp); */
 		}
 		lst = lst->next;
 	}

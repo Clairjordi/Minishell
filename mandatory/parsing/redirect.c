@@ -6,11 +6,24 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 17:44:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/19 16:58:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:44:33 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_valid_redirect(char *s)
+{
+	if (ft_strcmp(s, "<<") == 0)
+		return (1);
+	if (ft_strcmp(s, "<") == 0)
+		return (2);
+	if (ft_strcmp(s, ">>") == 0)
+		return (3);
+	if (ft_strcmp(s, ">") == 0)
+		return (4);
+	return (FALSE);
+}
 
 static int	ft_check_redirect_bis(int *i, int size, char *s)
 {

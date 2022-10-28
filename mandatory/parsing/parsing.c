@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 09:41:45 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:27:17 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,49 +20,34 @@ int	ft_verif_if_str(char *str)
 	while (str[i] == ' ')
 	{
 		if (str[i] == ' ' && str[i + 1] == '\0')
-			return (-1);
+			return (ERROR);
 		i++;
 	}
-	/* i = 0; */
-	/* if (str[i] == '\"') */
-	/* { */
-	/* 	if (str[i + 1] == '\"' && str[i + 2] == '\0') */
-	/* 	{ */
-	/* 		ft_putendl_fd("Command \"\" not found", 2); */
-	/* 		g_status = 127; */
-	/* 		return (-1); */
-	/* 	} */
-	/* } */
-	/* else if (str[i] == '\'') */
-	/* { */
-	/* 	if (str[i + 1] == '\'' && str[i + 2] == '\0') */
-	/* 	{ */
-	/* 		ft_putendl_fd("Command \'\' not found", 2); */
-	/* 		g_status = 127; */
-	/* 		return (-1); */
-	/* 	} */
-	/* } */
+	if (str[0] == '\0')
+		return (ERROR);
 	return (0);
 }
 
 int	ft_verif_parsing(char *str)
 {
-	if (ft_verif_if_str(str) == -1)
-		return (-1);
-	if (ft_count_quote(str) == -1)
-		return (-1);
-	if (ft_verif_pipe(str) == -1)
-		return (-1);
-	if (ft_verif_redirect(str) == -1)
-		return (-1);
+	if (ft_verif_if_str(str) == ERROR)
+		return (ERROR);
+	if (ft_count_quote(str) == ERROR)
+		return (ERROR);
+	if (ft_verif_pipe(str) == ERROR)
+		return (ERROR);
+	if (ft_verif_redirect(str) == ERROR)
+		return (ERROR);
 	return (0);
 }
 
 void	ft_parsing(char *str, t_shell *shell, char **envp)
 {
-	(void) envp;
-	if (ft_verif_parsing(str) == -1)
+	if (ft_verif_parsing(str) == ERROR)
+	{
+		ft_free(shell, NULL);
 		return ;
+	}
 	shell->tab_cmd = ft_split_pipes(str, '|');
 	if (shell->tab_cmd == NULL)
 		ft_free_malloc(shell);

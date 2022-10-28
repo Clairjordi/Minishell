@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 11:55:20 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 17:05:18 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp)
 	{
 		close (exec->infile);
 		ft_free(shell, "ERROR execve");
+		g_g.status = 127;
 		exit(1);
 	}
+	g_g.status = 0;
 }
 
 void	ft_first_child(t_exec *exec, t_cmds *lst)
@@ -71,6 +73,8 @@ void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst)
 	{
 		close (exec->infile);
 		ft_free(shell, "ERROR execve");
+		g_g.status = 127;
 		exit(1);
 	}
+	g_g.status = 0;
 }

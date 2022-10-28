@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:45:27 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/20 15:42:50 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/28 17:14:05 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,20 @@ void	handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+void	ft_status_child(int wstatus)
+{
+	if (WIFEXITED(wstatus))
+	{
+		g_g.status = WEXITSTATUS(wstatus);
+	}
+	if (WIFSIGNALED(wstatus))
+	{
+		g_g.status = WTERMSIG(wstatus);
+		if (g_g.status != 131)
+			g_g.status += 128;
+	}
+	if (g_g.status == 131)
+		ft_putstr_fd("Quit (core dumped)\n", 2);
 }

@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 12:12:06 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:08:09 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_add_opt_arg(t_shell *shell, char **tab, int i)
 {
-	if (ft_check_q(tab[i][0]) == 1)
-		tab[i] = ft_delete_quotes(tab[i]);
+	/* if (ft_check_q(tab[i][0]) == 1) */
+	/* 	tab[i] = ft_delete_quotes(tab[i]); */
 	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd, tab[i]);
 	if (shell->exec->cmd == NULL)
 		ft_free_malloc(shell);

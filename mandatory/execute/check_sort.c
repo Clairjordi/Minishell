@@ -6,24 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 12:08:14 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:06:51 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	ft_valid_redirect(char *s)
-{
-	if (ft_strcmp(s, "<<") == 0)
-		return (1);
-	if (ft_strcmp(s, "<") == 0)
-		return (2);
-	if (ft_strcmp(s, ">>") == 0)
-		return (3);
-	if (ft_strcmp(s, ">") == 0)
-		return (4);
-	return (FALSE);
-}
 
 int	ft_check_error_redirect(t_shell *shell)
 {
@@ -69,32 +56,44 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 	return (TRUE);
 }
 
-int	ft_check_outfile(t_exec *exec, char **tab, int i)
+static int	ft_check_outfile_append(t_shell *shell, char **tab, int i)
+{
+	if (shell->exec->outfile > 2)
+		close(shell->exec->outfile);
+	/* if (ft_check_q(tab[i][0]) == 1) */
+	/* { */
+	/* 	tab[i] = ft_delete_quotes(tab[i]); */
+	/* 	if (tab[i] == NULL) */
+	/* 		ft_free_malloc(shell); */
+	/* } */
+	shell->exec->outfile = open(tab[i], (O_RDWR | O_APPEND | O_CREAT), 0644);
+	if (shell->exec->outfile == -1)
+	{
+		perror("File error");
+		g_g.status = 2;
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+int	ft_check_outfile(t_shell *shell, char **tab, int i)
 {
 	if (i != 0 && ft_valid_redirect(tab[i - 1]) == 3)
-	{
-		if (exec->outfile > 2)
-			close(exec->outfile);
-		if (ft_check_q(tab[i][0]) == 1)
-			tab[i] = ft_delete_quotes(tab[i]);
-		exec->outfile = open(tab[i], (O_RDWR | O_APPEND | O_CREAT), 0644);
-		if (exec->outfile == -1)
-		{
-			perror("File error ");
-			g_g.status = 2;
-			return (FALSE);
-		}
-	}
+		ft_check_outfile_append(shell, tab, i);
 	else if (i != 0 && ft_valid_redirect(tab[i - 1]) == 4)
 	{
-		if (exec->outfile > 2)
-			close(exec->outfile);
-		if (ft_check_q(tab[i][0]) == 1)
-			tab[i] = ft_delete_quotes(tab[i]);
-		exec->outfile = open(tab[i], (O_RDWR | O_TRUNC | O_CREAT), 0644);
-		if (exec->outfile == -1)
+		if (shell->exec->outfile > 2)
+			close(shell->exec->outfile);
+		/* if (ft_check_q(tab[i][0]) == 1) */
+		/* { */
+		/* 	tab[i] = ft_delete_quotes(tab[i]); */
+		/* 	if (tab[i] == NULL) */
+		/* 		ft_free_malloc(shell); */
+		/* } */
+		shell->exec->outfile = open(tab[i], (O_RDWR | O_TRUNC | O_CREAT), 0644);
+		if (shell->exec->outfile == -1)
 		{
-			perror("File error ");
+			perror("File error");
 			g_g.status = 2;
 			return (FALSE);
 		}

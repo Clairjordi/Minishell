@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 11:51:38 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 16:46:24 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	ft_free_shell(t_shell *shell)
 		ft_free_tab_char(shell->copy_envp);
 	if (shell->copy_export != NULL)
 		ft_free_tab_char(shell->copy_export);
+	if (shell->tab_pid != NULL)
+		ft_free_tab_char(shell->tab_pid);
 	if (shell->tab_cmd != NULL)
 		shell->tab_cmd = ft_free_tab_char(shell->tab_cmd);
 	if (shell->path != NULL)

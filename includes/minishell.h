@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 12:12:37 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 19:14:28 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_global
 	char	*line;
 	int		is_in_heredoc;
 	int		fd_hdoc;
-	pid_t	pid;
 }	t_global;
 
 typedef struct s_lst_cmd
@@ -64,6 +63,7 @@ typedef struct s_minishell
 	int		quote;
 	int		dollar;
 	int		pipe;
+	char	**tab_pid;
 	char	*tmp;
 	char	**path;
 	char	**tab_cmd;
@@ -116,14 +116,14 @@ int		ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/
-void	ft_execute_cmd(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
+int		ft_execute_cmd(t_shell *shell, char **envp, t_cmds *lst, int wstatus);
 void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
 void	ft_minishell(t_shell *shell, char **envp);
 /*check_sort*/
 int		ft_valid_redirect(char *s);
 int		ft_check_error_redirect(t_shell *shell);
 int		ft_check_infile(t_exec *exec, char **tab, int i);
-int		ft_check_outfile(t_exec *exec, char **tab, int i);
+int		ft_check_outfile(t_shell *shell, char **tab, int i);
 int		ft_check_first(t_shell *shell, char **envp, char *s);
 /*child*/
 void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp);
@@ -140,8 +140,11 @@ void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp);
 void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
 int		ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
 void	ft_check_execute(t_shell *shell, char **envp);
+/*sort_utils*/
+int		ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
+void	ft_waitpid_pipe(t_shell *shell);
+void	ft_add_pid(t_shell *shell);
 /*heredoc*/
-void	ft_status_child(int wstatus);
 void	ft_heredoc(t_shell *shell);
 int		ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst);
 void	ft_init_heredoc(t_shell *shell);
@@ -170,6 +173,7 @@ void	ft_print_envp(char **envp, t_shell *shell);
 
 //////SIGNALS
 void	handler(int sig);
+void	ft_status_child(int wstatus);
 
 //////UTILS 
 int		ft_size_lst(t_cmds *lst);

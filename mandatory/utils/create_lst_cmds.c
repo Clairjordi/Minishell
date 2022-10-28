@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:17:00 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/15 16:14:36 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 14:06:22 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_cmds	*ft_lstnew_cmd(char *s, t_shell *shell)
 	if (!new_dlst)
 		return (NULL);
 	ft_init_cmds(new_dlst);
-	new_dlst->value = ft_strdup(s);
+	if (s != NULL)
+		new_dlst->value = ft_strdup(s);
 	if (new_dlst->value == NULL)
 		ft_free_malloc(shell);
 	new_dlst->value_split = ft_split_value(new_dlst->value, ' ');

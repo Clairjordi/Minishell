@@ -6,30 +6,35 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 12:01:45 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 17:59:02 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_execute_cmd(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
+int	ft_execute_cmd(t_shell *shell, char **envp, t_cmds *lst, int wstatus)
 {
 	if (lst->hdoc == TRUE)
 	{
-		exec->infile = open(".heredoc", O_RDONLY, 0644);
-		if (exec->infile == ERROR)
+		shell->exec->infile = open(".heredoc", O_RDONLY, 0644);
+		if (shell->exec->infile == ERROR)
 			perror("ERROR infile");
 	}
-	exec->pid = fork();
-	if (exec->pid == ERROR)
+	shell->exec->pid = fork();
+	if (shell->exec->pid == ERROR)
 		perror("ERROR pid");
-	 if (exec->pid == 0)
-		ft_child_cmd(shell, exec, envp);
+	if (shell->exec->pid == 0)
+	{
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		ft_child_cmd(shell, shell->exec, envp);
+	}
 	else
 	{
-		if (waitpid(exec->pid, NULL, 0) == ERROR)
+		if (waitpid(shell->exec->pid, &wstatus, 0) == ERROR)
 			perror("ERROR waitpid");
 	}
+	return (wstatus);
 }
 
 void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
@@ -44,11 +49,10 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 	if (exec->pid == ERROR)
 		perror("ERROR pid");
 	if (exec->pid == 0)
-		ft_check_child_execute(shell, envp, lst);
-	else
 	{
-		if (waitpid(exec->pid, NULL, 0) == ERROR)
-			perror("ERROR waitpid");
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
+		ft_check_child_execute(shell, envp, lst);
 	}
 	if (lst->prev != NULL && lst->next != NULL)
 		close(lst->prev->pipe_fd[0]);
