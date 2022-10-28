@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/19 16:57:30 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:04:49 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_len_without_quote(char *str)
 	size = 0;
 	while (str[i])
 	{
-		if (str[i] != '\"')
+		if (str[i] != '\"' && str[i] != '\'')
 			size++;
 		i++;
 	}
@@ -68,7 +68,7 @@ char	*ft_delete_quotes(char *str)
 	size_copy = 0;
 	while (str[i])
 	{
-		if (str[i] != '\"')
+		if (str[i] != '\"' && str[i] != '\'')
 		{
 			new_str[size_copy] = str[i];
 			size_copy++;

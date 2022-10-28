@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 10:29:23 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 12:12:37 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,30 @@ int		ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/
-int	ft_valid_redirect(char *s);
-int	ft_check_error_redirect(t_shell *shell);
-int	ft_check_infile(t_exec *exec, char **tab, int i);
-int	ft_check_outfile(t_exec *exec, char **tab, int i);
-int	ft_check_first(t_shell *shell, char **envp, char *s);
-void	ft_add_opt_arg(t_shell *shell, char *s);
-int ft_add_cmd(t_shell *shell, char *s, char **envp);
-int	ft_check_cmd(t_shell *shell, char *name_cmd, char **envp, char **tab, int i);
 void	ft_execute_cmd(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
-void	ft_check_execute(t_shell *shell, char **envp);
+void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
 void	ft_minishell(t_shell *shell, char **envp);
+/*check_sort*/
+int		ft_valid_redirect(char *s);
+int		ft_check_error_redirect(t_shell *shell);
+int		ft_check_infile(t_exec *exec, char **tab, int i);
+int		ft_check_outfile(t_exec *exec, char **tab, int i);
+int		ft_check_first(t_shell *shell, char **envp, char *s);
+/*child*/
+void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp);
+void	ft_first_child(t_exec *exec, t_cmds *lst);
+void	ft_last_child(t_exec *exec, t_cmds *lst);
+void	ft_else_child(t_cmds *lst);
+void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst);
+/*cmd*/
+void	ft_add_opt_arg(t_shell *shell, char **tab, int i);
+int		ft_add_cmd(t_shell *shell, char *s, char **envp);
+int		ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
+/*sort*/
+void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp);
+void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
+int		ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
+void	ft_check_execute(t_shell *shell, char **envp);
 /*heredoc*/
 void	ft_status_child(int wstatus);
 void	ft_heredoc(t_shell *shell);
@@ -184,5 +197,7 @@ void	ft_free(t_shell *shell, char *s);
 /*free_bis*/
 void	*ft_free_ptr(void *ptr);
 void	ft_free_malloc(t_shell *shell);
+void	ft_free_close_pipe(t_shell *shell, t_cmds *lst);
+void	ft_free_close(t_shell *shell);
 
 #endif
