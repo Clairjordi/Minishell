@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/27 19:14:29 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 10:29:23 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	ft_check_error_redirect(t_shell *shell);
 int	ft_check_infile(t_exec *exec, char **tab, int i);
 int	ft_check_outfile(t_exec *exec, char **tab, int i);
 int	ft_check_first(t_shell *shell, char **envp, char *s);
-int	ft_add_opt_arg(t_shell *shell, char *s, char **envp);
+void	ft_add_opt_arg(t_shell *shell, char *s);
 int ft_add_cmd(t_shell *shell, char *s, char **envp);
 int	ft_check_cmd(t_shell *shell, char *name_cmd, char **envp, char **tab, int i);
 void	ft_execute_cmd(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);

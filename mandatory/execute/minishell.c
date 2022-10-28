@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/27 19:14:32 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/28 10:37:24 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	ft_check_outfile(t_exec *exec, char **tab, int i)
 			g_g.status = 2;
 			return (FALSE);
 		}
-		exec->fd_out = ft_strdup(tab[i]);
 	}
 	else if (i != 0 && ft_valid_redirect(tab[i - 1]) == 4)
 	{
@@ -113,17 +112,11 @@ int	ft_check_first(t_shell *shell, char **envp, char *s)
 	return (TRUE);
 }
 
-int	ft_add_opt_arg(t_shell *shell, char *s, char **envp)
+void	ft_add_opt_arg(t_shell *shell, char *s)
 {
-	if (ft_get_path(shell, s, envp) == NULL)
-	{
-		shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd, s);
-		if (shell->exec->cmd == NULL)
-			ft_free_malloc(shell);
-		return (TRUE);
-	}
-	else
-		return (FALSE);
+	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd, s);
+	if (shell->exec->cmd == NULL)
+		ft_free_malloc(shell);
 }
 
 int ft_add_cmd(t_shell *shell, char *s, char **envp)
@@ -152,11 +145,17 @@ int	ft_check_cmd(t_shell *shell, char *name_cmd, char **envp, char **tab, int i)
 {
 	if (shell->exec->cmd_path == NULL && ft_valid_redirect(name_cmd) == FALSE)
 		ft_get_path(shell, name_cmd, envp);
-	if (shell->exec->cmd_path != NULL)
+	if (i == 0 && ft_valid_redirect(name_cmd) == FALSE)
 		ft_add_cmd(shell, name_cmd, envp);
-	if (i > 0 && shell->exec->cmd != NULL && ft_valid_redirect(name_cmd) == FALSE 
-			&& ft_valid_redirect(tab[i - 1]) == FALSE)
-		ft_add_opt_arg(shell, name_cmd, envp);
+	else if (i > 0 && shell->exec->cmd_path != NULL
+		&& shell->exec->cmd == NULL
+		&& ft_valid_redirect(tab[i - 1]) == FALSE
+		&& ft_valid_redirect(name_cmd) == FALSE)
+		ft_add_cmd(shell, name_cmd, envp);
+	else if (i > 0 && shell->exec->cmd != NULL
+		&& ft_valid_redirect(name_cmd) == FALSE
+		&& ft_valid_redirect(tab[i - 1]) == FALSE)
+		ft_add_opt_arg(shell, name_cmd);
 	return (TRUE);
 }
 
