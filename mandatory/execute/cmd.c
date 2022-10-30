@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 20:08:09 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 18:27:59 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_add_opt_arg(t_shell *shell, char **tab, int i)
 {
-	/* if (ft_check_q(tab[i][0]) == 1) */
-	/* 	tab[i] = ft_delete_quotes(tab[i]); */
+	if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
+		tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd, tab[i]);
 	if (shell->exec->cmd == NULL)
 		ft_free_malloc(shell);
@@ -45,7 +45,12 @@ int	ft_add_cmd(t_shell *shell, char *s, char **envp)
 
 int	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 {
-	if (shell->exec->cmd_path == NULL && ft_valid_redirect(tab[i]) == FALSE)
+	if (i == 0 && shell->exec->cmd_path == NULL
+		&& ft_valid_redirect(tab[i]) == FALSE)
+		ft_get_path(shell, tab[i], envp);
+	else if (i > 0 && shell->exec->cmd_path == NULL
+		&& ft_valid_redirect(tab[i]) == FALSE
+		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 		ft_get_path(shell, tab[i], envp);
 	if (i == 0 && ft_valid_redirect(tab[i]) == FALSE)
 		ft_add_cmd(shell, tab[i], envp);

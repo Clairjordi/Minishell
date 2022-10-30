@@ -6,11 +6,31 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 17:44:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 14:44:33 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 11:21:37 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_is_not_redirection(char *s)
+{
+	int		i;
+	char	redirect;
+
+	i = 0;
+	redirect = 'n';
+	while (s[i])
+	{
+		if (ft_sep(s[i]) == 3)
+			redirect = 'o';
+		if (ft_sep(s[i]) != 3 && ft_check_q(s[i]) != 1)
+			return (FALSE);
+		i++;
+	}
+	if (redirect == 'n')
+		return (FALSE);
+	return (TRUE);
+}
 
 int	ft_valid_redirect(char *s)
 {

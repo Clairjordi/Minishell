@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 19:14:28 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 21:11:04 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_minishell
 {
 	t_exec	*exec;
 	t_cmds	*arg;
+	pid_t	pid_hdoc;
 	int		quote;
 	int		dollar;
 	int		pipe;
@@ -93,12 +94,12 @@ void	ft_create_lst(t_shell *shell);
 int		ft_verif_pipe(char *s);
 int		ft_check_pipe(char *s);
 /*quotes*/
-int		ft_len_without_quote(char *str);
-char	*ft_delete_quotes(char *str);
+char	*ft_delete_quotes_redirect(t_shell *shell, char *s);
 int		ft_count_quote(char *str);
 void	ft_check_c(char **str, int *d, int *s, int *i);
 int		ft_skip_quote(int *i, char **s);
 /*redirect*/
+int		ft_is_not_redirection(char *s);
 int		ft_check_redirect(char *s);
 int		ft_verif_redirect(char *s);
 /*replace*/
@@ -129,7 +130,7 @@ int		ft_check_first(t_shell *shell, char **envp, char *s);
 void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp);
 void	ft_first_child(t_exec *exec, t_cmds *lst);
 void	ft_last_child(t_exec *exec, t_cmds *lst);
-void	ft_else_child(t_cmds *lst);
+void	ft_else_child(t_exec *exec, t_cmds *lst);
 void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst);
 /*cmd*/
 void	ft_add_opt_arg(t_shell *shell, char **tab, int i);
@@ -147,7 +148,7 @@ void	ft_add_pid(t_shell *shell);
 /*heredoc*/
 void	ft_heredoc(t_shell *shell);
 int		ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst);
-void	ft_init_heredoc(t_shell *shell);
+void	ft_init_heredoc(t_shell *shell, t_cmds *lst);
 /*heredoc_utils*/
 void	ft_get_idx_heredoc(t_cmds *lst);
 void	ft_count_heredoc(t_shell *shell);

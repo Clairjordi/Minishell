@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:50:01 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 11:52:05 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 23:04:16 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,24 @@ void	ft_free_close_pipe(t_shell *shell, t_cmds *lst)
 		close(shell->exec->outfile);
 	if (shell->exec != NULL)
 		ft_free_exec(shell);
-	if (lst->next == NULL)
-		close(lst->prev->pipe_fd[0]);
+	/* if (lst->next == NULL) */
+	/* 	close(lst->prev->pipe_fd[0]); */
+	if (lst->prev != NULL)
+	{
+		if (lst->prev->pipe_fd[0] > 2)
+		{
+			close(lst->prev->pipe_fd[0]);
+			lst->prev->pipe_fd[0] = 0;
+		}
+
+		if (lst->next == NULL)
+		{
+			if (lst->pipe_fd[0] > 2)
+				close(lst->pipe_fd[0]);
+			if (lst->pipe_fd[1] > 2)
+				close(lst->pipe_fd[1]);
+		}
+	}
+	/* if (lst->next->hdoc == TRUE) */
+	/* 	close(lst->pipe_fd[0]); */
 }

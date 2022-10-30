@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/17 14:07:57 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/29 12:31:04 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ void	ft_replace_value(t_shell *shell)
 		}
 		lst = lst->next;
 	}
+	shell->tmp = NULL;
 }

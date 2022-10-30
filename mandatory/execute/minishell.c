@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 17:59:02 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 21:12:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int	ft_execute_cmd(t_shell *shell, char **envp, t_cmds *lst, int wstatus)
 {
-	if (lst->hdoc == TRUE)
-	{
-		shell->exec->infile = open(".heredoc", O_RDONLY, 0644);
-		if (shell->exec->infile == ERROR)
-			perror("ERROR infile");
-	}
+	(void) *lst;
+	/* if (lst->hdoc == TRUE) */
+	/* { */
+	/* 	shell->exec->infile = open(".heredoc", O_RDONLY, 0644); */
+	/* 	if (shell->exec->infile == ERROR) */
+	/* 		perror("ERROR infile"); */
+	/* } */
 	shell->exec->pid = fork();
 	if (shell->exec->pid == ERROR)
 		perror("ERROR pid");
@@ -39,12 +40,13 @@ int	ft_execute_cmd(t_shell *shell, char **envp, t_cmds *lst, int wstatus)
 
 void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 {
-	if (lst->hdoc == TRUE)
-	{
-		exec->infile = open(".heredoc", O_RDONLY, 0644);
-		if (exec->infile == ERROR)
-			perror("ERROR infile");
-	}
+	(void) *lst;
+	/* if (lst->hdoc == TRUE) */
+	/* { */
+	/* 	exec->infile = open(".heredoc", O_RDONLY, 0644); */
+	/* 	if (exec->infile == ERROR) */
+	/* 		perror("ERROR infile"); */
+	/* } */
 	exec->pid = fork();
 	if (exec->pid == ERROR)
 		perror("ERROR pid");
@@ -65,7 +67,7 @@ void	ft_minishell(t_shell *shell, char **envp)
 	if (ft_check_error_redirect(shell) == FALSE)
 		return ;
 	ft_count_heredoc(shell);
-	if (shell->arg->hdoc == TRUE)
-		ft_init_heredoc(shell);
+	/* if (shell->arg->hdoc == TRUE) */
+	/* 	ft_init_heredoc(shell); */
 	ft_check_execute(shell, envp);
 }

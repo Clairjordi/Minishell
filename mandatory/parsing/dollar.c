@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 09:39:51 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 19:55:20 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 14:29:02 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,11 @@ char	*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst)
 		ft_rep_if_dollar_num(shell, i, j, lst);
 	else
 	{
-		while (lst->value_split[i][*j])
+		while (lst->value_split[i][++*j])
 		{
 			shell->tmp = ft_charjoin(shell->tmp, lst->value_split[i][*j]);
 			if (shell->tmp == NULL)
 				ft_free_malloc(shell);
-			(*j)++;
 		}
 	}
 	return (shell->tmp);

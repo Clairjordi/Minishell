@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:57:08 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/26 17:37:52 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 14:46:28 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ char	*ft_check_path(t_shell *shell, char *path_test, char *path_cmd, int i)
 
 	path = NULL;
 	path = ft_strjoin(shell->path[i], "/");
-	if (!path)
+	if (path == NULL)
 		ft_free_malloc(shell);
 	path_test = ft_strjoin_free(path, path_cmd, 1);
-	if (!path_test)
+	if (path_test == NULL)
 	{
 		free(path);
 		ft_free_malloc(shell);

@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/28 18:46:33 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 20:15:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,26 @@ void	ft_waitpid_pipe(t_shell *shell)
 
 void	ft_add_pid(t_shell *shell)
 {
-	if (shell->tab_pid == NULL)
+	if (shell->tab_pid == NULL && shell->exec->pid != 0)
 	{
 		shell->tab_pid = ft_calloc(sizeof(char *), 2);
+		if (shell->tab_pid == NULL)
+			ft_free_malloc(shell);
 		shell->tab_pid[0] = ft_itoa(shell->exec->pid);
+		if (shell->tab_pid[0] == NULL)
+			ft_free_malloc(shell);
 		shell->tab_pid[1] = NULL;
 	}
-	else
-		shell->tab_pid = ft_realloc_tab_char(shell->tab_pid,
-				ft_itoa(shell->exec->pid));
+	else if(shell->exec->pid != 0)
+	{
+		shell->tmp = ft_itoa(shell->exec->pid);
+		if (shell->tmp == NULL)
+			ft_free_malloc(shell);
+		shell->tab_pid = ft_realloc_tab_char(shell->tab_pid, shell->tmp);
+		if (shell->tab_pid == NULL)
+			ft_free_malloc(shell);
+	}
+	shell->exec->pid = 0;
+	free(shell->tmp);
+	shell->tmp = NULL;
 }

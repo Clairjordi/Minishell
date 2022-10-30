@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/10/28 18:41:11 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/10/29 22:21:23 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ RM = rm -rf
 all: ${NAME}
 
 .c.o:
-	@gcc ${FLAGS} ${INC} -c $< -o $@
+	@cc ${FLAGS} ${INC} -c $< -o $@
 
 ${LIBFT}:
 		@make -C ./libft --no-print-directory

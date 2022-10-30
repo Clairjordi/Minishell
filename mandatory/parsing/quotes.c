@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 12:04:49 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/29 14:26:21 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,46 +37,24 @@ int	ft_skip_quote(int *i, char **s)
 	return (size);
 }
 
-int	ft_len_without_quote(char *str)
-{
-	int	i;
-	int	size;
-
-	i = 0;
-	size = 0;
-	while (str[i])
-	{
-		if (str[i] != '\"' && str[i] != '\'')
-			size++;
-		i++;
-	}
-	return (size);
-}
-
-char	*ft_delete_quotes(char *str)
+char	*ft_delete_quotes_redirect(t_shell *shell, char *s)
 {
 	int		i;
 	char	*new_str;
-	int		size;
-	int		size_copy;
-
-	size = ft_len_without_quote(str);
-	new_str = ft_calloc(sizeof(char *), (size + 1));
-	if (!new_str)
-		return (NULL);
 	i = 0;
-	size_copy = 0;
-	while (str[i])
+	new_str = NULL;
+	while (s[i])
 	{
-		if (str[i] != '\"' && str[i] != '\'')
+		shell->quote = ft_open_quote(shell, s[i]);
+		if ((shell->quote == 2 && s[i] != '\"') || (shell->quote == 1 && s[i] != '\''))
 		{
-			new_str[size_copy] = str[i];
-			size_copy++;
+			new_str = ft_charjoin(new_str, s[i]);
+			if (new_str == NULL)
+				ft_free_malloc(shell);
 		}
 		i++;
 	}
-	free(str);
-	new_str[size_copy] = '\0';
+	free(s);
 	return (new_str);
 }
 
