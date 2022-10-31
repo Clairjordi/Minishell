@@ -6,11 +6,18 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 16:46:24 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:16:09 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/* void	ft_free_built(t_shell *shell) */
+/* { */
+/* 	if (shell->built->env != NULL) */
+/* 		ft_free_tab_char(shell->built->env); */
+/* 	free(shell->built); */
+/* } */
 
 void	ft_free(t_shell *shell, char *s)
 {	

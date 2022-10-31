@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/29 22:13:03 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 19:07:49 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,20 @@ void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 			if (ft_check_infile(exec, lst->value_split, i) == FALSE)
 				break ;
 		}
-		else if (i == 0 && lst->hdoc == TRUE)
+		else if (lst->hdoc == TRUE)
 		{
-			ft_init_heredoc(shell, lst);
-			exec->infile = open(".heredoc", O_RDONLY, 0644);
+			if (i > 0 && ft_strcmp(lst->value_split[i - 1], "<") == 0)
+			{
+				ft_check_infile(shell->exec, lst->value_split, i);
+				if (shell->exec->infile > 2)
+					close(shell->exec->infile);
+			}
+			if (lst->value_split[i + 1] == NULL)
+			{
+				if (shell->exec->infile > 2)
+					close(shell->exec->infile);
+				shell->exec->infile = open(".heredoc", O_RDONLY, 0644);
+			}
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
@@ -46,7 +56,18 @@ void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 	ft_free_close(shell);
 }
 
-void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
+int	ft_verif_cat(t_shell *shell, t_cmds *lst)
+{
+	if (ft_strcmp(lst->value_split[0], "cat") == 0 && lst->prev != NULL
+			&& lst->prev->hdoc == TRUE)
+	{
+		if (shell->exec->infile == 0 && shell->exec->outfile == 0)
+			return (FALSE);
+	}
+	return (TRUE);
+}
+
+int	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	i;
 
@@ -61,10 +82,20 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 			if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 				break ;
 		}
-		else if (i == 0 && lst->hdoc == TRUE)
+		else if (lst->hdoc == TRUE)
 		{
-			ft_init_heredoc(shell, lst);
-			shell->exec->infile = open(".heredoc", O_RDONLY, 0644);
+			if (i > 0 && ft_strcmp(lst->value_split[i - 1], "<") == 0)
+			{
+				ft_check_infile(shell->exec, lst->value_split, i);
+				if (shell->exec->infile > 2)
+					close(shell->exec->infile);
+			}
+			if (lst->value_split[i + 1] == NULL)
+			{
+				if (shell->exec->infile > 2)
+					close(shell->exec->infile);
+				shell->exec->infile = open(".heredoc", O_RDONLY, 0644);
+			}
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
@@ -73,9 +104,10 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 		if (lst->value_split[i] != NULL)
 			i++;
 	}
-	if (shell->exec->cmd != NULL)
+	if (shell->exec->cmd != NULL && ft_verif_cat(shell, lst) == TRUE)
 		ft_execute_pipe(shell, shell->exec, envp, lst);
 	ft_free_close_pipe(shell, lst);
+	return (0);
 }
 
 int ft_check_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
@@ -110,7 +142,7 @@ void	ft_check_execute(t_shell *shell, char **envp)
 	{
 		while (lst)
 		{
-			if (ft_check_cmd_pipe(shell, lst, envp) == TRUE)
+			if (lst->next != NULL && ft_check_cmd_pipe(shell, lst, envp) == TRUE)
 			{
 				shell->pipe = ft_check_shell_pipe(shell, lst);
 				if (shell->pipe == ERROR)

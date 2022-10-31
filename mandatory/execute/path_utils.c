@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:32:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/29 14:43:14 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:14:54 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_find_path(t_shell *shell, char **envp)
 	char	*path;
 	int		i;
 
+	//(void) envp;
 	path = NULL;
 	i = 0;
 	while (envp[i])

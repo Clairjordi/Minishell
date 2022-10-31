@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/29 21:11:04 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:39:09 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,14 @@ typedef struct s_exec
 	pid_t	pid;
 }	t_exec;
 
+typedef struct s_builtins
+{
+	char	**env;
+}	t_built;
+
 typedef struct s_minishell
 {
+	t_built	*built;
 	t_exec	*exec;
 	t_cmds	*arg;
 	pid_t	pid_hdoc;
@@ -83,6 +89,7 @@ void	ft_init_exec(t_shell *shell);
 void	ft_init_prompt(t_shell *shell, char **envp);
 void	ft_init_struct(t_shell *shell);
 void	ft_init_cmds(t_cmds *cmd);
+void	ft_init_built(t_shell *shell, char **envp);
 
 //////PARSING
 int		ft_verif_if_str(char *str);
@@ -138,7 +145,7 @@ int		ft_add_cmd(t_shell *shell, char *s, char **envp);
 int		ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
 /*sort*/
 void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp);
-void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
+int		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
 int		ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
 void	ft_check_execute(t_shell *shell, char **envp);
 /*sort_utils*/
@@ -148,7 +155,7 @@ void	ft_add_pid(t_shell *shell);
 /*heredoc*/
 void	ft_heredoc(t_shell *shell);
 int		ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst);
-void	ft_init_heredoc(t_shell *shell, t_cmds *lst);
+int		ft_init_heredoc(t_shell *shell/* , t_cmds *lst */);
 /*heredoc_utils*/
 void	ft_get_idx_heredoc(t_cmds *lst);
 void	ft_count_heredoc(t_shell *shell);
@@ -168,7 +175,7 @@ void	ft_create_copy_export(t_shell *shell);
 void	ft_export(char **envp, t_shell *shell);
 void	ft_print_export(char **envp, t_shell *shell);
 /*env*/
-void	ft_recup_env(char **envp, t_shell *shell);
+void	ft_recup_env(t_shell *shell, char **envp);
 void	ft_add_envp(char **envp, t_shell *shell);
 void	ft_print_envp(char **envp, t_shell *shell);
 
@@ -195,6 +202,7 @@ char	**ft_split_value(char *s, char c);
 
 //////FREE
 /*free*/
+void    ft_free_built(t_shell *shell);
 void	ft_free_shell(t_shell *shell);
 void	ft_free_exec(t_shell *shell);
 void	ft_free_cmds(t_shell *shell);

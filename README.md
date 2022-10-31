@@ -87,6 +87,7 @@ Gérer lorsqu'on fait entrer dans le prompt directement
 
 - gerer les quotes quand il n'y a qu'une redirection, enlever les quotes actives -  pour les opt + outfiles (x2) // faire un check_q == 1 + une fct qui verifie qu'il n'y a bien que des redirection, puis changer delete quote pour qu'il n'enleve que les quotes activent
 dans les fichiers check_sort + sort + quote 
+- gerer le double prompt du ctrtl + c du cat
 
 
 NORME : 

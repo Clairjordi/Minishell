@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/29 20:15:47 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 18:02:42 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_waitpid_pipe(t_shell *shell)
 
 	i = 0;
 	wstatus = 0;
+	if (shell->tab_pid == NULL)
+		return ;
 	while (shell->tab_pid[i])
 	{
 		if (waitpid(ft_atoi(shell->tab_pid[i]), &wstatus, 0) == ERROR)

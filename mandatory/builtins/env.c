@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 17:06:10 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 13:40:28 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_recup_env(char **envp, t_shell *shell)
+void	ft_recup_env(t_shell *shell, char **envp)
 {
 	int	i;
 	int	len_double_array;
@@ -21,24 +21,24 @@ void	ft_recup_env(char **envp, t_shell *shell)
 	len_double_array = 0;
 	while (envp[len_double_array] != NULL)
 		len_double_array++;
-	shell->copy_envp = ft_calloc(sizeof(char *), (len_double_array + 1));
-	if (!shell->copy_envp)
+	shell->built->env = ft_calloc(sizeof(char *), (len_double_array + 1));
+	if (!shell->built->env)
 		ft_free_malloc(shell);
 	while (envp[i] != NULL)
 	{
-		shell->copy_envp[i] = ft_strdup(envp[i]);
-		if (shell->copy_envp[i] == NULL)
+		shell->built->env[i] = ft_strdup(envp[i]);
+		if (shell->built->env[i] == NULL)
 			ft_free_malloc(shell);
 		i++;
 	}
-	shell->copy_envp[i] = NULL;
+	shell->built->env[i] = NULL;
 }
 
 void	ft_add_envp(char **envp, t_shell *shell)
 {
 	//parametre : ajout de la cmd et peut du nombre de case a ajouter (?)
 	if (!shell->copy_envp)
-		ft_recup_env(envp, shell);
+		ft_recup_env(shell, envp);
 	/*
 	//verification si la commande n'est pas NULL puis ajout d'une case
 	//(gerer quand il y en a plusieurs car l'on peut creer plusieurs variables a la suite)
@@ -56,7 +56,7 @@ void	ft_print_envp(char **envp, t_shell *shell)
 
 	i = 0;
 	if (!shell->copy_envp)
-		ft_recup_env(envp, shell);
+		ft_recup_env(shell, envp);
 	while (shell->copy_envp[i] != NULL)
 	{
 		ft_printf("%s\n", shell->copy_envp[i]);

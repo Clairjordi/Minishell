@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/29 21:55:52 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:17:52 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->next = NULL;
 }
 
+/* void	ft_init_built(t_shell *shell, char **envp) */
+/* { */
+/* 	shell->built->env = NULL; */
+/* 	ft_recup_env(shell, envp); */
+/* } */
+
 void	ft_init_prompt(t_shell *shell, char **envp)
 {
 	char	*str;
@@ -57,6 +63,7 @@ void	ft_init_prompt(t_shell *shell, char **envp)
 		str = readline ("$>");
 		if (!str || !ft_strncmp("exit", str, 4))
 		{
+			//ft_free_built(shell);
 			ft_putstr_fd("exit\n", 1);
 			exit (0);
 		}

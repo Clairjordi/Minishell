@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:48:59 by clorcery          #+#    #+#             */
-/*   Updated: 2022/09/24 17:07:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/10/31 13:38:31 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_export(char **envp, t_shell *shell)
 	i = 0;
 	len_double_array = 0;
 	if (!shell->copy_envp)
-		ft_recup_env(envp, shell);
+		ft_recup_env(shell, envp);
 	while (shell->copy_envp[len_double_array] != NULL)
 		len_double_array++;
 	shell->copy_export = ft_calloc(sizeof(char *), (len_double_array + 1));
