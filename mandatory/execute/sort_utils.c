@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/31 18:02:42 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:24:28 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,28 @@ int	ft_check_shell_pipe(t_shell *shell, t_cmds *lst)
 	return (shell->pipe);
 }
 
-void	ft_waitpid_pipe(t_shell *shell)
+int	ft_waitpid_pipe(t_shell *shell)
 {
 	int	i;
 	int	wstatus;
 
 	i = 0;
-	wstatus = 0;
 	if (shell->tab_pid == NULL)
-		return ;
+		return (0);
 	while (shell->tab_pid[i])
 	{
 		if (waitpid(ft_atoi(shell->tab_pid[i]), &wstatus, 0) == ERROR)
 			perror("ERROR waitpid");
+		ft_status_child(wstatus);
+		if (wstatus != 0)
+		{	
+			ft_putstr_fd("\n", 1);
+			return (ERROR);
+		}
 		i++;
 	}
-	ft_status_child(wstatus);
+	g_g.is_in_heredoc = 0;
+	return (0);
 }
 
 void	ft_add_pid(t_shell *shell)

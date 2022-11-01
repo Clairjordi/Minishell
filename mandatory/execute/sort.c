@@ -6,13 +6,13 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/31 19:07:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:08:37 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
+int		ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 {
 	int	i;
 	int	wstatus;
@@ -52,8 +52,14 @@ void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 	}
 	if (shell->exec->cmd != NULL)
 		wstatus = ft_execute_cmd(shell, envp, lst, wstatus);
+	ft_free_close(shell);	
 	ft_status_child(wstatus);
-	ft_free_close(shell);
+	if (wstatus != 0)
+	{
+		ft_putstr_fd("\n", 1);
+		return (ERROR);
+	}
+	return (0);
 }
 
 int	ft_verif_cat(t_shell *shell, t_cmds *lst)
@@ -124,7 +130,7 @@ int ft_check_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 	return (FALSE);
 }
 
-void	ft_check_execute(t_shell *shell, char **envp)
+int	ft_check_execute(t_shell *shell, char **envp)
 {
 	t_cmds	*lst;
 
@@ -132,11 +138,8 @@ void	ft_check_execute(t_shell *shell, char **envp)
 	shell->exec->pid = 0;
 	if (shell->pipe == 1)
 	{
-		while (lst)
-		{	
-			ft_sort_cmd(shell, shell->exec, lst, envp);
-			lst = lst->next;
-		}
+		if (ft_sort_cmd(shell, shell->exec, lst, envp)== ERROR)
+			return (ERROR);
 	}
 	else
 	{
@@ -152,6 +155,8 @@ void	ft_check_execute(t_shell *shell, char **envp)
 			ft_add_pid(shell);
 			lst = lst->next;
 		}
-		ft_waitpid_pipe(shell);
+		if (ft_waitpid_pipe(shell) == ERROR)
+			return (ERROR);
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:45:27 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/28 17:14:05 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:33:02 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handler(int sig)
 		free(g_g.limiter);
 		close(g_g.fd_hdoc);
 		exit (130);
-	}
+	}	
 	else if (sig == SIGINT && g_g.is_in_heredoc == 0)
 	{
 		ft_putstr_fd("\n", 1);
