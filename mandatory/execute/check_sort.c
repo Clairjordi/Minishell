@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/29 14:41:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:26:56 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_check_first(t_shell *shell, char **envp, char *s)
 	if (ft_get_path(shell, s, envp) == NULL
 		&& ft_valid_redirect(s) == FALSE)
 	{
-		ft_putendl_fd("First arg must be cmd or redirection", 2);
+		ft_putendl_fd("Command not found", 2);
 		g_g.status = 127;
 		return (FALSE);
 	}

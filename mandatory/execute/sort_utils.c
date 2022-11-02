@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/01 12:24:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:10:39 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,24 @@ int	ft_check_shell_pipe(t_shell *shell, t_cmds *lst)
 	return (shell->pipe);
 }
 
+int	ft_check_hdoc(t_shell *shell)
+{
+	t_cmds	*lst;
+
+	lst = shell->arg;
+	while (lst->next != NULL)
+		lst = lst->next;
+	if (lst->hdoc == TRUE)
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
 int	ft_waitpid_pipe(t_shell *shell)
 {
 	int	i;
 	int	wstatus;
+	int	lol = 0;
 
 	i = 0;
 	if (shell->tab_pid == NULL)
@@ -38,14 +52,19 @@ int	ft_waitpid_pipe(t_shell *shell)
 	{
 		if (waitpid(ft_atoi(shell->tab_pid[i]), &wstatus, 0) == ERROR)
 			perror("ERROR waitpid");
-		ft_status_child(wstatus);
-		if (wstatus != 0)
-		{	
+		if (wstatus != 13)
+			ft_status_child(wstatus);
+		if (wstatus != 0 && wstatus != 13 && lol == 0 && shell->pid_hdoc == 0)
+		{
 			ft_putstr_fd("\n", 1);
-			return (ERROR);
+			lol = 1;
 		}
 		i++;
 	}
+	if (ft_check_hdoc(shell) == TRUE)
+		g_g.status = 0;
+	if (wstatus != 0 && wstatus != 13 && lol == 0)
+		ft_putstr_fd("\n", 1);
 	g_g.is_in_heredoc = 0;
 	return (0);
 }

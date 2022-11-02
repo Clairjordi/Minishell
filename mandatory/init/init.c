@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/31 14:17:52 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:49:32 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_init_shell(t_shell *shell)
 {
 	shell->arg = NULL;
 	shell->exec = malloc(sizeof(t_exec));
+	shell->pid_hdoc = 0;
 	shell->quote = 0;
 	shell->dollar = 0;
 	shell->pipe = 0;

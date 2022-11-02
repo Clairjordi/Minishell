@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/01 12:18:00 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/02 18:24:57 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	ft_verif_cat_bis(t_shell *shell, t_cmds *lst)
 
 void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 {
-	(void) *lst;
 	exec->pid = fork();
 	if (exec->pid == ERROR)
 		perror("ERROR pid");
@@ -52,17 +51,19 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 	{
 		g_g.is_in_heredoc = 3;
 		signal(SIGQUIT, SIG_DFL);
+		if (lst->prev != NULL && lst->prev->pipe_fd[1] > 2)
+			close(lst->prev->pipe_fd[1]);
+		if (lst->pipe_fd[0] > 2)
+			close(lst->pipe_fd[0]);
+
 		ft_check_child_execute(shell, envp, lst);
 	}
 	g_g.is_in_heredoc = 2;
-	if (lst->prev != NULL && lst->next != NULL && lst->hdoc == FALSE
-			&& ft_verif_cat_bis(shell, lst) == TRUE)
-	{
-		close(lst->prev->pipe_fd[0]);
-		lst->prev->pipe_fd[0] = 0;
-	}
 	if (lst->next != NULL)
+	{
 		close(lst->pipe_fd[1]);
+		lst->pipe_fd[1] = 0;
+	}
 }
 
 void	ft_minishell(t_shell *shell, char **envp)

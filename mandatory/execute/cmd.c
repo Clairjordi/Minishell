@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/29 18:27:59 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:51:20 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 		&& ft_valid_redirect(tab[i]) == FALSE
 		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 		ft_get_path(shell, tab[i], envp);
-	if (i == 0 && ft_valid_redirect(tab[i]) == FALSE)
+	if (i == 0 && ft_valid_redirect(tab[i]) == FALSE
+		&& shell->exec->cmd_path != NULL)
 		ft_add_cmd(shell, tab[i], envp);
 	else if (i > 0 && shell->exec->cmd_path != NULL
 		&& shell->exec->cmd == NULL
