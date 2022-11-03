@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:23:28 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/03 18:59:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 19:05:46 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_dollar(t_shell *shell, char *s, int i)
+int	ft_check_dollar(char *s, int i)
 {
 	while (s[i])
 	{
