@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:45:27 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/01 12:33:02 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:13:49 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handler(int sig)
 		free(g_g.limiter);
 		close(g_g.fd_hdoc);
 		exit (130);
-	}	
+	}
 	else if (sig == SIGINT && g_g.is_in_heredoc == 0)
 	{
 		ft_putstr_fd("\n", 1);
@@ -33,9 +33,7 @@ void	handler(int sig)
 void	ft_status_child(int wstatus)
 {
 	if (WIFEXITED(wstatus))
-	{
 		g_g.status = WEXITSTATUS(wstatus);
-	}
 	if (WIFSIGNALED(wstatus))
 	{
 		g_g.status = WTERMSIG(wstatus);

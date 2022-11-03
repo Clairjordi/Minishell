@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 13:48:58 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:41:08 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_add_cmd(t_shell *shell, char *s, char **envp)
 	return (TRUE);
 }
 
-void	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
+int	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 {
 	if (i == 0 && shell->exec->cmd_path == NULL
 		&& ft_valid_redirect(tab[i]) == FALSE)
@@ -52,32 +52,25 @@ void	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 		{
 			ft_putendl_fd("Command not found", 2); 
  			g_g.status = 127;
-			return ;
+			return (FALSE);
  		}
 		ft_add_cmd(shell, tab[i], envp);
 	}
 	else if (i > 0 && shell->exec->cmd_path == NULL
 		&& ft_valid_redirect(tab[i]) == FALSE
-		&& ft_valid_redirect(tab[i - 1]) == TRUE)
+		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 	{
 		if (ft_get_path(shell, tab[i], envp) == NULL)
 		{
 			ft_putendl_fd("Command not found", 2); 
  			g_g.status = 127;
-			return ;
+			return (FALSE);
 		}
 		ft_add_cmd(shell, tab[i], envp);
 	}
-	/* if (i == 0 && ft_valid_redirect(tab[i]) == FALSE */
-	/* 	&& shell->exec->cmd_path != NULL) */
-	/* 	ft_add_cmd(shell, tab[i], envp); */
-	/* else if (i > 0 && shell->exec->cmd_path != NULL */
-	/* 	&& shell->exec->cmd == NULL */
-	/* 	&& ft_valid_redirect(tab[i - 1]) == FALSE */
-	/* 	&& ft_valid_redirect(tab[i]) == FALSE) */
-	/* 	ft_add_cmd(shell, tab[i], envp); */
 	else if (i > 0 && shell->exec->cmd != NULL
 		&& ft_valid_redirect(tab[i]) == FALSE
 		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 		ft_add_opt_arg(shell, tab, i);
+	return (TRUE);
 }

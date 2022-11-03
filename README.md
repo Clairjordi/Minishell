@@ -89,6 +89,9 @@ Gérer lorsqu'on fait entrer dans le prompt directement
 dans les fichiers check_sort + sort + quote 
 - gerer le double prompt du ctrtl + c du cat
 
+- quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
+
+- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
 
 NORME : 
 

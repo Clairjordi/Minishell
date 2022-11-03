@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/02 18:10:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 17:20:15 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check_shell_pipe(t_shell *shell, t_cmds *lst)
 	return (shell->pipe);
 }
 
-int	ft_check_hdoc(t_shell *shell)
+int	ft_check_last(t_shell *shell)
 {
 	t_cmds	*lst;
 
@@ -34,39 +34,45 @@ int	ft_check_hdoc(t_shell *shell)
 	while (lst->next != NULL)
 		lst = lst->next;
 	if (lst->hdoc == TRUE)
-		return (TRUE);
+		return (1);
+	else if (lst->cmd_found == FALSE)
+		return (2);
 	else
-		return (FALSE);
+		return (0);
 }
 
-int	ft_waitpid_pipe(t_shell *shell)
+void	ft_waitpid_pipe(t_shell *shell)
 {
 	int	i;
 	int	wstatus;
-	int	lol = 0;
+	int	tmp;
 
 	i = 0;
+	tmp = g_g.status;
+
+	ft_printf("status = %d\n", g_g.status);
 	if (shell->tab_pid == NULL)
-		return (0);
+	{	
+		if (ft_check_last(shell) == 1)
+			g_g.status = 0;
+		return ;
+	}
 	while (shell->tab_pid[i])
 	{
 		if (waitpid(ft_atoi(shell->tab_pid[i]), &wstatus, 0) == ERROR)
 			perror("ERROR waitpid");
-		if (wstatus != 13)
-			ft_status_child(wstatus);
-		if (wstatus != 0 && wstatus != 13 && lol == 0 && shell->pid_hdoc == 0)
-		{
-			ft_putstr_fd("\n", 1);
-			lol = 1;
-		}
 		i++;
 	}
-	if (ft_check_hdoc(shell) == TRUE)
+	ft_status_child(wstatus);
+	if (ft_check_last(shell) == 1)
 		g_g.status = 0;
-	if (wstatus != 0 && wstatus != 13 && lol == 0)
-		ft_putstr_fd("\n", 1);
+	if ((ft_size_lst(shell->arg) != i && ft_check_last(shell) == 2)
+		|| (ft_size_lst(shell->arg) != i && tmp == 1)
+		|| g_g.status == 141)
+		g_g.status = tmp;
+	/* if (ft_check_last(shell) == 2) */
+	/* 	g_g.status = 127; */
 	g_g.is_in_heredoc = 0;
-	return (0);
 }
 
 void	ft_add_pid(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 11:44:58 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 14:29:09 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,6 @@ void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst)
 		ft_last_child(exec, lst);
 	else
 		ft_else_child(exec, lst);
-	/* if (shell->exec->cmd == NULL) */
-	/* { */
-	/* 	close(exec->infile); */
-	/* 	ft_free(shell, ""); */
-	/* 	exit(0); */
-	/* } */
 	if (execve(exec->cmd_path, exec->cmd, envp) == ERROR)
 	{	
 		close (exec->infile);

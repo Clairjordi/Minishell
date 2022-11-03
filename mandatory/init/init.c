@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/01 13:49:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 16:17:39 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->count_hdoc = 0;
 	cmd->pipe_fd[0] = 0;
 	cmd->pipe_fd[1] = 0;
+	cmd->cmd_found = TRUE;
 	cmd->prev = NULL;
 	cmd->next = NULL;
 }
