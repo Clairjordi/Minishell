@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:32:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/31 14:14:54 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 13:27:24 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_check_access(t_shell *shell, char *path_cmd)
 
 int	ft_check_path_cmd(char *path_cmd)
 {
-	if (access(path_cmd, F_OK | X_OK))
+	if (access(path_cmd, F_OK | X_OK) == 0)
 		return (0);
 	else
 		return (-1);

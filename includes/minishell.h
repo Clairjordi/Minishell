@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/01 12:08:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 13:29:30 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_create_lst(t_shell *shell);
 /*pipes*/
 int		ft_verif_pipe(char *s);
 int		ft_check_pipe(char *s);
+int		ft_check_space_pipe(t_shell *shell);
 /*quotes*/
 char	*ft_delete_quotes_redirect(t_shell *shell, char *s);
 int		ft_count_quote(char *str);
@@ -142,7 +143,7 @@ void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst);
 /*cmd*/
 void	ft_add_opt_arg(t_shell *shell, char **tab, int i);
 int		ft_add_cmd(t_shell *shell, char *s, char **envp);
-int		ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
+void	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
 /*sort*/
 int		ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp);
 int		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);

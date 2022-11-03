@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:47:13 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/02 19:14:45 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 10:31:49 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,30 @@ int	ft_check_pipe(char *s)
 			ft_putendl_fd("Wrong pipes syntax", 2);
 			g_g.status = 2;
 			return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	ft_check_space_pipe(t_shell *shell)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (shell->tab_cmd[i] != NULL)
+	{
+		j = 0;
+		while (shell->tab_cmd[i][j] && shell->tab_cmd[i][j] == ' ')
+		{
+			if (shell->tab_cmd[i][j + 1] == '\0')
+			{
+				ft_putendl_fd("Wrong pipes syntax", 2);
+				g_g.status = 2;
+				return (ERROR);
+			}
+			j++;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:57:08 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/29 14:46:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 13:27:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_get_path(t_shell *shell, char *path_cmd, char **envp)
 	while (shell->path[i])
 	{
 		path_test = ft_check_path(shell, path_test, path_cmd, i);
-		if (ft_check_path_cmd(path_test))
+		if (ft_check_path_cmd(path_test) == 0)
 		{
 			ft_get_path_bis(shell, path_test);
 			free(path_test);

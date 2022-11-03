@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/02 17:26:56 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 11:22:11 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,15 @@ int	ft_check_outfile(t_shell *shell, char **tab, int i)
 	}
 	return (TRUE);
 }
-
-int	ft_check_first(t_shell *shell, char **envp, char *s)
-{
-	if (ft_get_path(shell, s, envp) == NULL
-		&& ft_valid_redirect(s) == FALSE)
-	{
-		ft_putendl_fd("Command not found", 2);
-		g_g.status = 127;
-		return (FALSE);
-	}
-	return (TRUE);
-}
+/*  */
+/* int	ft_check_first(t_shell *shell, char **envp, char *s) */
+/* { */
+/* 	if (ft_get_path(shell, s, envp) == NULL */
+/* 		&& ft_valid_redirect(s) == FALSE) */
+/* 	{ */
+/* 		ft_putendl_fd("Command not found", 2); */
+/* 		g_g.status = 127; */
+/* 		return (FALSE); */
+/* 	} */
+/* 	return (TRUE); */
+/* } */

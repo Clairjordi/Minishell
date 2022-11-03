@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/02 18:28:50 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:19:09 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,13 @@ int		ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 {
 	int	i;
 	int	wstatus;
-	int	cmd;
-
-	cmd = TRUE;
+	
 	i = 0;
 	wstatus = 0;
 	while (lst->value_split[i])
 	{
-		if (i == 0 && ft_check_first(shell, envp, lst->value_split[0]) == 0)
-			cmd = FALSE;
 		if (ft_check_infile(exec, lst->value_split, i) == FALSE)
-		{
-			cmd = FALSE;
 			break ;
-		}
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
 		{
 			if (shell->exec->infile > 2)
@@ -38,12 +31,11 @@ int		ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (ft_check_cmd(shell, envp, lst->value_split, i) == FALSE)
-			break ;
+		ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
 	}
-	if (cmd == TRUE && shell->exec->cmd != NULL)
+	if (shell->exec->cmd != NULL)
 		wstatus = ft_execute_cmd(shell, envp, lst, wstatus);
 	ft_free_close(shell);	
 	ft_status_child(wstatus);
@@ -58,19 +50,12 @@ int		ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 int	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	i;
-	int	cmd;
-
-	cmd = TRUE;
+	
 	i = 0;
 	while (lst->value_split[i])
 	{
-		if (i == 0 && ft_check_first(shell, envp, lst->value_split[0]) == 0)
-			cmd = FALSE;
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
-		{
-			cmd = FALSE;
 			break ;
-		}
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
 		{
 			if (shell->exec->infile > 2)
@@ -79,12 +64,11 @@ int	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (ft_check_cmd(shell, envp, lst->value_split, i) == FALSE)
-			break ;
+		ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
 	}
-	if (cmd == TRUE && shell->exec->cmd != NULL)
+	if (shell->exec->cmd != NULL)
 		ft_execute_pipe(shell, shell->exec, envp, lst);
 	ft_free_close_pipe(shell, lst);
 	return (0);
