@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 12:17:45 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/03 13:48:58 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 		{
 			ft_putendl_fd("Command not found", 2); 
  			g_g.status = 127;
+			return ;
  		}
 		ft_add_cmd(shell, tab[i], envp);
 	}
@@ -63,6 +64,7 @@ void	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 		{
 			ft_putendl_fd("Command not found", 2); 
  			g_g.status = 127;
+			return ;
 		}
 		ft_add_cmd(shell, tab[i], envp);
 	}
