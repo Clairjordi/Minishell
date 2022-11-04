@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 08:44:31 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:26:50 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
+	t_env	envcpy;
 
 	(void) argv;
+	envcpy = ft_init_envcpy(envp);
 	//shell.built = malloc(sizeof(t_built));
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
