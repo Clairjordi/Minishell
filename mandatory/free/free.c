@@ -6,18 +6,42 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/03 16:19:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:23:41 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* void	ft_free_built(t_shell *shell) */
-/* { */
-/* 	if (shell->built->env != NULL) */
-/* 		ft_free_tab_char(shell->built->env); */
-/* 	free(shell->built); */
-/* } */
+void	ft_free_built(t_shell *shell)
+{
+	if (shell->built->env != NULL)
+		ft_free_tab_char(shell->built->env);
+	free(shell->built);
+}
+
+void	ft_free_envcpy(t_shell *shell)
+{
+	t_envcpy	*tmp;
+	t_envcpy	*buf;
+
+	if (shell->env->first == NULL)
+		return ;
+	tmp = shell->env->first;
+	while (tmp != NULL)
+	{
+		buf = tmp->next;
+		if (tmp->name != NULL)
+			free(tmp->name);
+		if (tmp->value != NULL)
+			free(tmp->value);
+		if (tmp->var != NULL)
+			free(tmp->var);
+		free(tmp);
+		tmp = buf;
+	}
+	shell->env->first = NULL;
+	free(shell->env);
+}
 
 void	ft_free(t_shell *shell, char *s)
 {	
@@ -65,10 +89,6 @@ void	ft_free_cmds(t_shell *shell)
 
 void	ft_free_shell(t_shell *shell)
 {
-	if (shell->copy_envp != NULL)
-		ft_free_tab_char(shell->copy_envp);
-	if (shell->copy_export != NULL)
-		ft_free_tab_char(shell->copy_export);
 	if (shell->tab_pid != NULL)
 		ft_free_tab_char(shell->tab_pid);
 	if (shell->tab_cmd != NULL)
