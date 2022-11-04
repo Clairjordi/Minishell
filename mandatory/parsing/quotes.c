@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:43:15 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/29 14:26:21 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:45:09 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ char	*ft_delete_quotes_redirect(t_shell *shell, char *s)
 {
 	int		i;
 	char	*new_str;
+
 	i = 0;
 	new_str = NULL;
 	while (s[i])
 	{
 		shell->quote = ft_open_quote(shell, s[i]);
-		if ((shell->quote == 2 && s[i] != '\"') || (shell->quote == 1 && s[i] != '\''))
+		if ((shell->quote == 2 && s[i] != '\"')
+			|| (shell->quote == 1 && s[i] != '\''))
 		{
 			new_str = ft_charjoin(new_str, s[i]);
 			if (new_str == NULL)

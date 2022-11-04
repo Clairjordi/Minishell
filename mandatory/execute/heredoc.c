@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/03 13:39:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:22:46 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ int	ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst)
 	}
 	else if (shell->pid_hdoc == 0)
 	{
-		g_g.is_in_heredoc = 1;
+		g_g.is_in_loop = 1;
 		ft_heredoc(shell);
 	}
-	g_g.is_in_heredoc = 2;
+	g_g.is_in_loop = 2;
 	free(g_g.limiter);
 	close(g_g.fd_hdoc);
 	if (waitpid(shell->pid_hdoc, &wstatus, 0) == ERROR)
 		perror("ERROR waitpid heredoc");
-	g_g.is_in_heredoc = 0;
+	g_g.is_in_loop = 0;
 	return (wstatus);
 }
 

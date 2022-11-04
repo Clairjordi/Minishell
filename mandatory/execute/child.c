@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 14:29:09 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:34:17 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	ft_first_child(t_exec *exec, t_cmds *lst)
 			perror("ERROR dup 1");
 	}
 	if (dup2(STDIN_FILENO, lst->pipe_fd[0]) == ERROR)
-			perror("ERROR dup 2");
+		perror("ERROR dup 2");
 	if (exec->outfile > 2)
 	{
 		if (dup2(exec->outfile, lst->pipe_fd[1]) == ERROR)
 			perror("ERROR dup 3");
 	}
 	if (dup2(lst->pipe_fd[1], STDOUT_FILENO) == ERROR)
-			perror("ERROR dup 4");
+		perror("ERROR dup 4");
 }
 
 void	ft_last_child(t_exec *exec, t_cmds *lst)
@@ -58,7 +58,7 @@ void	ft_last_child(t_exec *exec, t_cmds *lst)
 			perror("ERROR dup 5");
 	}
 	if (dup2(lst->prev->pipe_fd[0], STDIN_FILENO) == ERROR)
-			perror("ERROR dup 6");
+		perror("ERROR dup 6");
 	if (exec->outfile > 2)
 	{
 		if (dup2(exec->outfile, STDOUT_FILENO) == ERROR)
@@ -74,7 +74,7 @@ void	ft_else_child(t_exec *exec, t_cmds *lst)
 			perror("ERROR dup 8");
 	}
 	if (dup2(lst->prev->pipe_fd[0], STDIN_FILENO) == ERROR)
-			perror("ERROR dup 9");
+		perror("ERROR dup 9");
 	if (exec->outfile > 2)
 	{
 		if (dup2(exec->outfile, lst->pipe_fd[1]) == ERROR)

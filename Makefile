@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/10/29 22:21:23 by clorcery         ###   ########.fr        #
+#    Updated: 2022/11/04 07:58:29 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS = mandatory/main.c \
 	   mandatory/execute/cmd.c \
 	   mandatory/execute/sort.c \
 	   mandatory/execute/sort_utils.c \
+	   mandatory/execute/sort_utils_bis.c \
 	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}

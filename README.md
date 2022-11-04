@@ -60,10 +60,10 @@ Exemples de redirection :
 
 Gestion de pipes :
 - < essai grep g>ile7 | wc -w  > ile8 -> la sortie de la premiere partie du pipe est redirige vers un outfile et donc il n'y a rien dans l'entree du pipe et donc la sortie de la 2eme partie du pipe vaut 0 vu qu'il n'y a rien dans son entree
-- a | t | (fini avec un espace seulement) -> doit afficher une erreur
+OK - a | t | (fini avec un espace seulement) -> doit afficher une erreur
 
 
-Gestion de la premiere position : 
+OK Gestion de la premiere position : 
 
 exemples :
 - essai < grep o | cat essai -> bash: grep: No such file or directory // lit le contenu du fichier avec cat
@@ -78,25 +78,22 @@ exemples :
 		possibilite de faire une specificite dans add_env - si pas de egal l'ajouter seulement a export sans "=""" - l'ajouter avec un realloc.
 -verifier les includes dans le h vraiment necessaire
 -gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure. pour tester : ulimits -30
-- chaine vide dans le split
+OK - chaine vide dans le split
 - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
-Gérer lorsqu'on fait entrer dans le prompt directement
-- ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
-- retirer les quotes des noms des outfiles avant de les open
-- gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork
-
-- gerer les quotes quand il n'y a qu'une redirection, enlever les quotes actives -  pour les opt + outfiles (x2) // faire un check_q == 1 + une fct qui verifie qu'il n'y a bien que des redirection, puis changer delete quote pour qu'il n'enleve que les quotes activent
-dans les fichiers check_sort + sort + quote 
-- gerer le double prompt du ctrtl + c du cat
+OK - Gérer lorsqu'on fait entrer dans le prompt directement
+OK - ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
+OK - retirer les quotes des noms des outfiles avant de les open
+- gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork 
+OK- gerer le double prompt du ctrtl + c du cat
 
 - quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
 
-- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
+bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
 
 NORME : 
 
 
-test a faire :
+OK test a faire :
 < essai grep '>'>'>">'outfile [ok]
 gf>earhb>>rB>> [non gere]
 a >> w

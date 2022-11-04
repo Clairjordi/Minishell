@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/03 18:59:50 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:31:30 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_global
 	int		status;
 	char	*limiter;
 	char	*line;
-	int		is_in_heredoc;
+	int		is_in_loop;
 	int		fd_hdoc;
 }	t_global;
 
@@ -127,7 +127,7 @@ int		ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/
-int		ft_execute_cmd(t_shell *shell, char **envp, t_cmds *lst, int wstatus);
+int		ft_execute_cmd(t_shell *shell, char **envp, int wstatus);
 void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
 void	ft_minishell(t_shell *shell, char **envp);
 /*check_sort*/
@@ -147,14 +147,16 @@ void	ft_add_opt_arg(t_shell *shell, char **tab, int i);
 int		ft_add_cmd(t_shell *shell, char *s, char **envp);
 int		ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
 /*sort*/
-int		ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp);
-int		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
-int		ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
-int		ft_check_execute(t_shell *shell, char **envp);
+void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp);
+void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
+void	ft_check_execute(t_shell *shell, char **envp);
 /*sort_utils*/
 int		ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
 void	ft_waitpid_pipe(t_shell *shell);
 void	ft_add_pid(t_shell *shell);
+/*sort_utils_bis*/
+int		ft_is_a_path(char *str);
+int		ft_is_directory(char *str);
 /*heredoc*/
 void	ft_heredoc(t_shell *shell);
 int		ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst);

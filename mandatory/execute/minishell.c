@@ -6,28 +6,27 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 15:50:05 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:31:36 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_execute_cmd(t_shell *shell, char **envp, t_cmds *lst, int wstatus)
+int	ft_execute_cmd(t_shell *shell, char **envp, int wstatus)
 {
-	(void) *lst;
 	shell->exec->pid = fork();
 	if (shell->exec->pid == ERROR)
 		perror("ERROR pid");
 	if (shell->exec->pid == 0)
 	{
-		g_g.is_in_heredoc = 3;
+		g_g.is_in_loop = 3;
 		signal(SIGQUIT, SIG_DFL);
 		ft_child_cmd(shell, shell->exec, envp);
 	}
-	g_g.is_in_heredoc = 2;
+	g_g.is_in_loop = 2;
 	if (waitpid(shell->exec->pid, &wstatus, 0) == ERROR)
 		perror("ERROR waitpid");
-	g_g.is_in_heredoc = 0;
+	g_g.is_in_loop = 0;
 	return (wstatus);
 }
 
@@ -38,7 +37,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 		perror("ERROR pid");
 	if (exec->pid == 0)
 	{
-		g_g.is_in_heredoc = 3;
+		g_g.is_in_loop = 3;
 		signal(SIGQUIT, SIG_DFL);
 		if (lst->prev != NULL && lst->prev->pipe_fd[1] > 2)
 			close(lst->prev->pipe_fd[1]);
@@ -46,7 +45,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 			close(lst->pipe_fd[0]);
 		ft_check_child_execute(shell, envp, lst);
 	}
-	g_g.is_in_heredoc = 2;
+	g_g.is_in_loop = 2;
 	if (lst->next != NULL)
 	{
 		close(lst->pipe_fd[1]);
@@ -61,6 +60,5 @@ void	ft_minishell(t_shell *shell, char **envp)
 	ft_count_heredoc(shell);
 	if (ft_init_heredoc(shell) == ERROR)
 		return ;
-	if (ft_check_execute(shell, envp) == ERROR)
-		return ;
+	ft_check_execute(shell, envp);
 }

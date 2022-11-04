@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 17:20:15 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 08:33:36 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_check_last(t_shell *shell)
 
 	lst = shell->arg;
 	while (lst->next != NULL)
-		lst = lst->next;
+	lst = lst->next;
 	if (lst->hdoc == TRUE)
 		return (1);
 	else if (lst->cmd_found == FALSE)
@@ -49,8 +49,6 @@ void	ft_waitpid_pipe(t_shell *shell)
 
 	i = 0;
 	tmp = g_g.status;
-
-	ft_printf("status = %d\n", g_g.status);
 	if (shell->tab_pid == NULL)
 	{	
 		if (ft_check_last(shell) == 1)
@@ -67,12 +65,9 @@ void	ft_waitpid_pipe(t_shell *shell)
 	if (ft_check_last(shell) == 1)
 		g_g.status = 0;
 	if ((ft_size_lst(shell->arg) != i && ft_check_last(shell) == 2)
-		|| (ft_size_lst(shell->arg) != i && tmp == 1)
-		|| g_g.status == 141)
+		|| (ft_size_lst(shell->arg) != i && tmp == 1) || g_g.status == 141)
 		g_g.status = tmp;
-	/* if (ft_check_last(shell) == 2) */
-	/* 	g_g.status = 127; */
-	g_g.is_in_heredoc = 0;
+	g_g.is_in_loop = 0;
 }
 
 void	ft_add_pid(t_shell *shell)
@@ -87,7 +82,7 @@ void	ft_add_pid(t_shell *shell)
 			ft_free_malloc(shell);
 		shell->tab_pid[1] = NULL;
 	}
-	else if(shell->exec->pid != 0)
+	else if (shell->exec->pid != 0)
 	{
 		shell->tmp = ft_itoa(shell->exec->pid);
 		if (shell->tmp == NULL)
