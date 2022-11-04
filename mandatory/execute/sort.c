@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 08:32:59 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:33:16 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 static void	ft_sort_cmdb(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 {
 	int	i;
+	int	is_dir;
 
 	i = 0;
+	is_dir = 0;
 	while (lst->value_split[i])
 	{
-		ft_is_directory(lst->value_split[i]);
+		is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
@@ -30,7 +32,7 @@ static void	ft_sort_cmdb(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (g_g.status != 126 && lst->cmd_found == TRUE)
+		if (is_dir == 0 && lst->cmd_found == TRUE)
 			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
@@ -54,11 +56,13 @@ void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	i;
+	int	is_dir;
 
 	i = 0;
+	is_dir = 0;
 	while (lst->value_split[i])
 	{
-		ft_is_directory(lst->value_split[i]);
+		is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
@@ -69,7 +73,7 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (g_g.status != 126 && lst->cmd_found == TRUE)
+		if (is_dir == 0 && lst->cmd_found == TRUE)
 			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
