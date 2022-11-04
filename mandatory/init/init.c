@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 10:35:15 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/04 10:51:56 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,6 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->cmd_found = TRUE;
 	cmd->prev = NULL;
 	cmd->next = NULL;
-}
-
-t_env ft_init_envcpy(char **envp)
-{
-	t_env first;
-
-	first = malloc(sizeof(t_env));
-	
 }
 
 /* void	ft_init_built(t_shell *shell, char **envp) */

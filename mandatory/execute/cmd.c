@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 09:52:27 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 11:05:18 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,12 @@ int	ft_add_cmd(t_shell *shell, char *s, char **envp)
 	return (TRUE);
 }
 
-int	ft_point(t_shell *shell, char **tab, int i)
+int	ft_check_point(t_shell *shell, char **tab, int i)
 {	
 	if (i == 0 && shell->exec->cmd_path == NULL
 		&& ft_valid_redirect(tab[i]) == FALSE)
 	{
-		if ((tab[i][0] == '.' && tab[i][1] == '\0')
-			|| (tab[i][0] == '.' && tab[i][1] == '.' && tab[i][2] == '\0'))
+		if (tab[i][0] == '.' && tab[i][1] == '\0')
 		{
 			ft_putendl_fd("filename argument required", 2);
 			g_g.status = 2;
@@ -60,11 +59,10 @@ int	ft_point(t_shell *shell, char **tab, int i)
 		&& ft_valid_redirect(tab[i]) == FALSE
 		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 	{
-		if ((tab[i][0] == '.' && tab[i][1] == '\0')
-			|| (tab[i][0] == '.' && tab[i][1] == '.' && tab[i][2] == '\0'))
+		if (tab[i][0] == '.' && tab[i][1] == '\0')
 		{
-			ft_putendl_fd("Command not found", 2);
-			g_g.status = 127;
+			ft_putendl_fd("filename argument required", 2);
+			g_g.status = 2;
 			return (FALSE);
 		}
 	}
@@ -73,37 +71,30 @@ int	ft_point(t_shell *shell, char **tab, int i)
 
 static int	ft_check_cmd_bis(t_shell *shell, char **envp, char **tab, int i)
 {
-	if (i == 0 && shell->exec->cmd_path == NULL
-		&& ft_valid_redirect(tab[i]) == FALSE)
+	if (ft_get_path(shell, tab[i], envp) == NULL
+		|| (tab[i][0] == '.' && tab[i][1] == '.' && tab[i][2] == '\0'))
 	{
-		if (ft_get_path(shell, tab[i], envp) == NULL)
-		{
-			ft_putendl_fd("Command not found", 2);
-			g_g.status = 127;
-			return (FALSE);
-		}
-		ft_add_cmd(shell, tab[i], envp);
+		ft_putendl_fd("Command not found", 2);
+		g_g.status = 127;
+		return (FALSE);
 	}
-	else if (i > 0 && shell->exec->cmd_path == NULL
-		&& ft_valid_redirect(tab[i]) == FALSE
-		&& ft_valid_redirect(tab[i - 1]) == FALSE)
-	{
-		if (ft_get_path(shell, tab[i], envp) == NULL)
-		{
-			ft_putendl_fd("Command not found", 2);
-			g_g.status = 127;
-			return (FALSE);
-		}
-		ft_add_cmd(shell, tab[i], envp);
-	}
+	ft_add_cmd(shell, tab[i], envp);
 	return (TRUE);
 }
 
 int	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
 {
-	/* if (ft_point(shell, tab, i) == FALSE) */
-	/* 	return (FALSE); */
-	if (shell->exec->cmd_path == NULL)
+	if (ft_check_point(shell, tab, i) == FALSE)
+		return (FALSE);
+	if (i == 0 && shell->exec->cmd_path == NULL
+		&& ft_valid_redirect(tab[i]) == FALSE)
+	{
+		if (ft_check_cmd_bis(shell, envp, tab, i) == FALSE)
+			return (FALSE);
+	}
+	else if (i > 0 && shell->exec->cmd_path == NULL
+		&& ft_valid_redirect(tab[i]) == FALSE
+		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 	{
 		if (ft_check_cmd_bis(shell, envp, tab, i) == FALSE)
 			return (FALSE);

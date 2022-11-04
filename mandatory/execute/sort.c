@@ -6,13 +6,13 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 10:33:16 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 11:19:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_sort_cmdb(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
+static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	i;
 	int	is_dir;
@@ -22,7 +22,7 @@ static void	ft_sort_cmdb(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 	while (lst->value_split[i])
 	{
 		is_dir = ft_is_directory(lst->value_split[i]);
-		if (ft_check_infile(exec, lst->value_split, i) == FALSE)
+		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
 		{
@@ -39,18 +39,25 @@ static void	ft_sort_cmdb(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
 	}
 }
 
-void	ft_sort_cmd(t_shell *shell, t_exec *exec, t_cmds *lst, char **envp)
+void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	wstatus;
 
 	wstatus = 0;
-	ft_sort_cmdb(shell, exec, lst, envp);
+	ft_sort_cmd_bis(shell, lst, envp);
 	if (shell->exec->cmd != NULL)
 	{
 		wstatus = ft_execute_cmd(shell, envp, wstatus);
 		ft_status_child(wstatus);
 	}
 	ft_free_close(shell);
+}
+
+static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst, char **envp)
+{
+	if (shell->exec->cmd != NULL)
+		ft_execute_pipe(shell, shell->exec, envp, lst);
+	ft_free_close_pipe(shell, lst);
 }
 
 void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
@@ -78,9 +85,7 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 		if (lst->value_split[i] != NULL)
 			i++;
 	}
-	if (shell->exec->cmd != NULL)
-		ft_execute_pipe(shell, shell->exec, envp, lst);
-	ft_free_close_pipe(shell, lst);
+	ft_sort_cmd_pipe_bis(shell, lst, envp);
 }
 
 void	ft_check_execute(t_shell *shell, char **envp)
@@ -90,7 +95,7 @@ void	ft_check_execute(t_shell *shell, char **envp)
 	lst = shell->arg;
 	shell->exec->pid = 0;
 	if (shell->pipe == 1)
-		ft_sort_cmd(shell, shell->exec, lst, envp);
+		ft_sort_cmd(shell, lst, envp);
 	else
 	{
 		while (lst)
