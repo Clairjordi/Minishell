@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 18:58:41 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 10:29:28 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	ft_init_exec(t_shell *shell)
 	shell->exec->infile = 0;
 	shell->exec->outfile = 0;
 	shell->exec->cmd_path = NULL;
+	shell->exec->builtins = FALSE;
+	shell->exec->is_dir = 0;
 }
 
 void	ft_init_cmds(t_cmds *cmd)
