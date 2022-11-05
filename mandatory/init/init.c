@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 10:51:56 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/04 18:58:41 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	ft_init_shell(t_shell *shell)
 	shell->tmp = NULL;
 	shell->path = NULL;
 	shell->tab_cmd = NULL;
-	shell->copy_envp = NULL;
-	shell->copy_export = NULL;
 }
 
 void	ft_init_exec(t_shell *shell)
@@ -50,11 +48,12 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->next = NULL;
 }
 
-/* void	ft_init_built(t_shell *shell, char **envp) */
-/* { */
-/* 	shell->built->env = NULL; */
-/* 	ft_recup_env(shell, envp); */
-/* } */
+void	ft_init_envcpy(t_shell *shell)
+{
+	shell->env = malloc(sizeof(t_env));
+	shell->env->first = NULL;
+	shell->env->last = NULL;
+}
 
 void	ft_init_prompt(t_shell *shell, char **envp)
 {

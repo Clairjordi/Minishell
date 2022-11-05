@@ -19,10 +19,21 @@ void	ft_print_test(t_shell *shell)
 		tmp = tmp->next;
 	}
 }
-/* char *test_add_env; */
-/* test_add_env = argv[1]; */
-/* if (shell.test_add_env != NULL) */
-/* 	ft_add_envp(envp, &shell); */
-/* ft_print_envp(envp, &shell); */
-/* ft_printf("-----------------------------------\n"); */
-/* ft_print_export(envp, &shell); */
+
+void	ft_print_envcpy(t_shell *shell)
+{
+	t_envcpy	*tmp;
+
+	tmp = shell->env->first;
+	while (tmp != NULL)
+	{
+		ft_printf("~~~~~~name = %s~~~~~~~\n", tmp->name);
+		ft_printf("value = %s\n", tmp->value);
+		ft_printf("--------\n");
+		tmp = tmp->next;
+	}
+	/* ft_printf("~~~~~~name = %s~~~~~~~\n", shell->env->first->name); */
+	/* ft_printf("~~~~~~value = %s~~~~~~~\n", shell->env->first->value); */
+	/* ft_printf("~~~~~~name = %s~~~~~~~\n", shell->env->last->name); */
+	/* ft_printf("~~~~~~value = %s~~~~~~~\n", shell->env->last->value); */
+}
