@@ -72,6 +72,10 @@ exemples :
 		=> continue de lire puis s'arrête et relance un prompt
 - grep < essai o | cot essai -> Command 'cot' not found
 		=> s'arrête et relance un prompt
+		
+Builtins : 
+- cd tout seul renvoie a HOME
+- cd + un path (gérer avec chdir)
 -----------------------
   MEMO : 
 -gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
