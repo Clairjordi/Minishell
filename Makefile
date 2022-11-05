@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/11/04 15:48:31 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/11/04 20:35:51 by mcloarec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRCS = mandatory/main.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/export.c \
 	   mandatory/builtins/getenv.c \
+	   mandatory/builtins/pwd.c \
+	   mandatory/builtins/echo.c \
 	   mandatory/utils/utils.c \
 	   mandatory/utils/create_lst_cmds.c \
 	   mandatory/utils/split_pipes.c \

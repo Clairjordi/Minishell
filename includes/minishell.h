@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 18:24:36 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/04 20:37:09 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,14 +195,19 @@ void		ft_find_path(t_shell *shell, char **envp);
 char		*ft_get_name(char *name_env);
 char		*ft_get_value(char *value_env);
 t_envcpy	*ft_new_elem_env(char *str);
-void		ft_recup_env(t_shell *shell);
-void		ft_print_env(t_shell *shell);
+void		ft_create_lst_env(t_shell *shell, char **envp);
+/*pwd*/
+void		ft_pwd(void);
 /*export*/
 void		ft_sort_export(t_shell *shell);
 void		ft_create_copy_export(t_shell *shell);
 void		ft_export(char **envp, t_shell *shell);
 void		ft_print_export(char **envp, t_shell *shell);
 /*env*/
+void		ft_recup_env(t_shell *shell);
+void		ft_print_env(t_shell *shell);
+/*echo*/
+void		ft_echo(char **tab);
 
 //////SIGNALS
 void		handler(int sig);

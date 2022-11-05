@@ -6,11 +6,31 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 11:19:13 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/05 09:52:33 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_check_builtins(t_shell *shell, char *str, char **tab)
+{
+	if (ft_strcmp(str, "pwd") == 0)
+	{
+		ft_pwd();
+		return (TRUE);
+	}
+	if (ft_strcmp(str, "env") == 0)
+	{
+		ft_print_env(shell);
+		return (TRUE);
+	}
+	if (ft_strcmp(str, "echo") == 0)
+	{
+		ft_echo(tab);
+		return (TRUE);
+	}
+	return (FALSE);
+}
 
 static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 {
@@ -21,6 +41,8 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 	is_dir = 0;
 	while (lst->value_split[i])
 	{
+		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split) == TRUE)
+			break;
 		is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
@@ -68,7 +90,9 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 	i = 0;
 	is_dir = 0;
 	while (lst->value_split[i])
-	{
+	{	
+		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split) == TRUE)
+			break;
 		is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;

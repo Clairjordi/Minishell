@@ -6,57 +6,36 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:43:38 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 18:59:36 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/04 19:55:56 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_print_env(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->built->env[i])
-	{
-		ft_printf("%s\n", shell->built->env[i]);
-		i++;
-	}
-}
-
-void	ft_recup_env(t_shell *shell)
+void	ft_create_lst_env(t_shell *shell, char **envp)
 {
 	int			i;
-	int			len_double_array;
-	t_envcpy	*tmp;
+	t_envcpy	*envcpy;
+	t_envcpy	*new;
 
-	i = 0;
-	len_double_array = 0;
-	tmp = shell->env->first;
-	while (tmp)
+	i = 1;
+	envcpy = ft_new_elem_env(envp[0]);
+	shell->env->first = envcpy;
+	while (envp[i])
 	{
-		len_double_array++;
-		tmp = tmp->next;
-	}
-	shell->built->env = ft_calloc(sizeof(char *), (len_double_array + 1));
-	if (!shell->built->env)
-		ft_free_malloc(shell);
-	tmp = shell->env->first;
-	while (tmp)
-	{
-		shell->built->env[i] = ft_strdup(tmp->var);
-		if (shell->built->env[i] == NULL)
-			ft_free_malloc(shell);
-		tmp = tmp->next;
+		new = ft_new_elem_env(envp[i]);
+		new->prev = envcpy;
+		envcpy->next = new;
+		envcpy = envcpy->next;
 		i++;
 	}
-	shell->built->env[i] = NULL;
+	shell->env->last = new;
 }
 
 char	*ft_get_name(char *name_env)
 {
 	int		i;
-	char 	*name;
+	char	*name;
 
 	i = 0;
 	while (name_env[i] && name_env[i] != '=')
