@@ -6,18 +6,18 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/05 09:44:20 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:05:07 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
 	(void) argv;
+	(void)argc;
 	shell.built = malloc(sizeof(t_built));
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);

@@ -6,19 +6,24 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/05 10:48:13 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/05 12:41:01 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_builtins(t_shell *shell, char *str, char **tab, int i)
+int	ft_check_builtins(t_shell *shell, char *str, char **tab, int i, t_cmds *lst)
 {
 	if (ft_strcmp(str, "pwd") == 0)
 	{
 		ft_pwd();
 		shell->exec->is_dir = 1;
 		ft_printf("pwd\n");
+		if (pipe(lst->pipe_fd) == ERROR)
+		{
+			perror("ERROR pipe");
+			return (ERROR);
+		}
 		return (TRUE);
 	}
 	if (ft_strcmp(str, "env") == 0)
@@ -58,7 +63,7 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 	{
 		if (shell->exec->cmd == NULL)
 		{
-			if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i) == TRUE)
+			if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i, lst) == TRUE)
 				shell->exec->builtins = TRUE;
 		}
 		if (shell->exec->is_dir == 0)
@@ -92,6 +97,11 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
 		wstatus = ft_execute_cmd(shell, envp, wstatus);
 		ft_status_child(wstatus);
 	}
+	else if (shell->exec->builtins == TRUE)
+	{
+		wstatus = ft_execute_builtins(shell, wstatus, lst);
+		ft_status_child(wstatus);
+	}
 	ft_free_close(shell);
 }
 
@@ -109,7 +119,7 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 	i = 0;
 	while (lst->value_split[i])
 	{	
-		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i) == TRUE)
+		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i, lst) == TRUE)
 			break;
 		shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)

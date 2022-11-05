@@ -6,12 +6,38 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 10:19:48 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:27:47 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include <unistd.h>
+
+void	ft_child_builtins_bis(t_shell *shell, t_exec *exec, t_cmds *lst)
+{
+	(void)shell;
+	if (dup2(lst->pipe_fd[0], STDIN_FILENO) == ERROR)
+		perror("ERROR dup 2");
+	if (exec->outfile > 2)
+	{
+		if (dup2(exec->outfile, STDOUT_FILENO) == ERROR)
+				perror("ERROR dup");
+	}
+	close(lst->pipe_fd[0]);
+	close(lst->pipe_fd[1]);
+	g_g.status = 0;
+}
+
+void	ft_child_builtins(t_shell *shell, t_exec *exec, t_cmds *lst)
+{
+	(void)shell;
+	if (dup2(STDOUT_FILENO, lst->pipe_fd[0]) == ERROR)
+		perror("ERROR dup 2");
+	if (dup2(lst->pipe_fd[1], STDOUT_FILENO) == ERROR)
+			perror("ERROR dup");
+	close(lst->pipe_fd[1]);
+	g_g.status = 0;
+}
 
 void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp)
 {

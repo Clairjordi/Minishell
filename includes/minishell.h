@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/05 10:33:56 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:07:17 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ t_global	g_g;
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
 void    	ft_print_envcpy(t_shell *shell);
+void	ft_child_builtins(t_shell *shell, t_exec *exec, t_cmds *lst);
+int	ft_execute_builtins(t_shell *shell, int wstatus, t_cmds *lst);
+int		ft_execute_builtins_bis(t_shell *shell, int wstatus, t_cmds *lst);
+void	ft_child_builtins_bis(t_shell *shell, t_exec *exec, t_cmds *lst);
+
 
 //////INIT
 void		ft_init_shell(t_shell *shell);

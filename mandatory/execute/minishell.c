@@ -6,11 +6,49 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 08:31:36 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:07:00 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_execute_builtins_bis(t_shell *shell, int wstatus, t_cmds *lst)
+{
+	pid_t pid;
+
+	pid = fork();
+	if (pid == ERROR)
+		perror("ERROR pid");
+	if (pid == 0)
+		ft_child_builtins_bis(shell, shell->exec, lst);
+	else
+	{
+		if (waitpid(pid, &wstatus, 0) == ERROR)
+			perror("ERROR waitpid");
+		close(lst->pipe_fd[0]);
+		close(lst->pipe_fd[1]);
+	}
+	return (wstatus);
+}
+
+int	ft_execute_builtins(t_shell *shell, int wstatus, t_cmds *lst)
+{
+	pid_t pid_builtins;
+
+	pid_builtins = fork();
+	if (pid_builtins == ERROR)
+		perror("ERROR pid");
+	if (pid_builtins == 0)
+		ft_child_builtins(shell, shell->exec, lst);
+	else
+	{
+		if (waitpid(pid_builtins, &wstatus, 0) == ERROR)
+			perror("ERROR waitpid");
+		close(lst->pipe_fd[1]);
+	}
+	wstatus = ft_execute_builtins_bis(shell, wstatus, lst);
+	return (wstatus);
+}
 
 int	ft_execute_cmd(t_shell *shell, char **envp, int wstatus)
 {
