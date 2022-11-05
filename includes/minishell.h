@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 20:37:09 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 10:33:56 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_exec
 	int		infile;
 	int		outfile;
 	char	*cmd_path;
+	int		builtins;
+	int		is_dir;
 	pid_t	pid;
 }	t_exec;
 
@@ -84,7 +86,6 @@ typedef struct s_minishell
 	t_exec	*exec;
 	t_cmds	*arg;
 	t_env	*env;
-
 	pid_t	pid_hdoc;
 	int		quote;
 	int		dollar;
@@ -208,6 +209,8 @@ void		ft_recup_env(t_shell *shell);
 void		ft_print_env(t_shell *shell);
 /*echo*/
 void		ft_echo(char **tab);
+/*cd*/
+void		ft_cd(char *path);
 
 //////SIGNALS
 void		handler(int sig);

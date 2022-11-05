@@ -6,30 +6,44 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/05 10:32:44 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 10:48:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-
-
-int	ft_check_builtins(t_shell *shell, char *str, char **tab)
+int	ft_check_builtins(t_shell *shell, char *str, char **tab, int i)
 {
 	if (ft_strcmp(str, "pwd") == 0)
 	{
 		ft_pwd();
+		shell->exec->is_dir = 1;
+		ft_printf("pwd\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(str, "env") == 0)
 	{
 		ft_print_env(shell);
+		ft_printf("env\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(str, "echo") == 0)
 	{
 		ft_echo(tab);
+		ft_printf("echo\n");
+		return (TRUE);
+	}
+	if (ft_strcmp(str, "cd") == 0)
+	{
+		ft_cd(tab[i + 1]);
+		if (tab[i + 2] != NULL)
+		{
+			ft_putendl_fd("bash: cd: too many arguments", 2);
+			g_g.status = 1;
+		}
+		ft_printf("cd\n");
+		shell->exec->is_dir = 1;
+
 		return (TRUE);
 	}
 	return (FALSE);
@@ -38,15 +52,17 @@ int	ft_check_builtins(t_shell *shell, char *str, char **tab)
 static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	i;
-	int	is_dir;
 
 	i = 0;
-	is_dir = 0;
 	while (lst->value_split[i])
 	{
-		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split) == TRUE)
-			break;
-		is_dir = ft_is_directory(lst->value_split[i]);
+		if (shell->exec->cmd == NULL)
+		{
+			if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i) == TRUE)
+				shell->exec->builtins = TRUE;
+		}
+		if (shell->exec->is_dir == 0)
+			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
@@ -57,7 +73,8 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (is_dir == 0 && lst->cmd_found == TRUE)
+		if (shell->exec->builtins == FALSE && shell->exec->is_dir == 0 
+				&& lst->cmd_found == TRUE)
 			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
@@ -88,15 +105,13 @@ static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst, char **envp)
 void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 {
 	int	i;
-	int	is_dir;
 
 	i = 0;
-	is_dir = 0;
 	while (lst->value_split[i])
 	{	
-		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split) == TRUE)
+		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i) == TRUE)
 			break;
-		is_dir = ft_is_directory(lst->value_split[i]);
+		shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
@@ -107,7 +122,7 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (is_dir == 0 && lst->cmd_found == TRUE)
+		if (shell->exec->is_dir == 0 && lst->cmd_found == TRUE)
 			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
