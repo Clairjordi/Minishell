@@ -6,11 +6,14 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/05 09:52:33 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 10:32:44 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
+
 
 int	ft_check_builtins(t_shell *shell, char *str, char **tab)
 {
