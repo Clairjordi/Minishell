@@ -68,7 +68,7 @@ void	ft_init_prompt(t_shell *shell, char **envp)
 		{
 			//ft_free_built(shell);
 			ft_putstr_fd("exit\n", 1);
-			exit (0);
+			exit (g_g.status);
 		}
 		if (str)
 		{

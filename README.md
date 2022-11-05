@@ -74,8 +74,10 @@ exemples :
 		=> s'arrête et relance un prompt
 		
 Builtins : 
-- cd tout seul renvoie a HOME
-- cd + un path (gérer avec chdir)
+- cd tout seul -> renvoi au HOME
+- cd + un path -> (gérer avec chdir)
+- < infile cd -> renvoi au HOME
+- cd ~ -> renvoi au HOME (a gerer)
 -----------------------
   MEMO : 
 -gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env

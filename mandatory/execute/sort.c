@@ -18,19 +18,16 @@ int	ft_check_builtins(t_shell *shell, char *str, char **tab, int i)
 	{
 		ft_pwd();
 		shell->exec->is_dir = 1;
-		ft_printf("pwd\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(str, "env") == 0)
 	{
 		ft_print_env(shell);
-		ft_printf("env\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(str, "echo") == 0)
 	{
 		ft_echo(tab);
-		ft_printf("echo\n");
 		return (TRUE);
 	}
 	if (ft_strcmp(str, "cd") == 0)
@@ -41,7 +38,6 @@ int	ft_check_builtins(t_shell *shell, char *str, char **tab, int i)
 			ft_putendl_fd("bash: cd: too many arguments", 2);
 			g_g.status = 1;
 		}
-		ft_printf("cd\n");
 		shell->exec->is_dir = 1;
 
 		return (TRUE);
