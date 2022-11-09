@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/05 13:07:17 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 18:22:24 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_exec
 	int		infile;
 	int		outfile;
 	char	*cmd_path;
-	int		builtins;
+	char	**builtins;
 	int		is_dir;
 	pid_t	pid;
 }	t_exec;
@@ -151,6 +151,7 @@ int			ft_check_dollar(char *s, int i);
 /*minishell*/
 int			ft_execute_cmd(t_shell *shell, char **envp, int wstatus);
 void		ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
+void		ft_exec_builtins(t_shell *shell);
 void		ft_minishell(t_shell *shell, char **envp);
 /*check_sort*/
 int			ft_valid_redirect(char *s);
@@ -169,6 +170,11 @@ void		ft_add_opt_arg(t_shell *shell, char **tab, int i);
 int			ft_add_cmd(t_shell *shell, char *s, char **envp);
 int			ft_check_point(t_shell *shell, char **tab, int i);
 int			ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
+/*builtins*/
+void		ft_add_opt_arg_builtins(t_shell *shell, char **tab, int i);
+void		ft_add_builtins(t_shell *shell, char **tab, int i);
+void		ft_create_builtins_tab(t_shell *shell, char **tab, int **i);
+void		ft_create_builtins_tab_bis(t_shell *shell, char **tab, int **i);
 /*sort*/	
 void		ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp);
 void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);

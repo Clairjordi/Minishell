@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 19:55:41 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/05 18:57:22 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_print_env(t_shell *shell)
 		ft_printf("%s\n", shell->built->env[i]);
 		i++;
 	}
+	exit(0);
 }
 
 void	ft_recup_env(t_shell *shell)

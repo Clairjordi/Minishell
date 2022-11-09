@@ -74,8 +74,10 @@ exemples :
 		=> s'arrête et relance un prompt
 		
 Builtins : 
-- cd tout seul renvoie a HOME
-- cd + un path (gérer avec chdir)
+- cd tout seul -> renvoi au HOME
+- cd + un path -> (gérer avec chdir)
+- < infile cd -> renvoi au HOME
+- cd ~ -> renvoi au HOME (a gerer)
 -----------------------
   MEMO : 
 -gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
@@ -92,7 +94,7 @@ OK- gerer le double prompt du ctrtl + c du cat
 
 - quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
 - gerer les espaces avec echo : actuellement on affiche la chaine vide - ex : a "" b
-
+- Ctrl C dans le double heredoc
 bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
 
 NORME : 

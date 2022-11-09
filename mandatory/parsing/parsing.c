@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 10:16:13 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/05 14:35:02 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 {
 	if (ft_verif_parsing(str) == ERROR)
 	{
-		ft_printf("g_g.status = %d\n", g_g.status);
+		//ft_printf("g_g.status = %d\n", g_g.status);
 		ft_free(shell, NULL);
 		return ;
 	}
@@ -61,7 +61,7 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 	ft_create_lst(shell);
 	ft_replace_value(shell);
 	ft_minishell(shell, envp);
-	ft_printf("g_g.status = %d\n", g_g.status);
+	//ft_printf("g_g.status = %d\n", g_g.status);
 	//ft_print_test(shell); //A SUPPR
 	ft_free(shell, NULL);
 }

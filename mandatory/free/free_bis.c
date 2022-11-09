@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 18:50:01 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/03 14:28:37 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:43:34 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,6 @@ void	ft_free_close(t_shell *shell)
 		close(shell->exec->outfile);
 	if (shell->exec != NULL)
 		ft_free_exec(shell);
-}
-
-int	ft_verif_cat_b(t_shell *shell, t_cmds *lst)
-{
-	if (ft_strcmp(lst->value_split[0], "cat") == 0)
-	{
-		if (shell->exec->infile == 0 && shell->exec->outfile == 0)
-			return (FALSE);
-	}
-	return (TRUE);
 }
 
 void	ft_free_close_pipe(t_shell *shell, t_cmds *lst)

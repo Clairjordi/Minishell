@@ -6,49 +6,32 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/05 12:41:01 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:47:22 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_builtins(t_shell *shell, char *str, char **tab, int i, t_cmds *lst)
+int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
 {
-	if (ft_strcmp(str, "pwd") == 0)
+	if (ft_strcmp(tab[*i], "pwd") == 0)
 	{
-		ft_pwd();
-		shell->exec->is_dir = 1;
-		ft_printf("pwd\n");
-		if (pipe(lst->pipe_fd) == ERROR)
-		{
-			perror("ERROR pipe");
-			return (ERROR);
-		}
+		ft_create_builtins_tab(shell, tab, &i);
 		return (TRUE);
 	}
-	if (ft_strcmp(str, "env") == 0)
+	else if (ft_strcmp(tab[*i], "env") == 0)
 	{
-		ft_print_env(shell);
-		ft_printf("env\n");
+		ft_create_builtins_tab(shell, tab, &i);
 		return (TRUE);
 	}
-	if (ft_strcmp(str, "echo") == 0)
+	else if (ft_strcmp(tab[*i], "echo") == 0)
 	{
-		ft_echo(tab);
-		ft_printf("echo\n");
+		ft_create_builtins_tab(shell, tab, &i);
 		return (TRUE);
 	}
-	if (ft_strcmp(str, "cd") == 0)
+	else if (ft_strcmp(tab[*i], "cd") == 0)
 	{
-		ft_cd(tab[i + 1]);
-		if (tab[i + 2] != NULL)
-		{
-			ft_putendl_fd("bash: cd: too many arguments", 2);
-			g_g.status = 1;
-		}
-		ft_printf("cd\n");
-		shell->exec->is_dir = 1;
-
+		ft_create_builtins_tab(shell, tab, &i);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -61,11 +44,8 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 	i = 0;
 	while (lst->value_split[i])
 	{
-		if (shell->exec->cmd == NULL)
-		{
-			if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i, lst) == TRUE)
-				shell->exec->builtins = TRUE;
-		}
+		if (ft_check_is_builtins(shell, lst->value_split, &i) == TRUE)
+			break;
 		if (shell->exec->is_dir == 0)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
@@ -78,8 +58,8 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (shell->exec->builtins == FALSE && shell->exec->is_dir == 0 
-				&& lst->cmd_found == TRUE)
+		if (shell->exec->builtins == NULL && shell->exec->is_dir == 0
+			&& lst->cmd_found == TRUE)
 			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
@@ -92,14 +72,9 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
 
 	wstatus = 0;
 	ft_sort_cmd_bis(shell, lst, envp);
-	if (shell->exec->cmd != NULL)
+	if (shell->exec->cmd != NULL || shell->exec->builtins != NULL)
 	{
 		wstatus = ft_execute_cmd(shell, envp, wstatus);
-		ft_status_child(wstatus);
-	}
-	else if (shell->exec->builtins == TRUE)
-	{
-		wstatus = ft_execute_builtins(shell, wstatus, lst);
 		ft_status_child(wstatus);
 	}
 	ft_free_close(shell);
@@ -107,7 +82,7 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
 
 static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst, char **envp)
 {
-	if (shell->exec->cmd != NULL)
+	if (shell->exec->cmd != NULL || shell->exec->builtins != NULL)
 		ft_execute_pipe(shell, shell->exec, envp, lst);
 	ft_free_close_pipe(shell, lst);
 }
@@ -119,9 +94,10 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 	i = 0;
 	while (lst->value_split[i])
 	{	
-		if (ft_check_builtins(shell, lst->value_split[i], lst->value_split, i, lst) == TRUE)
+		if (ft_check_is_builtins(shell, lst->value_split, &i) == TRUE)
 			break;
-		shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
+		if (shell->exec->is_dir == 0)
+			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)

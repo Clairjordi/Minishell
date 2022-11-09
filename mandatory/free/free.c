@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 18:23:41 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:54:34 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_free_envcpy(t_shell *shell)
 		tmp = buf;
 	}
 	shell->env->first = NULL;
+	shell->env->last = NULL;
 	free(shell->env);
 }
 
@@ -62,6 +63,8 @@ void	ft_free_exec(t_shell *shell)
 	}
 	if (shell->exec->cmd != NULL)
 		shell->exec->cmd = ft_free_tab_char(shell->exec->cmd);
+	if (shell->exec->builtins != NULL)
+		shell->exec->builtins = ft_free_tab_char(shell->exec->builtins);
 	shell->exec->infile = 0;
 	shell->exec->outfile = 0;
 }
