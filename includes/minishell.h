@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 17:49:59 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:05:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,11 @@ extern t_global	g_g;
 
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
-void		ft_print_envcpy(t_shell *shell);
-void		ft_child_builtins(t_shell *shell, t_exec *exec, t_cmds *lst);
-int			ft_execute_builtins(t_shell *shell, int wstatus, t_cmds *lst);
-int			ft_execute_builtins_bis(t_shell *shell, int wstatus, t_cmds *lst);
-void		ft_child_builtins_bis(t_shell *shell, t_exec *exec, t_cmds *lst);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
 void		ft_init_exec(t_shell *shell);
 void		ft_init_prompt(t_shell *shell, char **envp);
-void		ft_init_struct(t_shell *shell); // ou est elle ?
 void		ft_init_cmds(t_cmds *cmd);
 /*init_bis*/
 void		ft_init_built(t_shell *shell);
@@ -176,6 +170,9 @@ void		ft_add_opt_arg_builtins(t_shell *shell, char **tab, int i);
 void		ft_add_builtins(t_shell *shell, char *cmd_built);
 void		ft_create_builtins_tab(t_shell *shell, char **tab, int *i);
 void		ft_create_builtins_tab_bis(t_shell *shell, char **tab, int i);
+/*builtins_utils.c*/
+int			ft_check_is_builtins(t_shell *shell, char **tab, int *i);
+int			ft_check_builtins_without_fork(t_shell *shell);
 /*sort*/	
 void		ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp);
 void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);

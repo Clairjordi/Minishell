@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/11/09 17:54:47 by clorcery         ###   ########.fr        #
+#    Updated: 2022/11/09 19:06:51 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRCS = mandatory/main.c \
 	   mandatory/execute/sort_utils.c \
 	   mandatory/execute/sort_utils_bis.c \
 	   mandatory/execute/builtins.c \
+	   mandatory/execute/builtins_utils.c \
 	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}
@@ -63,7 +64,7 @@ NAME = minishell
 
 LIBFT = ./libft/libft.a
 
-FLAGS = -Wall -Wextra -Werror -g #-fcommon
+FLAGS = -Wall -Wextra -Werror -g
 
 INC = -lreadline 
 

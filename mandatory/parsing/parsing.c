@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/05 14:35:02 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:33:20 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 	}
 	ft_create_lst(shell);
 	ft_replace_value(shell);
+	/* ft_recup_env mis la pour qu'il se remette a jour (ajout des export dans la liste chainee) */
+	ft_recup_env(shell); 
 	ft_minishell(shell, envp);
 	//ft_printf("g_g.status = %d\n", g_g.status);
 	//ft_print_test(shell); //A SUPPR

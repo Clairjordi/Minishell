@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 20:06:46 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/09 17:23:37 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:14:35 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void	ft_echo(char **tab)
 	}
 	if (n == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	exit(0);
+	g_g.status = 0;
 }
