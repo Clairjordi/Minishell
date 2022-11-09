@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/09 10:47:22 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:22:10 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
 {
 	if (ft_strcmp(tab[*i], "pwd") == 0)
 	{
-		ft_create_builtins_tab(shell, tab, &i);
+		ft_create_builtins_tab(shell, tab, i);
 		return (TRUE);
 	}
 	else if (ft_strcmp(tab[*i], "env") == 0)
 	{
-		ft_create_builtins_tab(shell, tab, &i);
+		ft_create_builtins_tab(shell, tab, i);
 		return (TRUE);
 	}
 	else if (ft_strcmp(tab[*i], "echo") == 0)
 	{
-		ft_create_builtins_tab(shell, tab, &i);
+		ft_create_builtins_tab(shell, tab, i);
 		return (TRUE);
 	}
 	else if (ft_strcmp(tab[*i], "cd") == 0)
 	{
-		ft_create_builtins_tab(shell, tab, &i);
+		ft_create_builtins_tab(shell, tab, i);
 		return (TRUE);
 	}
 	return (FALSE);

@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/09 10:33:11 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:27:36 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ void	ft_exec_builtins(t_shell *shell)
 	if (ft_strcmp(shell->exec->builtins[0], "echo") == 0)
 		ft_echo(shell->exec->builtins);
 	if (ft_strcmp(shell->exec->builtins[0], "cd") == 0)
-	{
-		ft_cd(shell->exec->builtins[0 + 1]);
-		if (shell->exec->builtins[0 + 2] != NULL)
-		{
-			ft_putendl_fd("bash: cd: too many arguments", 2);
-			g_g.status = 1;
-		}
-	}
+		ft_cd(shell->exec->builtins);
 }
 
 int	ft_execute_cmd(t_shell *shell, char **envp, int wstatus)
