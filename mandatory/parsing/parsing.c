@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 19:33:20 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:39:17 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void	ft_parsing(char *str, t_shell *shell, char **envp)
 	ft_minishell(shell, envp);
 	//ft_printf("g_g.status = %d\n", g_g.status);
 	//ft_print_test(shell); //A SUPPR
+	ft_free_built(shell);
 	ft_free(shell, NULL);
 }

@@ -6,14 +6,41 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 19:03:07 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 19:03:40 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:15:19 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	ft_check_is_builtins_bis(t_shell *shell, char **tab, int *i)
+{
+	if (ft_strcmp(tab[*i], "cd") == 0)
+	{
+		ft_create_builtins_tab(shell, tab, i);
+		return (TRUE);
+	}
+	else if (ft_strcmp(tab[*i], "export") == 0)
+	{
+		ft_create_builtins_tab(shell, tab, i);
+		return (TRUE);
+	}
+	else if (ft_strcmp(tab[*i], "unset") == 0)
+	{
+		ft_create_builtins_tab(shell, tab, i);
+		return (TRUE);
+	}
+	else if (ft_strcmp(tab[*i], "exit") == 0)
+	{
+		ft_create_builtins_tab(shell, tab, i);
+		return (TRUE);
+	}
+	return (0);
+}
+
 int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
 {
+	if (ft_check_is_builtins_bis(shell, tab, i) == TRUE)
+		return (TRUE);
 	if (ft_strcmp(tab[*i], "pwd") == 0)
 	{
 		ft_create_builtins_tab(shell, tab, i);
@@ -25,11 +52,6 @@ int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
 		return (TRUE);
 	}
 	else if (ft_strcmp(tab[*i], "echo") == 0)
-	{
-		ft_create_builtins_tab(shell, tab, i);
-		return (TRUE);
-	}
-	else if (ft_strcmp(tab[*i], "cd") == 0)
 	{
 		ft_create_builtins_tab(shell, tab, i);
 		return (TRUE);

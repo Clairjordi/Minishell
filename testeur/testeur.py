@@ -10,6 +10,17 @@ tests = """\
 cat infile
 <in pwd
 cot infile
+cd mandatory/..
+cd jhg
+cd
+cd mandatory/ lol
+echo -n -z -n
+echo -n coucou
+echo -nz
+echo lol -n
+echo -nnnnnnnn ca va toi
+echo -
+env
 pwd grop\
 """
 
