@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 19:33:03 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:30:09 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("No argument requiered", 2);
 		exit(1);
 	}
-	ft_init_built(&shell);
 	ft_init_envcpy(&shell);
 	ft_create_lst_env(&shell, envp);
 	ft_init_prompt(&shell, envp);
