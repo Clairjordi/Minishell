@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 14:42:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 14:43:19 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:16:24 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void	ft_init_envcpy(t_shell *shell)
 
 void	ft_init_built(t_shell *shell)
 {
-	shell->built = malloc(sizeof(t_built));
 	shell->built->env = NULL;
 }

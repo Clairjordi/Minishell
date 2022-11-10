@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 19:05:47 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:45:00 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,8 +218,12 @@ void		ft_recup_env(t_shell *shell);
 void		ft_print_env(t_shell *shell);
 /*echo*/
 void		ft_echo(char **tab);
+int			ft_size_tab(char **tab);
 /*cd*/
 void		ft_cd(char **tab);
+/*unset*/
+int			ft_check_valid_name(char *s);
+void		ft_unset(t_shell *shell);
 
 //////SIGNALS
 void		handler(int sig);
