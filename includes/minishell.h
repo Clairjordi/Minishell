@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:58:04 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:20:46 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ char		*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
 char		*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar_utils*/
 int			ft_check_dollar(char *s, int i);
+char    	*ft_getenv(t_shell *shell, char *name);
 
 //////EXECUTE
 /*minishell*/
@@ -219,6 +220,7 @@ void		ft_cd(char **tab);
 /*unset*/
 int			ft_check_valid_name(char *s);
 void		ft_unset(t_shell *shell);
+t_envcpy    *ft_check_name_envcpy(t_shell *shell, char *s);
 
 //////SIGNALS
 void		handler(int sig);
