@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 20:06:46 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 11:06:52 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/10 18:37:31 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	ft_echo(char **tab)
 	while (i < size)
 	{
 		ft_putstr_fd(tab[i], STDOUT_FILENO);
-		if (i + 1 != size)
-			ft_putstr_fd(" ", STDOUT_FILENO);
+		/*if (i + 1 != size)
+			ft_putstr_fd(" ", STDOUT_FILENO);*/
 		++i;
 	}
 	if (n == 0)

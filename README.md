@@ -93,7 +93,7 @@ OK - retirer les quotes des noms des outfiles avant de les open
 OK- gerer le double prompt du ctrtl + c du cat
 
 - quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
-- gerer les espaces avec echo : actuellement on affiche la chaine vide - ex : a "" b
+OK - gerer les espaces avec echo : actuellement on affiche la chaine vide - ex : a "" b
 - Ctrl C dans le double heredoc
 bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
 - export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
