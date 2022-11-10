@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 11:16:53 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:18:42 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,33 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->next = NULL;
 }
 
-void	ft_init_prompt(t_shell *shell, char **envp)
+int	ft_exit(t_shell *shell, char *str)
+{
+	char	*arg;
+	int		size;
+
+	(void) shell;
+	size = ft_strlen(str);
+	if (ft_strncmp("exit", str, 4) == 0)
+	{
+		arg = ft_substr(str, 5, (size - 5));
+		if (arg == NULL)
+			ft_free_malloc(shell);
+		g_g.status = ft_atoi(arg);
+		free(arg);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+void	ft_init_prompt(t_shell *shell)
 {
 	char	*str;
 
 	while (1)
 	{
 		str = readline ("$>");
-		if (!str || !ft_strncmp("exit", str, 4))
+		if (!str || ft_exit(shell, str) == TRUE/*!ft_strncmp("exit", str, 4)*/)
 		{
 			ft_free_envcpy(shell); // changer free_last_built pour ctrl +D
 			ft_putstr_fd("exit\n", 1);
@@ -69,7 +88,7 @@ void	ft_init_prompt(t_shell *shell, char **envp)
 			ft_init_shell(shell);
 			ft_init_built(shell);
 			ft_init_exec(shell);
-			ft_parsing(str, shell, envp);
+			ft_parsing(str, shell);
 			add_history(str);
 		}
 		free(str);

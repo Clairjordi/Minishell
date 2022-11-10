@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 09:52:47 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:26:11 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	ft_exec_builtins(t_shell *shell)
 	/* if (ft_strcmp(shell->exec->builtins[0], "export") == 0) */
 	/* 	ft_export(shell->exec->builtins); */
 	/* if (ft_strcmp(shell->exec->builtins[0], "exit") == 0) */
-	/* 	ft_cd(shell->exec->builtins); */
+	/* 	ft_exit(shell->exec->builtins); */
 	/* if (ft_strcmp(shell->exec->builtins[0], "unset") == 0) */
 	/* 	ft_unset(shell->exec->builtins); */
 }
 
-int	ft_execute_cmd(t_shell *shell, char **envp, int wstatus)
+int	ft_execute_cmd(t_shell *shell, int wstatus)
 {
 	shell->exec->pid = fork();
 	if (shell->exec->pid == ERROR)
@@ -39,7 +39,7 @@ int	ft_execute_cmd(t_shell *shell, char **envp, int wstatus)
 	{
 		g_g.is_in_loop = 3;
 		signal(SIGQUIT, SIG_DFL);
-		ft_child_cmd(shell, shell->exec, envp);
+		ft_child_cmd(shell, shell->exec);
 	}
 	g_g.is_in_loop = 2;
 	if (waitpid(shell->exec->pid, &wstatus, 0) == ERROR)
@@ -48,7 +48,7 @@ int	ft_execute_cmd(t_shell *shell, char **envp, int wstatus)
 	return (wstatus);
 }
 
-void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
+void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 {
 	exec->pid = fork();
 	if (exec->pid == ERROR)
@@ -61,7 +61,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 			close(lst->prev->pipe_fd[1]);
 		if (lst->pipe_fd[0] > 2)
 			close(lst->pipe_fd[0]);
-		ft_check_child_execute(shell, envp, lst);
+		ft_check_child_execute(shell, lst);
 	}
 	g_g.is_in_loop = 2;
 	if (lst->next != NULL)
@@ -71,12 +71,38 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst)
 	}
 }
 
-void	ft_minishell(t_shell *shell, char **envp)
+void	ft_check_execute(t_shell *shell)
+{
+	t_cmds	*lst;
+
+	lst = shell->arg;
+	shell->exec->pid = 0;
+	if (shell->pipe == 1)
+		ft_sort_cmd(shell, lst);
+	else
+	{
+		while (lst)
+		{
+			if (lst->next != NULL)
+			{
+				shell->pipe = ft_check_shell_pipe(shell, lst);
+				if (shell->pipe == ERROR)
+					break ;
+			}
+			ft_sort_cmd_pipe(shell, lst);
+			ft_add_pid(shell);
+			lst = lst->next;
+		}
+		ft_waitpid_pipe(shell);
+	}
+}
+
+void	ft_minishell(t_shell *shell)
 {
 	if (ft_check_error_redirect(shell) == FALSE)
 		return ;
 	ft_count_heredoc(shell);
 	if (ft_init_heredoc(shell) == ERROR)
 		return ;
-	ft_check_execute(shell, envp);
+	ft_check_execute(shell);
 }

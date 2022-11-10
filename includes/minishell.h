@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 11:15:01 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:30:26 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		ft_print_test(t_shell *shell);
 //////INIT
 void		ft_init_shell(t_shell *shell);
 void		ft_init_exec(t_shell *shell);
-void		ft_init_prompt(t_shell *shell, char **envp);
+void		ft_init_prompt(t_shell *shell);
 void		ft_init_cmds(t_cmds *cmd);
 /*init_bis*/
 void		ft_init_built(t_shell *shell);
@@ -112,7 +112,7 @@ void		ft_init_envcpy(t_shell *shell);
 
 //////PARSING
 int			ft_verif_if_str(char *str);
-void		ft_parsing(char *s, t_shell *shell, char **envp);
+void		ft_parsing(char *s, t_shell *shell);
 int			ft_verif_parsing(char *s);
 /*list*/	
 void		ft_create_lst(t_shell *shell);
@@ -144,39 +144,38 @@ int			ft_check_dollar(char *s, int i);
 
 //////EXECUTE
 /*minishell*/
-int			ft_execute_cmd(t_shell *shell, char **envp, int wstatus);
-void		ft_execute_pipe(t_shell *shell, t_exec *exec, char **envp, t_cmds *lst);
+int			ft_execute_cmd(t_shell *shell, int wstatus);
+void		ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst);
 void		ft_exec_builtins(t_shell *shell);
-void		ft_minishell(t_shell *shell, char **envp);
+void		ft_check_execute(t_shell *shell);
+void		ft_minishell(t_shell *shell);
 /*check_sort*/
 int			ft_valid_redirect(char *s);
 int			ft_check_error_redirect(t_shell *shell);
 int			ft_check_infile(t_exec *exec, char **tab, int i);
 int			ft_check_outfile(t_shell *shell, char **tab, int i);
-int			ft_check_first(t_shell *shell, char **envp, char *s);
+int			ft_check_first(t_shell *shell, char *s);
 /*child*/
-void		ft_child_cmd(t_shell *shell, t_exec *exec, char **envp);
+void		ft_child_cmd(t_shell *shell, t_exec *exec);
 void		ft_first_child(t_exec *exec, t_cmds *lst);
 void		ft_last_child(t_exec *exec, t_cmds *lst);
 void		ft_else_child(t_exec *exec, t_cmds *lst);
-void		ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst);
+void		ft_check_child_execute(t_shell *shell, t_cmds *lst);
 /*cmd*/
 void		ft_add_opt_arg(t_shell *shell, char **tab, int i);
-int			ft_add_cmd(t_shell *shell, char *s, char **envp);
+int			ft_add_cmd(t_shell *shell, char *s);
 int			ft_check_point(t_shell *shell, char **tab, int i);
-int			ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
+int			ft_check_cmd(t_shell *shell, char **tab, int i);
 /*builtins*/
 void		ft_add_opt_arg_builtins(t_shell *shell, char **tab, int i);
 void		ft_add_builtins(t_shell *shell, char *cmd_built);
 void		ft_create_builtins_tab(t_shell *shell, char **tab, int *i);
-void		ft_create_builtins_tab_bis(t_shell *shell, char **tab, int i);
 /*builtins_utils.c*/
 int			ft_check_is_builtins(t_shell *shell, char **tab, int *i);
 int			ft_check_builtins_without_fork(t_shell *shell);
 /*sort*/	
-void		ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp);
-void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
-void		ft_check_execute(t_shell *shell, char **envp);
+void		ft_sort_cmd(t_shell *shell, t_cmds *lst);
+void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst);
 /*sort_utils*/
 int			ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
 void		ft_waitpid_pipe(t_shell *shell);
@@ -194,11 +193,11 @@ void		ft_count_heredoc(t_shell *shell);
 /*path*/	
 void		ft_get_path_bis(t_shell *shell, char *path_test);
 char		*ft_check_path(t_shell *shell, char *path_tmp, char *cmd, int i);
-char		*ft_get_path(t_shell *shell, char *path_cmd, char **envp);
+char		*ft_get_path(t_shell *shell, char *path_cmd);
 /*path_utils*/
 int			ft_check_access(t_shell *shell, char *path_cmd);
 int			ft_check_path_cmd(char *path_cmd);
-void		ft_find_path(t_shell *shell, char **envp);
+void		ft_find_path(t_shell *shell);
 
 //////BUILTINS
 /*getenv*/
@@ -209,10 +208,6 @@ void		ft_create_lst_env(t_shell *shell, char **envp);
 /*pwd*/
 void		ft_pwd(void);
 /*export*/
-void		ft_sort_export(t_shell *shell);
-void		ft_create_copy_export(t_shell *shell);
-void		ft_export(char **envp, t_shell *shell);
-void		ft_print_export(char **envp, t_shell *shell);
 /*env*/
 void		ft_recup_env(t_shell *shell);
 void		ft_print_env(t_shell *shell);

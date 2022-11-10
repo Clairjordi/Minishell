@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:32:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 13:50:54 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:31:42 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,16 @@ int	ft_check_path_cmd(char *path_cmd)
 		return (-1);
 }
 
-void	ft_find_path(t_shell *shell, char **envp)
+void	ft_find_path(t_shell *shell)
 {
 	char	*path;
 	int		i;
 
-	//(void) envp;
 	path = NULL;
 	i = 0;
-	while (envp[i])
+	while (shell->built->env[i])
 	{
-		path = ft_strnstr(envp[i], "PATH", 5);
+		path = ft_strnstr(shell->built->env[i], "PATH", 5);
 		if (path)
 			break ;
 		i++;

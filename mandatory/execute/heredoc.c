@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 11:41:41 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:50:04 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_heredoc(t_shell *shell)
 {
 	ft_free(shell, NULL);
+	ft_free_envcpy(shell);
 	while (1)
 	{
 		g_g.line = readline (">");
@@ -37,7 +38,6 @@ void	ft_heredoc(t_shell *shell)
 	}
 	free(g_g.line);
 	free(g_g.limiter);
-	ft_free_envcpy(shell);
 	close(g_g.fd_hdoc);
 	exit(EXIT_SUCCESS);
 }

@@ -6,20 +6,32 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 09:59:01 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:33:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
+static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
+{
+	if ((*i == 0
+			|| (*i > 0 && ft_valid_redirect(lst->value_split[*i - 1]) == FALSE))
+		&& shell->exec->cmd == NULL)
+	{
+		if (ft_check_is_builtins(shell, lst->value_split, i) == TRUE)
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
+static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst)
 {
 	int	i;
 
 	i = 0;
 	while (lst->value_split[i])
 	{
-		if (ft_check_is_builtins(shell, lst->value_split, &i) == TRUE)
+		if (ft_sort_check_built(shell, lst, &i) == TRUE)
 			break ;
 		if (shell->exec->is_dir == 0)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
@@ -35,18 +47,18 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 			break ;
 		if (shell->exec->builtins == NULL && shell->exec->is_dir == 0
 			&& lst->cmd_found == TRUE)
-			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
+			lst->cmd_found = ft_check_cmd(shell, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
 	}
 }
 
-void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
+void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 {
 	int	wstatus;
 
 	wstatus = 0;
-	ft_sort_cmd_bis(shell, lst, envp);
+	ft_sort_cmd_bis(shell, lst);
 	if (shell->exec->builtins != NULL
 		&& ft_check_builtins_without_fork(shell) == TRUE)
 	{
@@ -55,29 +67,29 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
 	}
 	if (shell->exec->cmd != NULL || shell->exec->builtins != NULL)
 	{
-		wstatus = ft_execute_cmd(shell, envp, wstatus);
+		wstatus = ft_execute_cmd(shell, wstatus);
 		ft_status_child(wstatus);
 	}
 	ft_free_close(shell);
 }
 
-static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst, char **envp)
+static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst)
 {
-	if (shell->exec->cmd != NULL || shell->exec->builtins != NULL)
-		ft_execute_pipe(shell, shell->exec, envp, lst);
+	if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
+		ft_execute_pipe(shell, shell->exec, lst);
 	ft_free_close_pipe(shell, lst);
 }
 
-void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
+void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst)
 {
 	int	i;
 
 	i = 0;
 	while (lst->value_split[i])
-	{	
-		if (ft_check_is_builtins(shell, lst->value_split, &i) == TRUE)
+	{
+		if (ft_sort_check_built(shell, lst, &i) == TRUE)
 			break ;
-		if (shell->exec->is_dir == 0)
+		if (shell->exec->is_dir == 0 && shell->exec->cmd == NULL)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
@@ -90,35 +102,9 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
 		if (shell->exec->is_dir == 0 && lst->cmd_found == TRUE)
-			lst->cmd_found = ft_check_cmd(shell, envp, lst->value_split, i);
+			lst->cmd_found = ft_check_cmd(shell, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
 	}
-	ft_sort_cmd_pipe_bis(shell, lst, envp);
-}
-
-void	ft_check_execute(t_shell *shell, char **envp)
-{
-	t_cmds	*lst;
-
-	lst = shell->arg;
-	shell->exec->pid = 0;
-	if (shell->pipe == 1)
-		ft_sort_cmd(shell, lst, envp);
-	else
-	{
-		while (lst)
-		{
-			if (lst->next != NULL)
-			{
-				shell->pipe = ft_check_shell_pipe(shell, lst);
-				if (shell->pipe == ERROR)
-					break ;
-			}
-			ft_sort_cmd_pipe(shell, lst, envp);
-			ft_add_pid(shell);
-			lst = lst->next;
-		}
-		ft_waitpid_pipe(shell);
-	}
+	ft_sort_cmd_pipe_bis(shell, lst);
 }
