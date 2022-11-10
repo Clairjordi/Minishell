@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/11/05 17:38:24 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/11/09 19:06:51 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,10 @@ EOC:="\033[0;0m"
 
 SRCS = mandatory/main.c \
 	   mandatory/init/init.c \
+	   mandatory/init/init_bis.c \
 	   mandatory/free/free.c \
 	   mandatory/free/free_bis.c \
+	   mandatory/free/free_exit.c \
 	   mandatory/signals/signals.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/export.c \
@@ -53,6 +55,7 @@ SRCS = mandatory/main.c \
 	   mandatory/execute/sort_utils.c \
 	   mandatory/execute/sort_utils_bis.c \
 	   mandatory/execute/builtins.c \
+	   mandatory/execute/builtins_utils.c \
 	   mandatory/test/print.c
 
 OBJS = ${SRCS:.c=.o}
@@ -63,20 +66,20 @@ LIBFT = ./libft/libft.a
 
 FLAGS = -Wall -Wextra -Werror -g
 
-INC = -lreadline -I includes
+INC = -lreadline 
 
 RM = rm -rf
 
 all: ${NAME}
 
 .c.o:
-	@cc ${FLAGS} ${INC} -c $< -o $@
+	@clang ${FLAGS} -c $< -o $@
 
 ${LIBFT}:
 		@make -C ./libft --no-print-directory
 
 ${NAME}: ${OBJS} ${LIBFT}
-		@gcc ${FLAGS} ${OBJS} ${INC} ${LIBFT} -o ${NAME}		
+		@clang ${FLAGS} ${OBJS} ${INC} ${LIBFT} -o ${NAME} 		
 		@echo ${GREEN}"compilation complete"${EOC}
 
 clean:

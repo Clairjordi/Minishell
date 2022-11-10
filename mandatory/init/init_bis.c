@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   init_bis.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/04 13:57:11 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 19:26:48 by clorcery         ###   ########.fr       */
+/*   Created: 2022/11/09 14:42:52 by clorcery          #+#    #+#             */
+/*   Updated: 2022/11/09 14:43:19 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_cd(char **tab)
+void	ft_init_envcpy(t_shell *shell)
 {
-	if (tab[1] == NULL)
-	{
-		ft_putendl_fd("bash: cd: too few argument", 2);
-		g_g.status = 1;
-		return ;
-	}
-	if (tab[2] != NULL)
-	{
-		ft_putendl_fd("bash: cd: too many arguments", 2);
-		g_g.status = 1;
-		return ;
-	}	
-	if (chdir(tab[1]) == -1)
-	{
-		perror("chdir");
-		g_g.status = 1;
-		return ;
-	}
-	g_g.status = 0;
+	shell->env = malloc(sizeof(t_env));
+	shell->env->first = NULL;
+	shell->env->last = NULL;
+}
+
+void	ft_init_built(t_shell *shell)
+{
+	shell->built = malloc(sizeof(t_built));
+	shell->built->env = NULL;
 }

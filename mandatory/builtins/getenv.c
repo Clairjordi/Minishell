@@ -6,11 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:43:38 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/09 11:10:51 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 13:43:43 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_create_lst_env(t_shell *shell, char **envp)
 {

@@ -6,7 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 20:06:46 by mcloarec          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/09 11:47:55 by mcloarec         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/10 09:49:24 by mcloarec         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +76,5 @@ void	ft_echo(char **tab)
 	}
 	if (n == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	exit(0);
+	g_g.status = 0;
 }

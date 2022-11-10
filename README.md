@@ -96,6 +96,10 @@ OK- gerer le double prompt du ctrtl + c du cat
 - gerer les espaces avec echo : actuellement on affiche la chaine vide - ex : a "" b
 - Ctrl C dans le double heredoc
 bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
+- export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
+- unlink le heredoc
+- changer g_g par g_*nom de variable parlant*
+- remplacer envp par env
 
 NORME : 
 

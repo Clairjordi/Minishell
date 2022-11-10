@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/05 18:22:24 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:05:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,18 @@ typedef struct s_minishell
 	char	**tab_cmd;
 }	t_shell;
 
-t_global	g_g;
+extern t_global	g_g;
+
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
-void    	ft_print_envcpy(t_shell *shell);
-void	ft_child_builtins(t_shell *shell, t_exec *exec, t_cmds *lst);
-int	ft_execute_builtins(t_shell *shell, int wstatus, t_cmds *lst);
-int		ft_execute_builtins_bis(t_shell *shell, int wstatus, t_cmds *lst);
-void	ft_child_builtins_bis(t_shell *shell, t_exec *exec, t_cmds *lst);
-
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
 void		ft_init_exec(t_shell *shell);
 void		ft_init_prompt(t_shell *shell, char **envp);
-void		ft_init_struct(t_shell *shell);
 void		ft_init_cmds(t_cmds *cmd);
-//void		ft_init_built(t_shell *shell, char **envp);
+/*init_bis*/
+void		ft_init_built(t_shell *shell);
 void		ft_init_envcpy(t_shell *shell);
 
 //////PARSING
@@ -172,9 +167,12 @@ int			ft_check_point(t_shell *shell, char **tab, int i);
 int			ft_check_cmd(t_shell *shell, char **envp, char **tab, int i);
 /*builtins*/
 void		ft_add_opt_arg_builtins(t_shell *shell, char **tab, int i);
-void		ft_add_builtins(t_shell *shell, char **tab, int i);
-void		ft_create_builtins_tab(t_shell *shell, char **tab, int **i);
-void		ft_create_builtins_tab_bis(t_shell *shell, char **tab, int **i);
+void		ft_add_builtins(t_shell *shell, char *cmd_built);
+void		ft_create_builtins_tab(t_shell *shell, char **tab, int *i);
+void		ft_create_builtins_tab_bis(t_shell *shell, char **tab, int i);
+/*builtins_utils.c*/
+int			ft_check_is_builtins(t_shell *shell, char **tab, int *i);
+int			ft_check_builtins_without_fork(t_shell *shell);
 /*sort*/	
 void		ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp);
 void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp);
@@ -195,7 +193,7 @@ void		ft_get_idx_heredoc(t_cmds *lst);
 void		ft_count_heredoc(t_shell *shell);
 /*path*/	
 void		ft_get_path_bis(t_shell *shell, char *path_test);
-char		*ft_check_path(t_shell *shell, char *path_test, char *path_cmd, int i);
+char		*ft_check_path(t_shell *shell, char *path_tmp, char *cmd, int i);
 char		*ft_get_path(t_shell *shell, char *path_cmd, char **envp);
 /*path_utils*/
 int			ft_check_access(t_shell *shell, char *path_cmd);
@@ -221,7 +219,7 @@ void		ft_print_env(t_shell *shell);
 /*echo*/
 void		ft_echo(char **tab);
 /*cd*/
-void		ft_cd(char *path);
+void		ft_cd(char **tab);
 
 //////SIGNALS
 void		handler(int sig);
@@ -245,17 +243,19 @@ char		**ft_split_pipes(char *s, char c);
 char		**ft_split_value(char *s, char c);
 
 //////FREE
-/*free*/	
-void  	  ft_free_built(t_shell *shell);
-void		ft_free_shell(t_shell *shell);
+/*free*/
+void		ft_free(t_shell *shell, char *s);
 void		ft_free_exec(t_shell *shell);
 void		ft_free_cmds(t_shell *shell);
-void		ft_free(t_shell *shell, char *s);
-void		ft_free_envcpy(t_shell *shell);
+void		ft_free_shell(t_shell *shell);
 /*free_bis*/
 void		*ft_free_ptr(void *ptr);
 void		ft_free_malloc(t_shell *shell);
 void		ft_free_close_pipe(t_shell *shell, t_cmds *lst);
 void		ft_free_close(t_shell *shell);
+/*free_exit*/
+void		ft_free_built(t_shell *shell);
+void		ft_free_envcpy(t_shell *shell);
+void		ft_free_last_built(t_shell *shell);
 
 #endif

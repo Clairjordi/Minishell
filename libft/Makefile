@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/04 21:00:04 by clorcery          #+#    #+#              #
-#    Updated: 2022/09/09 13:48:54 by clorcery         ###   ########.fr        #
+#    Updated: 2022/11/09 13:56:04 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,7 @@ MKDIR = mkdir -p
 
 RM	= rm -rf
 
-CC	= gcc
+CC	= clang
 
 CLIB	= ar
 

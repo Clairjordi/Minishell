@@ -6,36 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/09 10:47:22 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/10 09:59:01 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
-{
-	if (ft_strcmp(tab[*i], "pwd") == 0)
-	{
-		ft_create_builtins_tab(shell, tab, &i);
-		return (TRUE);
-	}
-	else if (ft_strcmp(tab[*i], "env") == 0)
-	{
-		ft_create_builtins_tab(shell, tab, &i);
-		return (TRUE);
-	}
-	else if (ft_strcmp(tab[*i], "echo") == 0)
-	{
-		ft_create_builtins_tab(shell, tab, &i);
-		return (TRUE);
-	}
-	else if (ft_strcmp(tab[*i], "cd") == 0)
-	{
-		ft_create_builtins_tab(shell, tab, &i);
-		return (TRUE);
-	}
-	return (FALSE);
-}
 
 static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 {
@@ -45,7 +20,7 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst, char **envp)
 	while (lst->value_split[i])
 	{
 		if (ft_check_is_builtins(shell, lst->value_split, &i) == TRUE)
-			break;
+			break ;
 		if (shell->exec->is_dir == 0)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
@@ -72,6 +47,12 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst, char **envp)
 
 	wstatus = 0;
 	ft_sort_cmd_bis(shell, lst, envp);
+	if (shell->exec->builtins != NULL
+		&& ft_check_builtins_without_fork(shell) == TRUE)
+	{
+		ft_free_close(shell);
+		return ;
+	}
 	if (shell->exec->cmd != NULL || shell->exec->builtins != NULL)
 	{
 		wstatus = ft_execute_cmd(shell, envp, wstatus);
@@ -95,7 +76,7 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst, char **envp)
 	while (lst->value_split[i])
 	{	
 		if (ft_check_is_builtins(shell, lst->value_split, &i) == TRUE)
-			break;
+			break ;
 		if (shell->exec->is_dir == 0)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)

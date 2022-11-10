@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/05 16:43:24 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:38:15 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,6 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->next = NULL;
 }
 
-void	ft_init_envcpy(t_shell *shell)
-{
-	shell->env = malloc(sizeof(t_env));
-	shell->env->first = NULL;
-	shell->env->last = NULL;
-}
-
 void	ft_init_prompt(t_shell *shell, char **envp)
 {
 	char	*str;
@@ -66,14 +59,16 @@ void	ft_init_prompt(t_shell *shell, char **envp)
 		str = readline ("$>");
 		if (!str || !ft_strncmp("exit", str, 4))
 		{
-			//ft_free_built(shell);
+			ft_free_last_built(shell);
 			ft_putstr_fd("exit\n", 1);
 			exit (g_g.status);
 		}
 		if (str)
 		{
 			ft_init_shell(shell);
+			ft_init_built(shell);
 			ft_init_exec(shell);
+			ft_init_built(shell);
 			ft_parsing(str, shell, envp);
 			add_history(str);
 		}
