@@ -6,7 +6,11 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/10 10:22:30 by clorcery         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/10 10:30:04 by mcloarec         ###   ########.fr       */
+>>>>>>> df61538a6c455b738f6575f25c96ecb6fbdbfa1e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +70,7 @@ void	ft_init_prompt(t_shell *shell, char **envp)
 		if (str)
 		{
 			ft_init_shell(shell);
+			ft_init_built(shell);
 			ft_init_exec(shell);
 			ft_init_built(shell);
 			ft_parsing(str, shell, envp);

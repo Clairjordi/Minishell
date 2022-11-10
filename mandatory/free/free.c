@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 17:37:14 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 10:01:15 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_free_cmds(t_shell *shell)
 			free(tmp->value);
 		if (tmp->value_split != NULL)
 			ft_free_tab_char(tmp->value_split);
+		if (tmp->hdoc == TRUE)
+			unlink(".heredoc");
 		free(tmp);
 		tmp = buf;
 	}
