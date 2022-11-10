@@ -6,13 +6,13 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 11:21:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:27:46 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp)
+void	ft_child_cmd(t_shell *shell, t_exec *exec)
 {
 	if (exec->infile > 2)
 	{
@@ -36,7 +36,7 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp)
 	}
 	else
 	{
-		if (execve(exec->cmd_path, exec->cmd, envp) == ERROR)
+		if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
 		{
 			close (exec->infile);
 			ft_free(shell, "ERROR execve");
@@ -100,7 +100,7 @@ void	ft_else_child(t_exec *exec, t_cmds *lst)
 		perror("ERROR dup");
 }
 
-void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst)
+void	ft_check_child_execute(t_shell *shell, t_cmds *lst)
 {
 	t_exec	*exec;
 
@@ -114,21 +114,26 @@ void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst)
 	if (shell->exec->builtins != NULL)
 	{
 		ft_exec_builtins(shell);
+		/* t_cmds	*tmp = shell->arg; */
+		/* while (tmp) */
+		/* { */
+		/* 	if (tmp->pipe_fd[0] > 2) */
+		/* 		close(tmp->pipe_fd[0]); */
+		/* 	if (tmp->pipe_fd[1] > 2) */
+		/* 		close(tmp->pipe_fd[1]); */
+		/* 	tmp = tmp->next; */
+		/* } */
 		ft_free_last_built(shell);
 		ft_free(shell, NULL);
 		exit(g_g.status);
-		// je recupe le code de sortie dans mes builtins (g_g.status)
-		// je free ma struct
-		// et je exit avec le code de sortie que j'ai recup
 	}
-	if (execve(exec->cmd_path, exec->cmd, envp) == ERROR)
+	if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
 	{	
 		close (exec->infile);
 		ft_free(shell, "ERROR execve");
 		g_g.status = 127;
 		exit(g_g.status);
 	}
-	
 	g_g.status = 0;
 	exit(g_g.status);
 }

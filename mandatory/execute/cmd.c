@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/04 11:05:18 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:30:06 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	ft_add_opt_arg(t_shell *shell, char **tab, int i)
 		ft_free_malloc(shell);
 }
 
-int	ft_add_cmd(t_shell *shell, char *s, char **envp)
+int	ft_add_cmd(t_shell *shell, char *s)
 {
 	if (shell->exec->cmd != NULL
-		&& ft_get_path(shell, s, envp) != NULL)
+		&& ft_get_path(shell, s) != NULL)
 	{
 		perror("ERROR cmd");
 		g_g.status = 1;
@@ -69,34 +69,34 @@ int	ft_check_point(t_shell *shell, char **tab, int i)
 	return (TRUE);
 }
 
-static int	ft_check_cmd_bis(t_shell *shell, char **envp, char **tab, int i)
+static int	ft_check_cmd_bis(t_shell *shell, char **tab, int i)
 {
-	if (ft_get_path(shell, tab[i], envp) == NULL
+	if (ft_get_path(shell, tab[i]) == NULL
 		|| (tab[i][0] == '.' && tab[i][1] == '.' && tab[i][2] == '\0'))
 	{
 		ft_putendl_fd("Command not found", 2);
 		g_g.status = 127;
 		return (FALSE);
 	}
-	ft_add_cmd(shell, tab[i], envp);
+	ft_add_cmd(shell, tab[i]);
 	return (TRUE);
 }
 
-int	ft_check_cmd(t_shell *shell, char **envp, char **tab, int i)
+int	ft_check_cmd(t_shell *shell, char **tab, int i)
 {
 	if (ft_check_point(shell, tab, i) == FALSE)
 		return (FALSE);
 	if (i == 0 && shell->exec->cmd_path == NULL
 		&& ft_valid_redirect(tab[i]) == FALSE)
 	{
-		if (ft_check_cmd_bis(shell, envp, tab, i) == FALSE)
+		if (ft_check_cmd_bis(shell, tab, i) == FALSE)
 			return (FALSE);
 	}
 	else if (i > 0 && shell->exec->cmd_path == NULL
 		&& ft_valid_redirect(tab[i]) == FALSE
 		&& ft_valid_redirect(tab[i - 1]) == FALSE)
 	{
-		if (ft_check_cmd_bis(shell, envp, tab, i) == FALSE)
+		if (ft_check_cmd_bis(shell, tab, i) == FALSE)
 			return (FALSE);
 	}
 	else if (i > 0 && shell->exec->cmd != NULL

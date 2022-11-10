@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 09:39:51 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/10/29 14:29:02 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:48:42 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ static char	*ft_rep_if_dollar_join(t_shell *shell, int i, int *j, t_cmds *lst)
 	return (variable);
 }
 
+char	*ft_getenv(t_shell *shell, char *name)
+{
+	char	*var;
+
+	var = NULL;
+	
+	return (var);
+}
+
 static char	*ft_rep_if_dollar_bis(t_shell *shell, int i, int *j, t_cmds *lst)
 {
 	char	*tmp;
@@ -40,7 +49,7 @@ static char	*ft_rep_if_dollar_bis(t_shell *shell, int i, int *j, t_cmds *lst)
 	var = NULL;
 	tmp = NULL;
 	tmp = ft_rep_if_dollar_join(shell, i, j, lst);
-	if (getenv(tmp) == NULL) // utiliser notre fonction
+	if (ft_getenv(shell, tmp) == NULL) // utiliser notre fonction
 	{
 		free(tmp);
 		if (shell->tmp != NULL)

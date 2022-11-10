@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 10:48:02 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 17:18:21 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_init_envcpy(&shell);
 	ft_create_lst_env(&shell, envp);
-	ft_init_prompt(&shell, envp);
+	ft_init_prompt(&shell);
 	return (0);
 }

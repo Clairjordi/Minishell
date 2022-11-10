@@ -20,7 +20,6 @@ echo -nz
 echo lol -n
 echo -nnnnnnnn ca va toi
 echo -
-env
 pwd grop\
 """
 
@@ -44,12 +43,11 @@ def compare_output(cmd_line):
     ret_mini %= 255
     #print(f"status mini = {ret_mini}\n")
     ret_bash = system(cmd_bash)
-    #print(f"status bash = {ret_bash}\n")
     ret_bash %= 255
-    #print(f"status bash = {ret_bash}\n")
 
     fd_mini = open("mini_output", "r")
     str_mini = fd_mini.read()
+    print(f"str_mini = {str_mini}\n")
     str_mini_split = str_mini.split('\n')
     for(line) in str_mini_split:
         size += 1
@@ -63,9 +61,13 @@ def compare_output(cmd_line):
     if (str_mini_split != str_bash_split and ret_mini != ret_bash):
          return (OUT_STAT)
     if (str_mini_split != str_bash_split):
+        print(f"output mini = {str_mini_split}\n")
+        print(f"output bash = {str_bash_split}\n")
         return (OUTPUT)
     if (ret_mini != ret_bash):
-         return (STATUS)
+        print(f"status bash = {ret_bash}\n")
+        print(f"status bash = {ret_bash}\n")
+        return (STATUS)
     else:
         return (SUCCESS)
 
