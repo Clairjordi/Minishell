@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:36:20 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 10:37:48 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:22:53 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	ft_free_built(t_shell *shell)
 {
 	if (shell->built->env != NULL)
 		shell->built->env = ft_free_tab_char(shell->built->env);
-	free(shell->built);
-	shell->built = NULL;
 }
 
 void	ft_free_envcpy(t_shell *shell)

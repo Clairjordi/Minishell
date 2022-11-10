@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/09 18:01:42 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/10 11:21:32 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec, char **envp)
 	if (shell->exec->builtins != NULL)
 	{
 		ft_exec_builtins(shell);
-		ft_free(shell, NULL);
 		ft_free_last_built(shell);
+		ft_free(shell, NULL);
 		exit(g_g.status);
 		// je recupe le code de sortie dans mes builtins
 		// je free ma struct
@@ -114,8 +114,8 @@ void	ft_check_child_execute(t_shell *shell, char **envp, t_cmds *lst)
 	if (shell->exec->builtins != NULL)
 	{
 		ft_exec_builtins(shell);
-		ft_free(shell, NULL);
 		ft_free_last_built(shell);
+		ft_free(shell, NULL);
 		exit(g_g.status);
 		// je recupe le code de sortie dans mes builtins (g_g.status)
 		// je free ma struct
