@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 20:06:46 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/05 18:55:04 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/09 11:47:55 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	ft_check_n(char **tab, int *i)
 		{
 			if (tab[*i][j] == '-')
 			{
+				if (tab[*i][j + 1] != 'n')
+					return (0);
 				while (tab[*i][j + 1] == 'n')
 					j++;
 				if (tab[*i][j + 1] == '\0')
@@ -31,6 +33,8 @@ int	ft_check_n(char **tab, int *i)
 					return (1);
 				}
 			}
+			else
+				return (0);
 			j++;
 		}
 		(*i)++;
