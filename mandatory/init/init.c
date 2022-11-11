@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:53:57 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:15:33 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,6 @@ void	ft_init_cmds(t_cmds *cmd)
 	cmd->next = NULL;
 }
 
-int	ft_exit(t_shell *shell, char *str)
-{
-	char	*arg;
-	int		size;
-
-	(void) shell;
-	size = ft_strlen(str);
-	if (ft_strncmp("exit", str, 4) == 0)
-	{
-		arg = ft_substr(str, 5, (size - 5));
-		if (arg == NULL)
-			ft_free_malloc(shell);
-		g_g.status = ft_atoi(arg);
-		free(arg);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
 void	ft_init_prompt(t_shell *shell)
 {
 	char	*str;
@@ -77,9 +58,9 @@ void	ft_init_prompt(t_shell *shell)
 	while (1)
 	{
 		str = readline ("$>");
-		if (!str || ft_exit(shell, str) == TRUE/*!ft_strncmp("exit", str, 4)*/)
+		if (!str || ft_exit(shell, str) == TRUE)
 		{
-			ft_free_envcpy(shell); // changer free_last_built pour ctrl +D
+			ft_free_envcpy(shell);
 			ft_putstr_fd("exit\n", 1);
 			exit (g_g.status);
 		}

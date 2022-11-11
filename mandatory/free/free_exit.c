@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:36:20 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 11:22:53 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:41:24 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	ft_free_envcpy(t_shell *shell)
 	free(shell->env);
 }
 
-void	ft_free_last_built(t_shell *shell)
+void	ft_free_child(t_shell *shell)
 {
-	ft_free_built(shell);
 	ft_free_envcpy(shell);
+	ft_free(shell, NULL);
 }

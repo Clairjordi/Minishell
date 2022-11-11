@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/11/11 10:01:33 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/11/11 15:25:39 by clorcery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = mandatory/main.c \
 	   mandatory/signals/signals.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/export.c \
+	   mandatory/builtins/exit.c \
 	   mandatory/builtins/getenv.c \
 	   mandatory/builtins/pwd.c \
 	   mandatory/builtins/echo.c \

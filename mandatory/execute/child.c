@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/11 14:10:25 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:45:01 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,15 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec)
 	if (shell->exec->builtins != NULL)
 	{
 		ft_exec_builtins(shell);
-		close(1);
-		ft_free_last_built(shell);
-		ft_free(shell, NULL);
+		ft_close_std();
+		ft_free_child(shell);
 		exit(g_g.status);
-		// je recupe le code de sortie dans mes builtins
-		// je free ma struct
-		// et je exit avec le code de sortie que j'ai recup
 	}
-	else
+	else if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
 	{
-		if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
-		{
-			close (exec->infile);
-			ft_free(shell, "ERROR execve");
-			g_g.status = 127;
-			exit(g_g.status);
-		}
+		ft_free(shell, "ERROR execve");
+		g_g.status = 127;
+		exit(g_g.status);
 	}
 	g_g.status = 0;
 	exit(g_g.status);
@@ -120,8 +112,7 @@ void	ft_check_child_execute(t_shell *shell, t_cmds *lst)
 	{
 		ft_exec_builtins(shell);
 		ft_close_std();
-		ft_free_last_built(shell);
-		ft_free(shell, NULL);
+		ft_free_child(shell);
 		exit(g_g.status);
 	}
 	if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)

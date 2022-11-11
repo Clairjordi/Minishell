@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/11 14:00:34 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:59:30 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_exec_builtins(t_shell *shell)
 		ft_cd(shell->exec->builtins);
 	/* if (ft_strcmp(shell->exec->builtins[0], "export") == 0) */
 	/* 	ft_export(shell->exec->builtins); */
-	/* if (ft_strcmp(shell->exec->builtins[0], "exit") == 0) */
-	/* 	ft_cd(shell->exec->builtins); */
+	if (ft_strcmp(shell->exec->builtins[0], "exit") == 0)
+		ft_exit_fork(shell->exec->builtins);
 	if (ft_strcmp(shell->exec->builtins[0], "unset") == 0)
 		ft_unset(shell);
 }
@@ -61,7 +61,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 			close(lst->prev->pipe_fd[1]);
 		if (lst->pipe_fd[0] > 2)
 			close(lst->pipe_fd[0]);
-		ft_check_child_execute(shell, lst);	
+		ft_check_child_execute(shell, lst);
 	}
 	g_g.is_in_loop = 2;
 	if (lst->next != NULL)
