@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 18:16:12 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:59:10 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_remove(t_shell *shell, char *s)
 	t_envcpy	*next;
 
 	tmp = ft_check_name_envcpy(shell, s);
-	if (tmp->name == NULL)
+	if (tmp == NULL)
 		return ;
 	else
 	{

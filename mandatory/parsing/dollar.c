@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 09:39:51 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 18:20:55 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:13:10 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static char	*ft_rep_if_dollar_join(t_shell *shell, int i, int *j, t_cmds *lst)
 			if (variable == NULL)
 				ft_free_malloc(shell);
 		}
-		if (ft_isalnum(lst->value_split[i][*j + 1]) == 0)
+		if (ft_isalnum(lst->value_split[i][*j + 1]) == 0
+				&& lst->value_split[i][*j + 1] != '_')
 			break ;
 		(*j)++;
 	}

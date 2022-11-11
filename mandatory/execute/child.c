@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/11 14:10:25 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 17:36:09 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec)
 	if (shell->exec->builtins != NULL)
 	{
 		ft_exec_builtins(shell);
-		close(1);
+		ft_close_std();
 		ft_free_last_built(shell);
 		ft_free(shell, NULL);
 		exit(g_g.status);
@@ -39,7 +39,6 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec)
 	{
 		if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
 		{
-			close (exec->infile);
 			ft_free(shell, "ERROR execve");
 			g_g.status = 127;
 			exit(g_g.status);
@@ -50,12 +49,14 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec)
 }
 
 void	ft_first_child(t_exec *exec, t_cmds *lst)
-{	
+{
 	if (exec->infile > 2)
 	{
 		if (dup2(exec->infile, STDIN_FILENO) == ERROR)
 			perror("ERROR dup");
 	}
+	if (exec->cmd != NULL)
+		close (lst->pipe_fd[0]);
 	/* if (dup2(STDIN_FILENO, lst->pipe_fd[0]) == ERROR) */
 	/* 	perror("ERROR dup"); */
 	if (exec->outfile > 2)
@@ -94,6 +95,8 @@ void	ft_else_child(t_exec *exec, t_cmds *lst)
 	}
 	if (dup2(lst->prev->pipe_fd[0], STDIN_FILENO) == ERROR)
 		perror("ERROR dup");
+	if (exec->cmd != NULL)
+		close (lst->pipe_fd[0]);
 	close(lst->prev->pipe_fd[0]);
 	if (exec->outfile > 2)
 	{
@@ -119,6 +122,7 @@ void	ft_check_child_execute(t_shell *shell, t_cmds *lst)
 	if (shell->exec->builtins != NULL)
 	{
 		ft_exec_builtins(shell);
+		close(lst->pipe_fd[0]);
 		ft_close_std();
 		ft_free_last_built(shell);
 		ft_free(shell, NULL);
