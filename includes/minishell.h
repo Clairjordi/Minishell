@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 18:20:46 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:11:09 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,7 @@ int			ft_size_lst(t_cmds *lst);
 int			ft_len_va(char *var, int start, char c);
 int			ft_sep(char c);
 int			ft_check_q(char c);
+void		ft_close_std(void);
 /*realloc*/
 char		**ft_realloc_tab_char(char **old_tab, char *new_var);
 char		*ft_cdup(char c);

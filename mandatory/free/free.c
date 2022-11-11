@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:54:26 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:11:42 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,16 @@ void	ft_free_exec(t_shell *shell)
 	}
 	if (shell->exec->builtins != NULL)
 		shell->exec->builtins = ft_free_tab_char(shell->exec->builtins);
-	shell->exec->infile = 0;
-	shell->exec->outfile = 0;
+	if (shell->exec->infile > 2)
+	{
+		close(shell->exec->infile);
+		shell->exec->infile = 0;
+	}
+	if (shell->exec->outfile > 2)
+	{
+		close(shell->exec->outfile);
+		shell->exec->outfile = 0;
+	}
 	shell->exec->is_dir = 0;
 }
 

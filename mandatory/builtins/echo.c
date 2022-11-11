@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 20:06:46 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 18:37:31 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 10:23:20 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	ft_check_n(char **tab, int *i)
 {
 	int	j;
 
-	while (tab[*i])
-	{
+	/* while (tab[*i]) */
+	/* { */
 		j = 0;
 		while (tab[*i][j])
 		{
@@ -35,8 +35,8 @@ int	ft_check_n(char **tab, int *i)
 			}
 			else
 				return (0);
-			j++;
-		}
+		/* 	j++; */
+		/* } */
 		(*i)++;
 	}
 	return (0);
@@ -55,7 +55,7 @@ int	ft_size_tab(char **tab)
 void	ft_echo(char **tab)
 {
 	int	i;
-	int size;
+	int	size;
 	int	n;
 
 	i = 1;
@@ -65,9 +65,10 @@ void	ft_echo(char **tab)
 		i = 1;
 	while (i < size)
 	{
-		ft_putstr_fd(tab[i], STDOUT_FILENO);
-		/*if (i + 1 != size)
-			ft_putstr_fd(" ", STDOUT_FILENO);*/
+		if (*tab[i] != 32)
+			ft_putstr_fd(tab[i], STDOUT_FILENO);
+		if (i + 1 != size)
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		++i;
 	}
 	if (n == 0)

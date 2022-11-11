@@ -85,11 +85,11 @@ Builtins :
 -verifier les includes dans le h vraiment necessaire
 -gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure. pour tester : ulimits -30
 OK - chaine vide dans le split
-OK - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
+- demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
 OK - Gérer lorsqu'on fait entrer dans le prompt directement
 OK - ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
 OK - retirer les quotes des noms des outfiles avant de les open
-OK - gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork 
+- gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork 
 OK- gerer le double prompt du ctrtl + c du cat
 
 - quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
@@ -97,9 +97,9 @@ OK - gerer les espaces avec echo : actuellement on affiche la chaine vide - ex :
 - Ctrl C dans le double heredoc
 bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
 - export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
-OK - unlink le heredoc
-- changer g_g par g_*nom de variable parlant* t_global
-OK - remplacer envp par env
+- unlink le heredoc
+- changer g_g par g_*nom de variable parlant*
+- remplacer envp par env
 
 NORME : 
 

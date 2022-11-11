@@ -6,11 +6,17 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/10/16 17:20:27 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:09:51 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_close_std(void)
+{
+	close(0);
+	close(1);
+}
 
 int	ft_size_lst(t_cmds *lst)
 {

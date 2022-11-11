@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 17:55:44 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:00:34 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 			close(lst->prev->pipe_fd[1]);
 		if (lst->pipe_fd[0] > 2)
 			close(lst->pipe_fd[0]);
-		ft_check_child_execute(shell, lst);
+		ft_check_child_execute(shell, lst);	
 	}
 	g_g.is_in_loop = 2;
 	if (lst->next != NULL)
