@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 19:03:07 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:57:02 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/11 15:20:25 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	ft_check_builtins_without_fork(t_shell *shell)
 		ft_unset(shell);
 		return (TRUE);
 	}
+	//gerer directement dans le init
 	/*if (ft_strcmp(shell->exec->builtins[0], "exit") == 0)
 	{
 		ft_exit(shell->exec->builtins);

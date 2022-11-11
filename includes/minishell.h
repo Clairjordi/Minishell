@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/11 14:11:09 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 16:00:16 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,9 @@ void		ft_create_lst_env(t_shell *shell, char **envp);
 /*pwd*/
 void		ft_pwd(void);
 /*export*/
+/*exit*/
+int			ft_exit(t_shell *shell, char *str);
+void		ft_exit_fork(char **built);
 /*env*/
 void		ft_recup_env(t_shell *shell);
 void		ft_print_env(t_shell *shell);
@@ -220,7 +223,7 @@ void		ft_cd(char **tab);
 /*unset*/
 int			ft_check_valid_name(char *s);
 void		ft_unset(t_shell *shell);
-t_envcpy    *ft_check_name_envcpy(t_shell *shell, char *s);
+t_envcpy	*ft_check_name_envcpy(t_shell *shell, char *s);
 
 //////SIGNALS
 void		handler(int sig);
@@ -258,6 +261,5 @@ void		ft_free_close(t_shell *shell);
 /*free_exit*/
 void		ft_free_built(t_shell *shell);
 void		ft_free_envcpy(t_shell *shell);
-void		ft_free_last_built(t_shell *shell);
-
+void		ft_free_child(t_shell *shell);
 #endif
