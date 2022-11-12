@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/11 15:15:33 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:48:49 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_init_prompt(t_shell *shell)
 	while (1)
 	{
 		str = readline ("$>");
-		if (!str || ft_exit(shell, str) == TRUE)
+		if (!str || ft_strcmp("exit", str) == 0)
 		{
 			ft_free_envcpy(shell);
 			ft_putstr_fd("exit\n", 1);

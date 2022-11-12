@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/11 14:59:10 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:59:05 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_valid_name(char *s)
 		i++;
 	while (s[i])
 	{
-		while (ft_isalnum(s[i]) == 1/* && s[i + 1] != '\0'*/)
+		while (ft_isalnum(s[i]) == 1)
 			i++;
 		if (s[i] == '\0')
 			return (1);
@@ -45,7 +45,7 @@ int	ft_check_valid_name(char *s)
 
 t_envcpy	*ft_check_name_envcpy(t_shell *shell, char *s)
 {
-	t_envcpy *tmp;
+	t_envcpy	*tmp;
 
 	tmp = shell->env->first;
 	while (tmp)

@@ -6,109 +6,99 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:15:09 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/11 17:32:57 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:15:40 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_arg_exit(char *arg_exit)
-{
-	int		i;
-	char	quote;
-
-	i = 0;
-	quote = '\0';
-	if (arg_exit[0] == '+' || arg_exit[0] == '-')
-		i++;
-	if (arg_exit[0] == '\'' || arg_exit[0] == '\"')
-	{
-		quote = arg_exit[0];
-		i++;
-	}
-	while (arg_exit[i])
-	{
-		if (arg_exit[i + 1] == '\0' && arg_exit[i] == quote)
-			break ;
-		if (ft_isdigit(arg_exit[i]) == 0)
-		{
-			ft_putendl_fd("numeric argument required", 2);
-			return (FALSE);
-		}
-		i++;
-	}
-	return (TRUE);
-}
-
-int	ft_check_exit_is_valid(char *str)
-{
-	int	i;
-	int	space;
-
-	space = 0;
-	i = 0;
-	if (str[4] != ' ' && str[4] != '\0')
-		return (FALSE);
-	if (str[4] == ' ')
-	{
-		while (str[i])
-		{
-			if (str[i] == ' ')
-				space++;
-			if (space > 1)
-				return (FALSE);
-			i++;
-		}
-	}
-	return (TRUE);
-}
-
-int	ft_exit(t_shell *shell, char *str)
-{
-	char	*arg;
-	int		size;
-
-	(void) shell;
-	size = ft_strlen(str);
-	if (ft_strncmp("exit", str, 4) == 0)
-	{
-		if (ft_check_exit_is_valid(str) == FALSE)
-			return (FALSE);
-		if (str[4] != '\0')
-		{
-			arg = ft_substr(str, 5, (size - 5));
-			if (arg == NULL)
-				ft_free_malloc(shell);
-			if (ft_check_arg_exit(arg) == FALSE)
-				g_g.status = 2;
-			else
-				g_g.status = ft_atoi(arg);
-			free(arg);
-		}
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-void	ft_exit_fork(char **built)
+int	ft_check_long_arg_exit(t_shell *shell, char *arg_exit)
 {
 	int	size;
 
+	(void) shell;
 	size = 0;
-	size = ft_size_tab(built);
-	if (built[1] == NULL)
-		return ;
-	if (size > 2)
+	while (arg_exit[size])
+		size++;
+	if (arg_exit[0] == '-' || arg_exit[0] == '+')
 	{
-		ft_putendl_fd("exit", 1);
-		ft_putendl_fd("too many arguments", 2);
+		if (size > 20)
+			return (FALSE);
+	}
+	else if (size > 19)
+		return (FALSE);
+	if (arg_exit[0] == '-' && arg_exit[size - 1] > '8')
+		return (FALSE);
+	if (arg_exit[0] != '-' && arg_exit[size - 1] > '7')
+		return (FALSE);
+	return (TRUE);
+}
+
+int	ft_check_arg_exit(t_shell *shell, char *arg_exit)
+{
+	int	i;
+
+	(void) shell;
+	i = 0;
+	if (arg_exit[i] == '+' || arg_exit[i] == '-')
+		i++;
+	while (arg_exit[i])
+	{
+		if (ft_isdigit(arg_exit[i]) == 0
+			|| ft_check_long_arg_exit(shell, arg_exit) == FALSE)
+		{
+			ft_putendl_fd("numeric argument required", 2);
+			g_g.status = 2;
+			return (FALSE);
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
+void	ft_exit(t_shell *shell, char **tab_exit)
+{
+	int			size;
+	long long	status;
+	int			arg;
+
+	size = ft_size_tab(tab_exit);
+	ft_putendl_fd("exit", 1);
+	arg = ft_check_arg_exit(shell, tab_exit[1]);
+	if (size > 2 && arg == TRUE)
+	{
+		ft_putendl_fd("Too many arguments", 2);
 		g_g.status = 1;
 		return ;
-	}	
-	if (ft_check_arg_exit(built[1]) == FALSE)
+	}
+	if (arg == TRUE)
 	{
-		g_g.status = 2;
+		status = ft_atoll(tab_exit[1]);
+		status = status % 256;
+		g_g.status = status;
+	}
+	ft_free_envcpy(shell);
+	ft_free(shell, NULL);
+	exit (g_g.status);
+}
+
+void	ft_exit_fork(t_shell *shell, char **tab_exit)
+{
+	int			size;
+	long long	status;
+
+	size = 0;
+	size = ft_size_tab(tab_exit);
+	if (tab_exit[1] == NULL)
+		return ;
+	status = ft_check_arg_exit(shell, tab_exit[1]);
+	if (status == FALSE)
+		return ;
+	if (size > 2 && status == TRUE)
+	{
+		ft_putendl_fd("Too many arguments", 2);
+		g_g.status = 1;
 		return ;
 	}
-	g_g.status = ft_atoi(built[1]);
+	g_g.status = ft_atoll(tab_exit[1]);
 }

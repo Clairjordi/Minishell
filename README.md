@@ -58,7 +58,7 @@ Exemples de redirection :
 	
 	 
 
-Gestion de pipes :
+OK Gestion de pipes :
 - < essai grep g>ile7 | wc -w  > ile8 -> la sortie de la premiere partie du pipe est redirige vers un outfile et donc il n'y a rien dans l'entree du pipe et donc la sortie de la 2eme partie du pipe vaut 0 vu qu'il n'y a rien dans son entree
 OK - a | t | (fini avec un espace seulement) -> doit afficher une erreur
 
@@ -89,17 +89,17 @@ OK - chaine vide dans le split
 OK - Gérer lorsqu'on fait entrer dans le prompt directement
 OK - ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
 OK - retirer les quotes des noms des outfiles avant de les open
-- gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork 
+OK - gerer le point : . .. ./ ou un dossier - avant exec pour eviter de fork 
 OK- gerer le double prompt du ctrtl + c du cat
 
-- quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
+OK - quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(wstatus = 256 == 1 - wstatus = 512 == 2) -> demander à Thibaud
 OK - gerer les espaces avec echo : actuellement on affiche la chaine vide - ex : a "" b
-- Ctrl C dans le double heredoc
+OK - Ctrl C dans le double heredoc
 bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
 - export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
 - unlink le heredoc
 - changer g_g par g_*nom de variable parlant*
-- remplacer envp par env
+OK - remplacer envp par env
 
 NORME : 
 
