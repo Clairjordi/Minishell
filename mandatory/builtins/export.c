@@ -6,11 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:48:59 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 18:23:01 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:28:55 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+
 
 /* void	ft_sort_export(t_shell *shell) */
 /* { */

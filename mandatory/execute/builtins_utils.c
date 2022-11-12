@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 19:03:07 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/11 15:20:25 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/12 10:22:34 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	ft_check_builtins_without_fork(t_shell *shell)
 		ft_cd(shell->exec->builtins);
 		return (TRUE);
 	}
-	/*if (ft_strcmp(shell->exec->builtins[0], "export") == 0)
+	if (ft_strcmp(shell->exec->builtins[0], "export") == 0)
 	{
-		ft_export(shell->exec->builtins);
+		ft_export(shell);
 		return (TRUE);
-	}*/	
+	}	
 	if (ft_strcmp(shell->exec->builtins[0], "unset") == 0)
 	{
 		ft_unset(shell);

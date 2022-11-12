@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/11 14:59:10 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/12 10:04:32 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_valid_name(char *s)
 		i++;
 	while (s[i])
 	{
-		while (ft_isalnum(s[i]) == 1/* && s[i + 1] != '\0'*/)
+		while (ft_isalnum(s[i]) == 1)
 			i++;
 		if (s[i] == '\0')
 			return (1);
@@ -96,6 +96,11 @@ void	ft_unset(t_shell *shell)
 	{
 		if (ft_check_valid_name(shell->exec->builtins[i]) == 1)
 			ft_remove(shell, shell->exec->builtins[i]);
+		else
+		{
+			break ;
+			return ;
+		}
 		i++;
 	}
 	g_g.status = 0;

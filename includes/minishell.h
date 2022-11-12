@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/11 16:00:16 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/12 10:21:21 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ void		ft_create_lst_env(t_shell *shell, char **envp);
 /*pwd*/
 void		ft_pwd(void);
 /*export*/
+void		ft_export(t_shell *shell);
 /*exit*/
 int			ft_exit(t_shell *shell, char *str);
 void		ft_exit_fork(char **built);
