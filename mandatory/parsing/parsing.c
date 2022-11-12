@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:19:14 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/12 18:57:29 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_parsing(char *str, t_shell *shell)
 {
 	if (ft_verif_parsing(str) == ERROR)
 	{
-		//ft_printf("g_g.status = %d\n", g_g.status);
 		ft_free(shell, NULL);
 		return ;
 	}
@@ -54,18 +53,14 @@ void	ft_parsing(char *str, t_shell *shell)
 		ft_free_malloc(shell);
 	if (ft_check_space_pipe(shell) == ERROR)
 	{
-		ft_printf("g_g.status = %d\n", g_g.status);
 		ft_free(shell, NULL);
 		return ;
 	}
 	ft_create_lst(shell);
 	ft_replace_value(shell);
-	/* ft_recup_env mis la pour qu'il se remette a jour (ajout des export dans la liste chainee) */
-	ft_recup_env(shell); 
+	ft_recup_env(shell);
 	ft_minishell(shell);
-	//ft_printf("g_g.status = %d\n", g_g.status);
 	//ft_print_test(shell); //A SUPPR
-	/*plus que ft_free car free_built appele dans cette fonction*/
 	ft_free(shell, NULL);
 	if (access(".heredoc", F_OK) == 0)
 		unlink(".heredoc");

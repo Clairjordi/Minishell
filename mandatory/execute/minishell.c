@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/12 10:20:08 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:09:21 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_exec_builtins(t_shell *shell)
 	if (ft_strcmp(shell->exec->builtins[0], "export") == 0)
 		ft_export(shell);
 	if (ft_strcmp(shell->exec->builtins[0], "exit") == 0)
-		ft_exit_fork(shell->exec->builtins);
+		ft_exit_fork(shell, shell->exec->builtins);
 	if (ft_strcmp(shell->exec->builtins[0], "unset") == 0)
 		ft_unset(shell);
 }
@@ -59,7 +59,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 		signal(SIGQUIT, SIG_DFL);
 		if (lst->prev != NULL && lst->prev->pipe_fd[1] > 2)
 			close(lst->prev->pipe_fd[1]);
-		ft_check_child_execute(shell, lst);	
+		ft_check_child_execute(shell, lst);
 	}
 	g_g.is_in_loop = 2;
 	if (lst->next != NULL)
@@ -83,7 +83,7 @@ void	ft_check_execute(t_shell *shell)
 		{
 			if (lst->next != NULL)
 			{
-				shell->pipe = ft_check_shell_pipe(shell, lst);	
+				shell->pipe = ft_check_shell_pipe(shell, lst);
 				if (shell->pipe == ERROR)
 					break ;
 			}

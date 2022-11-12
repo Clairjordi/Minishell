@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/12 10:04:32 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/12 19:09:59 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_check_valid_name(char *s)
 
 t_envcpy	*ft_check_name_envcpy(t_shell *shell, char *s)
 {
-	t_envcpy *tmp;
+	t_envcpy	*tmp;
 
 	tmp = shell->env->first;
 	while (tmp)

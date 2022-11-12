@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 19:00:10 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/12 16:59:48 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static char	*ft_rep_bis(t_shell *shell, int i, int *j, t_cmds *lst)
 			ft_free_malloc(shell);
 		return (new);
 	}
-	else if (ft_check_q(lst->value_split[i][*j]) == 1)
+	else if (((*j == 0 && ft_check_q(lst->value_split[i][*j]) == 1)
+		|| (*j > 0 && ft_check_q(lst->value_split[i][*j]) == 1
+		&& lst->value_split[i][*j - 1] == '$'))
+			&& ft_check_q(lst->value_split[i][*j + 1]) == 1)
 	{
 		new = ft_rep_quotes_space(shell, i, j, lst);
 		if (new)
