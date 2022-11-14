@@ -72,5 +72,5 @@ void	ft_echo(char **tab)
 	}
 	if (n == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-	g_g.status = 0;
+	g_minishell.status = 0;
 }

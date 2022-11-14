@@ -29,16 +29,16 @@ void	ft_child_cmd(t_shell *shell, t_exec *exec)
 		ft_exec_builtins(shell);
 		ft_close_std();
 		ft_free_child(shell);
-		exit(g_g.status);
+		exit(g_minishell.status);
 	}
 	else if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
 	{
 		ft_free(shell, "ERROR execve");
-		g_g.status = 127;
-		exit(g_g.status);
+		g_minishell.status = 127;
+		exit(g_minishell.status);
 	}
-	g_g.status = 0;
-	exit(g_g.status);
+	g_minishell.status = 0;
+	exit(g_minishell.status);
 }
 
 void	ft_first_child(t_exec *exec, t_cmds *lst)
@@ -118,14 +118,14 @@ void	ft_check_child_execute(t_shell *shell, t_cmds *lst)
 		close(lst->pipe_fd[0]);
 		ft_close_std();
 		ft_free_child(shell);
-		exit(g_g.status);
+		exit(g_minishell.status);
 	}
 	if (execve(exec->cmd_path, exec->cmd, shell->built->env) == ERROR)
 	{	
 		ft_free(shell, "ERROR execve");
-		g_g.status = 127;
-		exit(g_g.status);
+		g_minishell.status = 127;
+		exit(g_minishell.status);
 	}
-	g_g.status = 0;
-	exit(g_g.status);
+	g_minishell.status = 0;
+	exit(g_minishell.status);
 }

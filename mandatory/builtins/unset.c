@@ -36,7 +36,7 @@ int	ft_check_valid_name(char *s)
 	if (ft_isalpha(s[0]) == 0 && s[0] != '_')
 	{
 		ft_putendl_fd("bash: unset: not a valid identifier", 2);
-		g_g.status = 1;
+		g_minishell.status = 1;
 	}
 	else if (ft_valid_name(s) == 1)
 		return (1);
@@ -89,7 +89,7 @@ void	ft_unset(t_shell *shell)
 	if (shell->exec->builtins[i][0] == '-')
 	{
 		ft_putendl_fd("bash: unset: invalid option", 2);
-		g_g.status = 2;
+		g_minishell.status = 2;
 		return ;
 	}
 	while (shell->exec->builtins[i])
@@ -103,5 +103,5 @@ void	ft_unset(t_shell *shell)
 		}
 		i++;
 	}
-	g_g.status = 0;
+	g_minishell.status = 0;
 }

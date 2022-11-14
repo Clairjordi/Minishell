@@ -14,14 +14,14 @@
 
 void	handler(int sig)
 {
-	if (sig == SIGINT && g_g.is_in_loop == 1)
+	if (sig == SIGINT && g_minishell.is_in_loop == 1)
 	{
-		free(g_g.line);
-		free(g_g.limiter);
-		close(g_g.fd_hdoc);
+		free(g_minishell.line);
+		free(g_minishell.limiter);
+		close(g_minishell.fd_hdoc);
 		exit (130);
 	}
-	else if (sig == SIGINT && g_g.is_in_loop == 0)
+	else if (sig == SIGINT && g_minishell.is_in_loop == 0)
 	{
 		ft_putstr_fd("\n", 1);
 		rl_replace_line("", 0);
@@ -33,13 +33,13 @@ void	handler(int sig)
 void	ft_status_child(int wstatus)
 {
 	if (WIFEXITED(wstatus))
-		g_g.status = WEXITSTATUS(wstatus);
+		g_minishell.status = WEXITSTATUS(wstatus);
 	if (WIFSIGNALED(wstatus))
 	{
-		g_g.status = WTERMSIG(wstatus);
-		if (g_g.status != 131)
-			g_g.status += 128;
+		g_minishell.status = WTERMSIG(wstatus);
+		if (g_minishell.status != 131)
+			g_minishell.status += 128;
 	}
-	if (g_g.status == 131)
+	if (g_minishell.status == 131)
 		ft_putstr_fd("Quit (core dumped)\n", 2);
 }

@@ -81,7 +81,7 @@ static char	*ft_rep_if_interrogation(t_shell *shell, int i, int *j, t_cmds *lst)
 	status = NULL;
 	if (lst->value_split[i][*j + 1] == '?')
 	{
-		status = ft_itoa(g_g.status);
+		status = ft_itoa(g_minishell.status);
 		if (status == NULL)
 			ft_free_malloc(shell);
 		(*j)++;

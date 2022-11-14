@@ -75,7 +75,7 @@ int	ft_check_redirect(char *s)
 			if (ft_check_redirect_bis(&i, size, s) == -1)
 			{
 				ft_putendl_fd("Wrong redirection syntax", 2);
-				g_g.status = 2;
+				g_minishell.status = 2;
 				return (-1);
 			}
 		}
@@ -93,7 +93,7 @@ int	ft_verif_redirect(char *s)
 	if (ft_sep(s[i]) == 3 && s[i + 1] == '\0')
 	{
 		ft_putendl_fd("Wrong redirection syntax", 2);
-		g_g.status = 2;
+		g_minishell.status = 2;
 		return (-1);
 	}
 	if (ft_check_redirect(s) == -1)
@@ -105,7 +105,7 @@ int	ft_verif_redirect(char *s)
 			|| (s[i] == '<' && s[i + 1] == '>'))
 		{
 			ft_putendl_fd("Wrong redirection syntax", 2);
-			g_g.status = 2;
+			g_minishell.status = 2;
 			return (-1);
 		}
 		i++;

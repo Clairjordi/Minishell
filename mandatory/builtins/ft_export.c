@@ -49,7 +49,7 @@ void	ft_write_export(t_envcpy *env)
 		tmp = tmp->next;
 	}
 	ft_free_export_lst(env);
-	g_g.status = 0;
+	g_minishell.status = 0;
 }
 
 t_envcpy	*ft_cpy_env(t_envcpy *env_lst)
@@ -173,7 +173,7 @@ int	ft_check_name_var(char *s)
 	if (ft_isalpha(s[0]) == 0 && s[0] != '_')
 	{
 		ft_putendl_fd("bash : unset: not a valid identifier", 2);
-		g_g.status = 1;
+		g_minishell.status = 1;
 		return (check);
 	}
 	check = ft_name_var(s);
@@ -294,5 +294,5 @@ void	ft_export(t_shell *shell)
 			break ;
 		i++;
 	}
-	g_g.status = 0;
+	g_minishell.status = 0;
 }

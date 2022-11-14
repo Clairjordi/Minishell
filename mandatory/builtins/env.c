@@ -22,7 +22,7 @@ void	ft_print_env(t_shell *shell)
 		ft_printf("%s\n", shell->built->env[i]);
 		i++;
 	}
-	g_g.status = 0;
+	g_minishell.status = 0;
 }
 
 void	ft_recup_env(t_shell *shell)

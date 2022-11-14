@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/12 19:10:56 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 11:27:21 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 # define FALSE 0
 # define ERROR -1
 
-typedef struct s_global
+typedef struct s_minishell
 {
 	int		status;
 	char	*limiter;
 	char	*line;
 	int		is_in_loop;
 	int		fd_hdoc;
-}	t_global;
+}	t_minishell;
 
 typedef struct s_lst_cmd
 {
@@ -80,7 +80,7 @@ typedef struct s_env
 	struct s_envcpy	*last;
 }	t_env;
 
-typedef struct s_minishell
+typedef struct s_shell
 {
 	t_built	*built;
 	t_exec	*exec;
@@ -96,7 +96,7 @@ typedef struct s_minishell
 	char	**tab_cmd;
 }	t_shell;
 
-extern t_global	g_g;
+extern t_minishell	g_minishell;
 
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);

@@ -48,7 +48,7 @@ int	ft_check_arg_exit(t_shell *shell, char *arg_exit)
 			|| ft_check_long_arg_exit(shell, arg_exit) == FALSE)
 		{
 			ft_putendl_fd("numeric argument required", 2);
-			g_g.status = 2;
+			g_minishell.status = 2;
 			return (FALSE);
 		}
 		i++;
@@ -68,18 +68,18 @@ void	ft_exit(t_shell *shell, char **tab_exit)
 	if (size > 2 && arg == TRUE)
 	{
 		ft_putendl_fd("Too many arguments", 2);
-		g_g.status = 1;
+		g_minishell.status = 1;
 		return ;
 	}
 	if (arg == TRUE)
 	{
 		status = ft_atoll(tab_exit[1]);
 		status = status % 256;
-		g_g.status = status;
+		g_minishell.status = status;
 	}
 	ft_free_envcpy(shell);
 	ft_free(shell, NULL);
-	exit (g_g.status);
+	exit (g_minishell.status);
 }
 
 void	ft_exit_fork(t_shell *shell, char **tab_exit)
@@ -97,8 +97,8 @@ void	ft_exit_fork(t_shell *shell, char **tab_exit)
 	if (size > 2 && status == TRUE)
 	{
 		ft_putendl_fd("Too many arguments", 2);
-		g_g.status = 1;
+		g_minishell.status = 1;
 		return ;
 	}
-	g_g.status = ft_atoll(tab_exit[1]);
+	g_minishell.status = ft_atoll(tab_exit[1]);
 }

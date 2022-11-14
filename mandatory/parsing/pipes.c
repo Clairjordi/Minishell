@@ -26,7 +26,7 @@ int	ft_verif_pipe(char *s)
 		if (s[i] == '|' && s[i + 1] == '|')
 		{
 			ft_putendl_fd("Wrong pipes syntax", 2);
-			g_g.status = 2;
+			g_minishell.status = 2;
 			return (-1);
 		}
 		i++;
@@ -42,7 +42,7 @@ int	ft_check_pipe(char *s)
 	if (s[i] == '|')
 	{
 		ft_putendl_fd("Wrong pipes syntax", 2);
-		g_g.status = 2;
+		g_minishell.status = 2;
 		return (-1);
 	}
 	while (s[i])
@@ -50,7 +50,7 @@ int	ft_check_pipe(char *s)
 		if (s[i] == '|' && s[i + 1] == '\0')
 		{
 			ft_putendl_fd("Wrong pipes syntax", 2);
-			g_g.status = 2;
+			g_minishell.status = 2;
 			return (-1);
 		}
 		i++;
@@ -72,7 +72,7 @@ int	ft_check_space_pipe(t_shell *shell)
 			if (shell->tab_cmd[i][j + 1] == '\0')
 			{
 				ft_putendl_fd("Wrong pipes syntax", 2);
-				g_g.status = 2;
+				g_minishell.status = 2;
 				return (ERROR);
 			}
 			j++;

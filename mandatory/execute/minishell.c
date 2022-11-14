@@ -37,14 +37,14 @@ int	ft_execute_cmd(t_shell *shell, int wstatus)
 		perror("ERROR pid");
 	if (shell->exec->pid == 0)
 	{
-		g_g.is_in_loop = 3;
+		g_minishell.is_in_loop = 3;
 		signal(SIGQUIT, SIG_DFL);
 		ft_child_cmd(shell, shell->exec);
 	}
-	g_g.is_in_loop = 2;
+	g_minishell.is_in_loop = 2;
 	if (waitpid(shell->exec->pid, &wstatus, 0) == ERROR)
 		perror("ERROR waitpid");
-	g_g.is_in_loop = 0;
+	g_minishell.is_in_loop = 0;
 	return (wstatus);
 }
 
@@ -55,13 +55,13 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 		perror("ERROR pid");
 	if (exec->pid == 0)
 	{
-		g_g.is_in_loop = 3;
+		g_minishell.is_in_loop = 3;
 		signal(SIGQUIT, SIG_DFL);
 		if (lst->prev != NULL && lst->prev->pipe_fd[1] > 2)
 			close(lst->prev->pipe_fd[1]);
 		ft_check_child_execute(shell, lst);
 	}
-	g_g.is_in_loop = 2;
+	g_minishell.is_in_loop = 2;
 	if (lst->next != NULL)
 	{
 		close(lst->pipe_fd[1]);

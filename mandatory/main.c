@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:18:21 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 11:19:49 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_global	g_g;
+t_minishell	g_minishell;
 
 int	main(int argc, char **argv, char **envp)
 {

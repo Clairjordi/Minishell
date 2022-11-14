@@ -18,55 +18,55 @@ void	ft_heredoc(t_shell *shell)
 	ft_free_envcpy(shell);
 	while (1)
 	{
-		g_g.line = readline (">");
-		if (!g_g.line)
+		g_minishell.line = readline (">");
+		if (!g_minishell.line)
 		{
 			ft_putstr_fd("bash: warning: here-document \
-					at g_g.line 1 delimited by end-of-file\n", 1);
-			g_g.status = 0;
+					at g_minishell.line 1 delimited by end-of-file\n", 1);
+			g_minishell.status = 0;
 			break ;
 		}
-		if (ft_strcmp(g_g.line, g_g.limiter) == 0)
+		if (ft_strcmp(g_minishell.line, g_minishell.limiter) == 0)
 			break ;
 		else
 		{
-			ft_putstr_fd(g_g.line, g_g.fd_hdoc);
-			ft_putstr_fd("\n", g_g.fd_hdoc);
-			free(g_g.line);
-			g_g.line = NULL;
+			ft_putstr_fd(g_minishell.line, g_minishell.fd_hdoc);
+			ft_putstr_fd("\n", g_minishell.fd_hdoc);
+			free(g_minishell.line);
+			g_minishell.line = NULL;
 		}
 	}
-	free(g_g.line);
-	free(g_g.limiter);
-	close(g_g.fd_hdoc);
+	free(g_minishell.line);
+	free(g_minishell.limiter);
+	close(g_minishell.fd_hdoc);
 	exit(EXIT_SUCCESS);
 }
 
 int	ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst)
 {
 	ft_get_idx_heredoc(lst);
-	g_g.fd_hdoc = open(".heredoc", (O_CREAT | O_WRONLY | O_TRUNC), 0644);
-	g_g.limiter = ft_strdup(lst->value_split[lst->idx_hdoc]);
-	if (g_g.limiter == NULL)
+	g_minishell.fd_hdoc = open(".heredoc", (O_CREAT | O_WRONLY | O_TRUNC), 0644);
+	g_minishell.limiter = ft_strdup(lst->value_split[lst->idx_hdoc]);
+	if (g_minishell.limiter == NULL)
 		ft_free_malloc(shell);
 	shell->pid_hdoc = fork();
 	if (shell->pid_hdoc == -1)
 	{
 		ft_putendl_fd("Fork doesn't work", 2);
-		g_g.status = 1;
+		g_minishell.status = 1;
 		ft_free_malloc(shell);
 	}
 	else if (shell->pid_hdoc == 0)
 	{
-		g_g.is_in_loop = 1;
+		g_minishell.is_in_loop = 1;
 		ft_heredoc(shell);
 	}
-	g_g.is_in_loop = 2;
-	free(g_g.limiter);
-	close(g_g.fd_hdoc);
+	g_minishell.is_in_loop = 2;
+	free(g_minishell.limiter);
+	close(g_minishell.fd_hdoc);
 	if (waitpid(shell->pid_hdoc, &wstatus, 0) == ERROR)
 		perror("ERROR waitpid heredoc");
-	g_g.is_in_loop = 0;
+	g_minishell.is_in_loop = 0;
 	return (wstatus);
 }
 

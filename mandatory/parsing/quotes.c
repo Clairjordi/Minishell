@@ -98,7 +98,7 @@ int	ft_count_quote(char *str)
 	if (dble % 2 != 0 || simple % 2 != 0)
 	{
 		ft_putendl_fd("Wrong quotes syntax", 2);
-		g_g.status = 1;
+		g_minishell.status = 1;
 		return (-1);
 	}
 	return (0);

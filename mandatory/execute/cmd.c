@@ -27,7 +27,7 @@ int	ft_add_cmd(t_shell *shell, char *s)
 		&& ft_get_path(shell, s) != NULL)
 	{
 		perror("ERROR cmd");
-		g_g.status = 1;
+		g_minishell.status = 1;
 		return (FALSE);
 	}
 	else if (shell->exec->cmd == NULL)
@@ -51,7 +51,7 @@ int	ft_check_point(t_shell *shell, char **tab, int i)
 		if (tab[i][0] == '.' && tab[i][1] == '\0')
 		{
 			ft_putendl_fd("filename argument required", 2);
-			g_g.status = 2;
+			g_minishell.status = 2;
 			return (FALSE);
 		}
 	}
@@ -62,7 +62,7 @@ int	ft_check_point(t_shell *shell, char **tab, int i)
 		if (tab[i][0] == '.' && tab[i][1] == '\0')
 		{
 			ft_putendl_fd("filename argument required", 2);
-			g_g.status = 2;
+			g_minishell.status = 2;
 			return (FALSE);
 		}
 	}
@@ -75,7 +75,7 @@ static int	ft_check_cmd_bis(t_shell *shell, char **tab, int i)
 		|| (tab[i][0] == '.' && tab[i][1] == '.' && tab[i][2] == '\0'))
 	{
 		ft_putendl_fd("Command not found", 2);
-		g_g.status = 127;
+		g_minishell.status = 127;
 		return (FALSE);
 	}
 	ft_add_cmd(shell, tab[i]);

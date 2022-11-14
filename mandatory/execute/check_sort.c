@@ -29,7 +29,7 @@ int	ft_check_error_redirect(t_shell *shell)
 					|| ft_valid_redirect(lst->value_split[i + 1]) != FALSE))
 			{
 				ft_free(shell, "Syntax error near unexpected token");
-				g_g.status = 2;
+				g_minishell.status = 2;
 				return (FALSE);
 			}
 			i++;
@@ -49,7 +49,7 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 		if (exec->infile == -1)
 		{
 			perror("File error");
-			g_g.status = 1;
+			g_minishell.status = 1;
 			return (FALSE);
 		}
 	}
@@ -66,7 +66,7 @@ static int	ft_check_outfile_append(t_shell *shell, char **tab, int i)
 	if (shell->exec->outfile == -1)
 	{
 		perror("File error");
-		g_g.status = 1;
+		g_minishell.status = 1;
 		return (FALSE);
 	}
 	return (TRUE);
@@ -86,7 +86,7 @@ int	ft_check_outfile(t_shell *shell, char **tab, int i)
 		if (shell->exec->outfile == -1)
 		{
 			perror("File error");
-			g_g.status = 1;
+			g_minishell.status = 1;
 			return (FALSE);
 		}
 	}

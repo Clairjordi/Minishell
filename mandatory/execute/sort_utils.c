@@ -48,12 +48,12 @@ void	ft_waitpid_pipe(t_shell *shell)
 	int	tmp;
 
 	i = -1;
-	tmp = g_g.status;
+	tmp = g_minishell.status;
 	wstatus = 0;
 	if (shell->tab_pid == NULL)
 	{	
 		if (ft_check_last(shell) == 1)
-			g_g.status = 0;
+			g_minishell.status = 0;
 		return ;
 	}
 	while (shell->tab_pid[++i])
@@ -63,11 +63,11 @@ void	ft_waitpid_pipe(t_shell *shell)
 	}
 	ft_status_child(wstatus);
 	if (ft_check_last(shell) == 1)
-		g_g.status = 0;
+		g_minishell.status = 0;
 	if ((ft_size_lst(shell->arg) != i && ft_check_last(shell) == 2)
-		|| (ft_size_lst(shell->arg) != i && tmp == 1) || g_g.status == 141)
-		g_g.status = tmp;
-	g_g.is_in_loop = 0;
+		|| (ft_size_lst(shell->arg) != i && tmp == 1) || g_minishell.status == 141)
+		g_minishell.status = tmp;
+	g_minishell.is_in_loop = 0;
 }
 
 void	ft_add_pid(t_shell *shell)

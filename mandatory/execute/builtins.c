@@ -48,7 +48,7 @@ static void	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
 		if (shell->exec->outfile == -1)
 		{
 			perror("File error");
-			g_g.status = 1;
+			g_minishell.status = 1;
 		}
 	}
 }
@@ -66,7 +66,7 @@ static void	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
 		if (shell->exec->outfile == -1)
 		{
 			perror("File error");
-			g_g.status = 1;
+			g_minishell.status = 1;
 		}
 	}
 }
@@ -90,7 +90,7 @@ void	ft_create_builtins_tab(t_shell *shell, char **tab, int *i)
 			if (shell->exec->infile == -1)
 			{
 				perror("File error");
-				g_g.status = 1;
+				g_minishell.status = 1;
 			}
 		}
 		ft_create_builtins_tab_append(shell, tab, (*i));

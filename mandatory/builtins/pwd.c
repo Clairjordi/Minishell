@@ -19,5 +19,5 @@ void	ft_pwd(void)
 	pwd = getcwd(NULL, 0);
 	ft_putendl_fd(pwd, STDOUT_FILENO);
 	free(pwd);
-	g_g.status = 0;
+	g_minishell.status = 0;
 }

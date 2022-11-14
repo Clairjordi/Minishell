@@ -37,9 +37,9 @@ int	ft_is_directory(char *str)
 	{
 		perror(str);
 		if (errno == EACCES)
-			g_g.status = 126;
+			g_minishell.status = 126;
 		else
-			g_g.status = 127;
+			g_minishell.status = 127;
 		free(s);
 		return (1);
 	}
@@ -47,7 +47,7 @@ int	ft_is_directory(char *str)
 	{
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": Is a directory", 2);
-		g_g.status = 126;
+		g_minishell.status = 126;
 		free(s);
 		return (1);
 	}

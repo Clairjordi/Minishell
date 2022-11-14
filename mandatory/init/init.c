@@ -62,7 +62,7 @@ void	ft_init_prompt(t_shell *shell)
 		{
 			ft_free_envcpy(shell);
 			ft_putstr_fd("exit\n", 1);
-			exit (g_g.status);
+			exit (g_minishell.status);
 		}
 		if (str)
 		{
