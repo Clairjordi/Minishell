@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:43:38 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/12 18:07:20 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/14 14:27:10 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,13 @@ char	*ft_get_name(char *name_env)
 	char	*name;
 
 	i = 0;
-	if (name_env == NULL)
-	{
-		name = NULL;
-		return (name);
-	}
 	while (name_env[i] && name_env[i] != '=')
 		i++;
 	name = malloc(sizeof(char) * (i + 1));
 	if (!name)
 		return (NULL);
 	i = 0;
-	while (name_env[i] != '=')
+	while (name_env[i] && name_env[i] != '=')
 	{
 		name[i] = name_env[i];
 		i++;
@@ -64,11 +59,6 @@ char	*ft_get_value(char *value_env)
 	int		len;
 	char	*value;
 
-	if (value_env == NULL)
-	{
-		value = NULL;
-		return (value);
-	}
 	while (*value_env && *value_env != '=')
 		value_env++;
 	value_env++;

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:23:28 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 18:21:00 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:02:23 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_getenv(t_shell *shell, char *name)
 	t_envcpy	*lst;
 
 	value = NULL;
-	lst = ft_check_name_envcpy(shell, name);
+	lst = ft_check_name_envcpy(shell->env->first, name);
 	if (lst != NULL)
 	{
 		value = lst->value;

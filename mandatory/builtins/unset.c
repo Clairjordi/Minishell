@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/12 19:09:59 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:00:16 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	ft_check_valid_name(char *s)
 	return (0);
 }
 
-t_envcpy	*ft_check_name_envcpy(t_shell *shell, char *s)
+t_envcpy	*ft_check_name_envcpy(t_envcpy *lst, char *s)
 {
 	t_envcpy	*tmp;
 
-	tmp = shell->env->first;
+	tmp = lst;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, s) == 0)
@@ -57,13 +57,13 @@ t_envcpy	*ft_check_name_envcpy(t_shell *shell, char *s)
 	return (NULL);
 }
 
-void	ft_remove(t_shell *shell, char *s)
+void	ft_remove(t_envcpy *env, char *s)
 {
 	t_envcpy	*tmp;
 	t_envcpy	*prev;
 	t_envcpy	*next;
 
-	tmp = ft_check_name_envcpy(shell, s);
+	tmp = ft_check_name_envcpy(env, s);
 	if (tmp == NULL)
 		return ;
 	else
@@ -95,7 +95,7 @@ void	ft_unset(t_shell *shell)
 	while (shell->exec->builtins[i])
 	{
 		if (ft_check_valid_name(shell->exec->builtins[i]) == 1)
-			ft_remove(shell, shell->exec->builtins[i]);
+			ft_remove(shell->env->first, shell->exec->builtins[i]);
 		else
 		{
 			break ;

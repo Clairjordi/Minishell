@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:43:25 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 11:19:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:15:28 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_minishell	g_minishell;
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell	shell;
+	t_shell		shell;
 
 	(void) argv;
 	signal(SIGINT, handler);
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	ft_init_envcpy(&shell);
 	ft_create_lst_env(&shell, envp);
+	ft_getexport(&shell);
 	ft_init_prompt(&shell);
 	return (0);
 }

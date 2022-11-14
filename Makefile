@@ -6,7 +6,7 @@
 #    By: clorcery <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/23 14:05:06 by clorcery          #+#    #+#              #
-#    Updated: 2022/11/12 10:21:55 by mcloarec         ###   ########.fr        #
+#    Updated: 2022/11/14 17:40:59 by mcloarec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,10 @@ SRCS = mandatory/main.c \
 	   mandatory/signals/signals.c \
 	   mandatory/builtins/env.c \
 	   mandatory/builtins/ft_export.c \
+	   mandatory/builtins/getexport.c \
+	   mandatory/builtins/getexport_utils.c \
+	   mandatory/builtins/add_var.c \
+	   mandatory/builtins/modify_var.c \
 	   mandatory/builtins/exit.c \
 	   mandatory/builtins/getenv.c \
 	   mandatory/builtins/pwd.c \

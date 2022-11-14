@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 11:27:21 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:01:30 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_env
 {
 	struct s_envcpy	*first;
 	struct s_envcpy	*last;
+	struct s_envcpy	*head;
 }	t_env;
 
 typedef struct s_shell
@@ -100,6 +101,23 @@ extern t_minishell	g_minishell;
 
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
+void	ft_write_export(t_envcpy *env);
+t_envcpy	*ft_cpy_env(t_envcpy *env_lst);
+void	ft_create_lst_export(t_shell *shell);
+void	ft_swap_var(t_envcpy *current, t_envcpy *next);
+void	ft_check_sorted(t_envcpy *sorted);
+void	ft_sorted_by_ascii(t_envcpy *export);
+int	ft_name_var(char *s);
+int	ft_check_name_var(char *s);
+char	*ft_get_value_export(char *s);
+t_envcpy	*ft_add_new_elem(char *s);
+void	ft_add_var_env(t_envcpy *env, char *s);
+void	ft_add_export(t_envcpy *export, char *s);
+void	ft_export(t_shell *shell);
+void	ft_getexport(t_shell *shell);
+void	ft_free_env_cpy(t_envcpy *cpy);
+void	ft_change_var(t_envcpy *lst, char *s);
+void	ft_check_var(t_envcpy *lst, char *s);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
@@ -224,7 +242,7 @@ void		ft_cd(char **tab);
 /*unset*/
 int			ft_check_valid_name(char *s);
 void		ft_unset(t_shell *shell);
-t_envcpy	*ft_check_name_envcpy(t_shell *shell, char *s);
+t_envcpy	*ft_check_name_envcpy(t_envcpy *lst, char *s);
 
 //////SIGNALS
 void		handler(int sig);
@@ -263,4 +281,6 @@ void		ft_free_close(t_shell *shell);
 void		ft_free_built(t_shell *shell);
 void		ft_free_envcpy(t_shell *shell);
 void		ft_free_child(t_shell *shell);
+void		ft_free_export_lst(t_shell *shell);
+
 #endif

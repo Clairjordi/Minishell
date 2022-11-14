@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 11:17:55 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:27:25 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_parsing(char *str, t_shell *shell)
 	ft_replace_value(shell);
 	ft_recup_env(shell);
 	ft_minishell(shell);
-	ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
+	//ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
 	//ft_print_test(shell); //A SUPPR
 	ft_free(shell, NULL);
 	if (access(".heredoc", F_OK) == 0)
