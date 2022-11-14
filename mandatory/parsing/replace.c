@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/12 16:59:48 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:46:52 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,21 @@ char	*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst)
 	return (new);
 }
 
-void	ft_replace_value_split(t_shell *shell, int i, t_cmds *lst)
+void	ft_replace_value_split(t_shell *shell, int *i, t_cmds *lst)
 {
 	if (shell->tmp != NULL)
 	{
-		lst->value_split[i] = ft_free_ptr(lst->value_split[i]);
-		lst->value_split[i] = shell->tmp;
+		if (lst->value_split[*i][0] == '$'
+			&& ft_check_q(lst->value_split[*i][1]) != 1)
+			ft_verif_space_value(shell, i, lst);
+		else
+		{
+			lst->value_split[*i] = ft_free_ptr(lst->value_split[*i]);
+			lst->value_split[*i] = shell->tmp;
+		}
 	}
 	if (shell->tmp == NULL)
-		lst->value_split[i] = shell->tmp;
+		lst->value_split[*i] = shell->tmp;
 }
 
 static void	ft_replace_value_bis(t_shell *shell, int i, int *j, t_cmds *lst)
@@ -106,7 +112,7 @@ void	ft_replace_value(t_shell *shell)
 			shell->dollar = ft_check_dollar(lst->value_split[i], j);
 			while (lst->value_split[i][j])
 				ft_replace_value_bis(shell, i, &j, lst);
-			ft_replace_value_split(shell, i, lst);
+			ft_replace_value_split(shell, &i, lst);
 			i++;
 		}
 		lst = lst->next;
