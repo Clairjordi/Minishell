@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 11:27:21 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:12:22 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ extern t_minishell	g_minishell;
 
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
+void		ft_print_envcpy(t_shell *shell);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
@@ -131,17 +132,19 @@ int			ft_check_redirect(char *s);
 int			ft_verif_redirect(char *s);
 /*replace*/
 char		*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst);
-void		ft_replace_value_split(t_shell *shell, int i, t_cmds *lst);
+void		ft_replace_value_split(t_shell *shell, int *i, t_cmds *lst);
 void		ft_replace_value(t_shell *shell);
 /*replace_utils*/
 int			ft_check_redir(char *s);
 int			ft_open_quote(t_shell *shell, char c);
 char		*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
+void		ft_realloc_value_split(t_shell *shell, int *i, t_cmds *lst);
+void		ft_verif_space_value(t_shell *shell, int *i, t_cmds *lst);
 /*dollar*/
 char		*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar_utils*/
 int			ft_check_dollar(char *s, int i);
-char    	*ft_getenv(t_shell *shell, char *name);
+char		*ft_getenv(t_shell *shell, char *name);
 
 //////EXECUTE
 /*minishell*/
@@ -179,7 +182,7 @@ void		ft_sort_cmd(t_shell *shell, t_cmds *lst);
 void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst);
 /*sort_utils*/
 int			ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
-void		ft_waitpid_pipe(t_shell *shell);
+void		ft_waitpid_pipe(t_shell *shell, int wstatus);
 void		ft_add_pid(t_shell *shell);
 /*sort_utils_bis*/
 int			ft_is_a_path(char *str);
@@ -220,7 +223,7 @@ void		ft_print_env(t_shell *shell);
 void		ft_echo(char **tab);
 int			ft_size_tab(char **tab);
 /*cd*/
-void		ft_cd(char **tab);
+void		ft_cd(t_shell *shell, char **tab);
 /*unset*/
 int			ft_check_valid_name(char *s);
 void		ft_unset(t_shell *shell);

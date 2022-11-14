@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:56:14 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:52:26 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	ft_heredoc(t_shell *shell)
 int	ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst)
 {
 	ft_get_idx_heredoc(lst);
-	g_minishell.fd_hdoc = open(".heredoc", (O_CREAT | O_WRONLY | O_TRUNC), 0644);
+	g_minishell.fd_hdoc = open(".heredoc", (O_CREAT | O_WRONLY | O_TRUNC),
+			0644);
 	g_minishell.limiter = ft_strdup(lst->value_split[lst->idx_hdoc]);
 	if (g_minishell.limiter == NULL)
 		ft_free_malloc(shell);

@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/12 19:09:21 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:27:41 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_exec_builtins(t_shell *shell)
 	if (ft_strcmp(shell->exec->builtins[0], "echo") == 0)
 		ft_echo(shell->exec->builtins);
 	if (ft_strcmp(shell->exec->builtins[0], "cd") == 0)
-		ft_cd(shell->exec->builtins);
+		ft_cd(shell, shell->exec->builtins);
 	if (ft_strcmp(shell->exec->builtins[0], "export") == 0)
 		ft_export(shell);
 	if (ft_strcmp(shell->exec->builtins[0], "exit") == 0)
@@ -72,7 +72,9 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 void	ft_check_execute(t_shell *shell)
 {
 	t_cmds	*lst;
+	int		wstatus;
 
+	wstatus = 0;
 	lst = shell->arg;
 	shell->exec->pid = 0;
 	if (shell->pipe == 1)
@@ -91,7 +93,7 @@ void	ft_check_execute(t_shell *shell)
 			ft_add_pid(shell);
 			lst = lst->next;
 		}
-		ft_waitpid_pipe(shell);
+		ft_waitpid_pipe(shell, wstatus);
 	}
 }
 

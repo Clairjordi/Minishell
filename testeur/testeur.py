@@ -12,7 +12,6 @@ cat infile
 cot infile
 cd mandatory/..
 cd jhg
-cd
 cd mandatory/ lol
 echo -n -z -n
 echo -n coucou
@@ -40,10 +39,17 @@ def compare_output(cmd_line):
     cmd_mini = ' echo "' + cmd_line + '" | ../minishell > mini_output 2>/dev/null'
     cmd_bash = 'bash -c "' + cmd_line + '" > bash_output 2>/dev/null'
     ret_mini = system(cmd_mini)
-    ret_mini %= 255
+    if (ret_mini % 256 == 0):
+        ret_mini /= 256
+    else: 
+        ret_mini %= 256
+
     #print(f"status mini = {ret_mini}\n")
     ret_bash = system(cmd_bash)
-    ret_bash %= 255
+    if (ret_bash % 256 == 0):
+        ret_bash /= 256
+    else: 
+        ret_bash %= 256
 
     fd_mini = open("mini_output", "r")
     str_mini = fd_mini.read()
@@ -66,7 +72,7 @@ def compare_output(cmd_line):
         return (OUTPUT)
     if (ret_mini != ret_bash):
         print(f"status bash = {ret_bash}\n")
-        print(f"status bash = {ret_bash}\n")
+        print(f"status mini = {ret_mini}\n")
         return (STATUS)
     else:
         return (SUCCESS)
@@ -82,3 +88,4 @@ for (cmd_line) in test_split:
         print(f"status error : {cmd_line}\n")
     elif (ret == SUCCESS):
         print(f"SUCCESS : {cmd_line}\n")
+    print("-------------\n")
