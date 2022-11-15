@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 18:00:16 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:07:41 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ int	ft_check_valid_name(char *s)
 	else if (ft_valid_name(s) == 1)
 		return (1);
 	return (0);
-}
-
-t_envcpy	*ft_check_name_envcpy(t_envcpy *lst, char *s)
-{
-	t_envcpy	*tmp;
-
-	tmp = lst;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->name, s) == 0)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
 }
 
 void	ft_remove(t_envcpy *env, char *s)

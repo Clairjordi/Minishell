@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:26:04 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 18:41:53 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:36:47 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_change_var(t_envcpy *lst, char *s)
 
 void	ft_check_var(t_envcpy *lst, char *s)
 {
-	t_envcpy *var;
-	char	*name;
+	t_envcpy	*var;
+	char		*name;
 
 	name = ft_get_name(s);
 	var = ft_check_name_envcpy(lst, name);

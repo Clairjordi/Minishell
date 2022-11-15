@@ -100,8 +100,11 @@ OK - export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
 OK - unlink le heredoc
 OK - changer g_g par g_*nom de variable parlant*
 OK - remplacer envp par env
-- lorsque l'on se deplace avec cd - mettre a jour oldpwd + pwd dans env et export
+OK - lorsque l'on se deplace avec cd - mettre a jour oldpwd + pwd dans env et export
 - bouger ft_check_name_envcpy du fichier unset.c
+OK - a gerer : echo '> >> < * ? [ ] | ; [ ] | && ( ) & # $  <<' -> les doubles pipes ne doivent pas etre verifier dans les quotes
+- cat | cat < missing -> ne doit pas ouvrir le premier cat
+- echo "exit_code ->$? user ->$USER home -> $HOME" -> enleve exit_code avant le $?...
 
 NORME : 
 

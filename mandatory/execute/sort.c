@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 15:59:04 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:33:44 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,30 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 
 	wstatus = 0;
 	ft_sort_cmd_bis(shell, lst);
-	if (shell->exec->builtins != NULL
-		&& ft_check_builtins_without_fork(shell) == TRUE)
+	if (shell->exec->infile > -1)
 	{
-		ft_free_close(shell);
-		return ;
-	}
-	if (shell->exec->cmd != NULL || shell->exec->builtins != NULL)
-	{
-		wstatus = ft_execute_cmd(shell, wstatus);
-		ft_status_child(wstatus);
+		if (shell->exec->builtins != NULL
+			&& ft_check_builtins_without_fork(shell) == TRUE)
+		{
+			ft_free_close(shell);
+			return ;
+		}
+		if ((shell->exec->cmd != NULL || shell->exec->builtins != NULL))
+		{
+			wstatus = ft_execute_cmd(shell, wstatus);
+			ft_status_child(wstatus);
+		}
 	}
 	ft_free_close(shell);
 }
 
 static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst)
 {
-	if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
-		ft_execute_pipe(shell, shell->exec, lst);
+	if (shell->exec->infile > -1)
+	{
+		if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
+			ft_execute_pipe(shell, shell->exec, lst);
+	}
 	ft_free_close_pipe(shell, lst);
 }
 

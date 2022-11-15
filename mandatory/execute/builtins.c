@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 16:56:53 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 17:14:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:23:39 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	ft_create_builtins_tab(t_shell *shell, char **tab, int *i)
 			{
 				perror("File error");
 				g_minishell.status = 1;
+				return ;
 			}
 		}
 		ft_create_builtins_tab_append(shell, tab, (*i));

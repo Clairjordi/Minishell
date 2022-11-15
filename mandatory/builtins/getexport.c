@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:05:07 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 16:44:17 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/15 11:47:05 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_envcpy	*ft_cpy_env(t_envcpy *env_lst)
 		return (NULL);
 	new->name = ft_strdup(env_lst->name);
 	new->value = ft_strdup(env_lst->value);
-	new->var = env_lst->var;
+	new->var = ft_strdup(env_lst->var);
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

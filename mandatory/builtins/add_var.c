@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:54:24 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 16:55:13 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:41:36 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_envcpy	*ft_add_new_export(char *s)
 		return (NULL);
 	new->name = ft_get_name(s);
 	new->value = ft_get_value_export(s);
-	new->var = s;
+	new->var = ft_strdup(s);
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

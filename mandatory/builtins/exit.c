@@ -6,11 +6,20 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:15:09 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/12 18:15:40 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/15 17:47:15 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static int	ft_check_last_number(char *arg_exit, int size)
+{
+	if (arg_exit[0] == '-' && arg_exit[size - 1] > '8')
+		return (FALSE);
+	if (arg_exit[0] != '-' && arg_exit[size - 1] > '7')
+		return (FALSE);
+	return (TRUE);
+}
 
 int	ft_check_long_arg_exit(t_shell *shell, char *arg_exit)
 {
@@ -27,10 +36,16 @@ int	ft_check_long_arg_exit(t_shell *shell, char *arg_exit)
 	}
 	else if (size > 19)
 		return (FALSE);
-	if (arg_exit[0] == '-' && arg_exit[size - 1] > '8')
-		return (FALSE);
-	if (arg_exit[0] != '-' && arg_exit[size - 1] > '7')
-		return (FALSE);
+	if (size == 20)
+	{
+		if (ft_check_last_number(arg_exit, size) == FALSE)
+			return (FALSE);
+	}
+	else if (size == 19)
+	{
+		if (ft_check_last_number(arg_exit, size) == FALSE)
+			return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -67,7 +82,7 @@ void	ft_exit(t_shell *shell, char **tab_exit)
 	arg = ft_check_arg_exit(shell, tab_exit[1]);
 	if (size > 2 && arg == TRUE)
 	{
-		ft_putendl_fd("Too many arguments", 2);
+		ft_putendl_fd("too many arguments", 2);
 		g_minishell.status = 1;
 		return ;
 	}

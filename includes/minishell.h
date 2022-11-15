@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 18:46:38 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:08:00 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,6 @@ int			ft_size_tab(char **tab);
 void		ft_cd(t_shell *shell, char **tab);
 /*unset*/
 int			ft_check_valid_name(char *s);
-void		ft_unset(t_shell *shell);
 t_envcpy	*ft_check_name_envcpy(t_envcpy *lst, char *s);
 
 //////SIGNALS
@@ -258,6 +257,9 @@ int			ft_len_va(char *var, int start, char c);
 int			ft_sep(char c);
 int			ft_check_q(char c);
 void		ft_close_std(void);
+/*utils_bis*/
+void		ft_verif_malloc(t_shell *shell, char *s);
+void		ft_unset(t_shell *shell);
 /*realloc*/
 char		**ft_realloc_tab_char(char **old_tab, char *new_var);
 char		*ft_cdup(char c);

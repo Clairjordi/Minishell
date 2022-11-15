@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 18:45:44 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/15 14:47:22 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_parsing(char *str, t_shell *shell)
 {
 	if (ft_verif_parsing(str) == ERROR)
 	{
-		ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
+		//ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
 		ft_free(shell, NULL);
 		return ;
 	}
@@ -54,7 +54,7 @@ void	ft_parsing(char *str, t_shell *shell)
 		ft_free_malloc(shell);
 	if (ft_check_space_pipe(shell) == ERROR)
 	{
-		ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
+		//ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
 		ft_free(shell, NULL);
 		return ;
 	}

@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tab_char.c                                 :+:      :+:    :+:   */
+/*   utils_bis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/08 19:27:55 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/15 15:07:31 by clorcery         ###   ########.fr       */
+/*   Created: 2022/11/15 15:52:55 by clorcery          #+#    #+#             */
+/*   Updated: 2022/11/15 16:07:43 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../all_h.h"
+#include "../../includes/minishell.h"
 
-char	**ft_free_tab_char(char **tab)
+void	ft_verif_malloc(t_shell *shell, char *s)
 {
-	int	i;
+	if (s == NULL)
+		ft_free_malloc(shell);
+}
 
-	i = 0;
-	while (tab[i] != NULL)
+t_envcpy	*ft_check_name_envcpy(t_envcpy *lst, char *s)
+{
+	t_envcpy	*tmp;
+
+	tmp = lst;
+	while (tmp)
 	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
+		if (ft_strcmp(tmp->name, s) == 0)
+			return (tmp);
+		tmp = tmp->next;
 	}
-	free (tab);
-	tab = NULL;
-	return (tab);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:47:13 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/03 10:31:49 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/15 17:31:32 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_verif_pipe(char *s)
 		return (-1);
 	while (s[i])
 	{
-		if (ft_sep(s[i]) == 2)
+		if (ft_sep(s[i]) == 2 || ft_sep(s[i]) == 4)
 			ft_skip_quote(&i, &s);
 		if (s[i] == '|' && s[i + 1] == '|')
 		{
@@ -46,7 +46,9 @@ int	ft_check_pipe(char *s)
 		return (-1);
 	}
 	while (s[i])
-	{
+	{	
+		if (ft_sep(s[i]) == 2 || ft_sep(s[i]) == 4)
+			ft_skip_quote(&i, &s);
 		if (s[i] == '|' && s[i + 1] == '\0')
 		{
 			ft_putendl_fd("Wrong pipes syntax", 2);
