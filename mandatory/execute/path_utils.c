@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:32:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/10 17:31:42 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:08:32 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_check_path_cmd(char *path_cmd)
 		return (-1);
 }
 
-void	ft_find_path(t_shell *shell)
+char	*ft_find_path(t_shell *shell)
 {
 	char	*path;
 	int		i;
@@ -50,7 +50,13 @@ void	ft_find_path(t_shell *shell)
 			break ;
 		i++;
 	}
+	if (shell->built->env[i] == NULL)
+	{
+		path = NULL;
+		return (path);
+	}
 	shell->path = ft_split(path + 5, ':');
 	if (shell->path == NULL)
 		ft_free_malloc(shell);
+	return (path);
 }

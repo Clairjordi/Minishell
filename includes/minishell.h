@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 16:34:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:08:26 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_envcpy
 typedef struct s_env
 {
 	struct s_envcpy	*first;
-	struct s_envcpy	*last;
 	struct s_envcpy	*head;
 }	t_env;
 
@@ -203,7 +202,7 @@ char		*ft_get_path(t_shell *shell, char *path_cmd);
 /*path_utils*/
 int			ft_check_access(t_shell *shell, char *path_cmd);
 int			ft_check_path_cmd(char *path_cmd);
-void		ft_find_path(t_shell *shell);
+char		*ft_find_path(t_shell *shell);
 
 //////BUILTINS
 /*getenv*/

@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:57:08 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/10 17:30:52 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:09:23 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ char	*ft_get_path(t_shell *shell, char *cmd)
 	char	*path_tmp;
 
 	if (shell->path == NULL)
-		ft_find_path(shell);
+	{
+		if (ft_find_path(shell) == NULL)
+			return (NULL);
+	}
 	if (ft_check_access(shell, cmd) == TRUE)
 		return (shell->exec->cmd_path);
 	i = 0;

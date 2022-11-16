@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 14:06:35 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:48:45 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ int	ft_check_valid_name(char *s)
 	return (0);
 }
 
-void	ft_remove(t_envcpy *env, char *s)
+void	ft_remove_export(t_env *env, char *s)
 {
 	t_envcpy	*tmp;
 	t_envcpy	*prev;
 	t_envcpy	*next;
 
-	tmp = ft_check_name_envcpy(env, s);
+	tmp = ft_check_name_envcpy(env->head, s);
 	if (tmp == NULL)
 		return ;
 	else
@@ -63,6 +63,29 @@ void	ft_remove(t_envcpy *env, char *s)
 		free(tmp->var);
 		free(tmp);
 	}
+}
+
+void	ft_remove(t_env *env, char *s)
+{
+	t_envcpy	*tmp;
+	t_envcpy	*prev;
+	t_envcpy	*next;
+
+	tmp = ft_check_name_envcpy(env->first, s);
+	if (tmp == NULL)
+		return ;
+	else
+	{
+		prev = tmp->prev;
+		next = tmp->next;
+		prev->next = next;
+		next->prev = prev;
+		free(tmp->name);
+		free(tmp->value);
+		free(tmp->var);
+		free(tmp);
+	}
+	ft_remove_export(env, s);
 }
 
 void	ft_unset(t_shell *shell)
@@ -81,7 +104,7 @@ void	ft_unset(t_shell *shell)
 	while (shell->exec->builtins[i])
 	{
 		if (ft_check_valid_name(shell->exec->builtins[i]) == 1)
-			ft_remove(shell->env->first, shell->exec->builtins[i]);
+			ft_remove(shell->env, shell->exec->builtins[i]);
 		else
 		{
 			break ;
