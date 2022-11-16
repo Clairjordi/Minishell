@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 19:03:07 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 18:17:24 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:38:15 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,20 @@ int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
 }
 
 int	ft_check_builtins_without_fork(t_shell *shell)
-{
+{	
+
+	if (ft_strcmp(shell->exec->builtins[0], "cd") == 0
+		|| ft_strcmp(shell->exec->builtins[0], "export") == 0
+		|| ft_strcmp(shell->exec->builtins[0], "unset") == 0)
+	{
+		if (shell->exec->builtins[1] != NULL
+				&& shell->exec->builtins[1][0] == '-')
+		{
+			ft_putendl_fd("bash : invalid option", 2);
+			g_minishell.status = 2;
+			return (TRUE);
+		}
+	}
 	if (ft_strcmp(shell->exec->builtins[0], "cd") == 0)
 	{
 		ft_cd(shell, shell->exec->builtins);
