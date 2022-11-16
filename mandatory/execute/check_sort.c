@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 14:23:45 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:26:46 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 		exec->infile = open(tab[i], O_RDONLY, 0644);
 		if (exec->infile == -1)
 		{
-			free(exec->file);
-			exec->file = ft_strdup(tab[i]);
-			//ft_putendl_fd("File error", 2);
+			/* free(exec->file); */
+			/* exec->file = ft_strdup(tab[i]); */
+			ft_putendl_fd("File error", 2);
 			g_minishell.status = 1;
 			return (FALSE);
 		}
@@ -76,7 +76,7 @@ static int	ft_check_outfile_append(t_shell *shell, char **tab, int i)
 	shell->exec->outfile = open(tab[i], (O_RDWR | O_APPEND | O_CREAT), 0644);
 	if (shell->exec->outfile == -1)
 	{
-		perror("File error");
+		perror("File error hohoho");
 		g_minishell.status = 1;
 		return (FALSE);
 	}
@@ -96,10 +96,10 @@ int	ft_check_outfile(t_shell *shell, char **tab, int i)
 		shell->exec->outfile = open(tab[i], (O_RDWR | O_TRUNC | O_CREAT), 0644);
 		if (shell->exec->outfile == -1)
 		{
-			perror("File error");
+			perror("File error aled");
 			g_minishell.status = 1;
 			return (FALSE);
-		}
+		}	
 	}
 	return (TRUE);
 }

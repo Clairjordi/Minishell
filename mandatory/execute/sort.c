@@ -6,17 +6,17 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 14:36:48 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 15:40:54 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 //A DEPLACER
-void	ft_add_file_to_tab_cmd(t_shell *shell)
-{
-	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd,
-			shell->exec->file);
-}
+/* void	ft_add_file_to_tab_cmd(t_shell *shell) */
+/* { */
+/* 	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd, */
+/* 			shell->exec->file); */
+/* } */
 
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 {
@@ -74,8 +74,8 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 
 	wstatus = 0;
 	ft_sort_cmd_bis(shell, lst);
-	if (shell->exec->cmd != NULL && shell->exec->infile == -1)
-		ft_add_file_to_tab_cmd(shell);
+	/* if (shell->exec->cmd != NULL && shell->exec->infile == -1) */
+	/* 	ft_add_file_to_tab_cmd(shell); */
 	if (shell->exec->builtins != NULL
 		&& ft_check_builtins_without_fork(shell) == TRUE)
 	{
@@ -92,8 +92,8 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 
 static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst)
 {
-	if (shell->exec->cmd != NULL && shell->exec->infile == -1)
-		ft_add_file_to_tab_cmd(shell);
+	/* if (shell->exec->cmd != NULL && shell->exec->infile == -1) */
+	/* 	ft_add_file_to_tab_cmd(shell); */
 	if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
 			ft_execute_pipe(shell, shell->exec, lst);
 	ft_free_close_pipe(shell, lst);
