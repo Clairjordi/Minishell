@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 14:36:48 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 15:32:48 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 	ft_sort_cmd_bis(shell, lst);
 	if (shell->exec->cmd != NULL && shell->exec->infile == -1)
 		ft_add_file_to_tab_cmd(shell);
-	if (shell->exec->builtins != NULL
+	if (shell->exec->builtins != NULL && shell->exec->outfile != -1
 		&& ft_check_builtins_without_fork(shell) == TRUE)
 	{
 		ft_free_close(shell);
 		return ;
 	}
-	if ((shell->exec->cmd != NULL || shell->exec->builtins != NULL))
+	if ((shell->exec->cmd != NULL || shell->exec->builtins != NULL)
+			&& shell->exec->outfile != -1)
 	{
 		wstatus = ft_execute_cmd(shell, wstatus);
 		ft_status_child(wstatus);
