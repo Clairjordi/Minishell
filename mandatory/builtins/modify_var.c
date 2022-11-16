@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:26:04 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 18:41:53 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/14 19:03:11 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	ft_change_var_env(t_envcpy *lst, char *s)
 	value = ft_get_value_export(s);
 	free(lst->value);
 	lst->value = ft_strdup(value);
-	free(lst->var);
-	lst->var = ft_strdup(s);
+	if (lst->var != NULL)
+	{
+		free(lst->var);
+		lst->var = ft_strdup(s);
+	}
 	free(value);
 }
 
