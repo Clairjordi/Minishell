@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 11:20:22 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:14:32 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,16 @@ static int	ft_check_cmd_bis(t_shell *shell, char **tab, int i)
 	if (ft_get_path(shell, tab[i]) == NULL
 		|| (tab[i][0] == '.' && tab[i][1] == '.' && tab[i][2] == '\0'))
 	{
-		ft_putendl_fd("Command not found", 2);
-		g_minishell.status = 127;
+		if (tab[i][0] == '.' && tab[i][1] == '/')
+		{
+			ft_putendl_fd("Permission denied", 2);
+			g_minishell.status = 126;
+		}
+		else
+		{
+			ft_putendl_fd("Command not found", 2);
+			g_minishell.status = 127;
+		}
 		return (FALSE);
 	}
 	if (tab[i][0] == '\0')

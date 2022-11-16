@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 17:47:49 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:58:18 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_check_outfile(t_shell *shell, char **tab, int i)
 		if (shell->exec->outfile > 2)
 			close(shell->exec->outfile);
 		if (shell->exec->outfile == -1)
-		return (FALSE);
+			return (FALSE);
 		if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
 			tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 		shell->exec->outfile = open(tab[i], (O_RDWR | O_TRUNC | O_CREAT), 0644);
