@@ -6,12 +6,33 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/15 16:33:44 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 10:59:58 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+//A DEPLACER
+void	ft_add_file_to_tab_cmd(t_shell *shell, t_cmds *lst)
+{
+	int	i;
 
+	i = 0;
+	while (lst->value_split[i] != NULL)
+	{
+		if (i > 0 && ft_strcmp(lst->value_split[i - 1], "<") == 0)
+		{
+			shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd,
+					lst->value_split[i]);
+			if (shell->exec->infile != -1)
+				close(shell->exec->infile);
+			shell->exec->infile = 0;
+			g_minishell.status = 0;
+			return ;
+		}
+		i++;
+	}
+}
+//
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 {
 	if ((*i == 0
@@ -59,30 +80,28 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 
 	wstatus = 0;
 	ft_sort_cmd_bis(shell, lst);
-	if (shell->exec->infile > -1)
+	if (shell->exec->cmd != NULL && shell->exec->infile != 0)
+		ft_add_file_to_tab_cmd(shell, lst);
+	if (shell->exec->builtins != NULL
+		&& ft_check_builtins_without_fork(shell) == TRUE)
 	{
-		if (shell->exec->builtins != NULL
-			&& ft_check_builtins_without_fork(shell) == TRUE)
-		{
-			ft_free_close(shell);
-			return ;
-		}
-		if ((shell->exec->cmd != NULL || shell->exec->builtins != NULL))
-		{
-			wstatus = ft_execute_cmd(shell, wstatus);
-			ft_status_child(wstatus);
-		}
+		ft_free_close(shell);
+		return ;
+	}
+	if ((shell->exec->cmd != NULL || shell->exec->builtins != NULL))
+	{
+		wstatus = ft_execute_cmd(shell, wstatus);
+		ft_status_child(wstatus);
 	}
 	ft_free_close(shell);
 }
 
 static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst)
 {
-	if (shell->exec->infile > -1)
-	{
-		if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
-			ft_execute_pipe(shell, shell->exec, lst);
-	}
+	if (shell->exec->cmd != NULL && shell->exec->infile != 0)
+		ft_add_file_to_tab_cmd(shell, lst);
+	if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
+		ft_execute_pipe(shell, shell->exec, lst);
 	ft_free_close_pipe(shell, lst);
 }
 
