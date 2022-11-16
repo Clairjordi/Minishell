@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 14:27:07 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 14:36:48 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,26 @@
 //A DEPLACER
 void	ft_add_file_to_tab_cmd(t_shell *shell)
 {
-	/* int	i; */
-	/* int	fd; */
-    /*  */
-	/* i = 1; */
-	/* if (shell->exec->builtins != NULL) */
-	/* 	return ; */
-	/* while (shell->exec->cmd[i] != NULL) */
-	/* { */
-	/* 	fd = open(shell->exec->cmd[i], O_RDONLY, 0644); */
-	/* 	if (fd > 2) */
-	/* 	{ */
-	/* 		close(fd); */
-	/* 		return ; */
-	/* 	} */
-	/* 	i++; */
-	/* } */
 	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd,
 			shell->exec->file);
 }
-//
+
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 {
+	int	j;
+
+	j = 0;
 	if ((*i == 0
 			|| (*i > 0 && ft_valid_redirect(lst->value_split[*i - 1]) == FALSE))
 		&& shell->exec->cmd == NULL)
 	{
 		if (ft_check_is_builtins(shell, lst->value_split, i) == TRUE)
+			return (TRUE);
+	}
+	if (lst->value_split[*i][j] == '\0')
+	{
+		(*i)++;
+		if (lst->value_split[*i] == NULL)
 			return (TRUE);
 	}
 	return (FALSE);
@@ -67,8 +60,6 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
-		if (*lst->value_split[i] == '\0')
-			i++;
 		if (shell->exec->builtins == NULL && shell->exec->is_dir == 0
 			&& lst->cmd_found == TRUE && lst->value_split[i] != NULL)
 			lst->cmd_found = ft_check_cmd(shell, lst->value_split, i);
