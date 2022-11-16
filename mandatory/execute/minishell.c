@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 18:40:46 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:55:20 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,8 @@
 
 void	ft_exec_builtins(t_shell *shell)
 {
-	if (ft_strcmp(shell->exec->builtins[0], "pwd") == 0
-		|| ft_strcmp(shell->exec->builtins[0], "cd") == 0
-		|| ft_strcmp(shell->exec->builtins[0], "export") == 0
-		|| ft_strcmp(shell->exec->builtins[0], "unset") == 0)
-	{
-		if (shell->exec->builtins[1] != NULL
-				&& shell->exec->builtins[1][0] == '-')
-		{
-			ft_putendl_fd("bash : invalid option", 2);
-			g_minishell.status = 2;
-			return ;
-		}
-	}
-	if (ft_strcmp(shell->exec->builtins[0], "env") == 0)
-	{
-		if (shell->exec->builtins[1] != NULL
-				&& shell->exec->builtins[1][0] == '-')
-		{
-			ft_putendl_fd("bash : invalid option", 2);
-			g_minishell.status = 125;
-			return ;
-		}
-	}		
+	if (ft_verif_opt_builtins(shell) == FALSE)
+		return ;
 	if (ft_strcmp(shell->exec->builtins[0], "pwd") == 0)
 		ft_pwd();
 	if (ft_strcmp(shell->exec->builtins[0], "env") == 0)
