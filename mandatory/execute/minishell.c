@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 13:17:22 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 15:48:36 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_exec_builtins(t_shell *shell)
 {
-	if (shell->exec->infile == -1)
-	{
-		g_minishell.status = 1;
-		return ;
-	}
+	/* if (shell->exec->infile == -1) */
+	/* { */
+	/* 	g_minishell.status = 1; */
+	/* 	return ; */
+	/* } */
 	if (ft_strcmp(shell->exec->builtins[0], "pwd") == 0)
 		ft_pwd();
 	if (ft_strcmp(shell->exec->builtins[0], "env") == 0)
@@ -44,6 +44,12 @@ int	ft_execute_cmd(t_shell *shell, int wstatus)
 	{
 		g_minishell.is_in_loop = 3;
 		signal(SIGQUIT, SIG_DFL);
+		if (shell->exec->outfile == -1 || shell->exec->infile == -1)
+		{
+			ft_free_child(shell);
+			g_minishell.status = 1;
+			exit(g_minishell.status);
+		}
 		ft_child_cmd(shell, shell->exec);
 	}
 	g_minishell.is_in_loop = 2;
@@ -64,6 +70,14 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 		signal(SIGQUIT, SIG_DFL);
 		if (lst->prev != NULL && lst->prev->pipe_fd[1] > 2)
 			close(lst->prev->pipe_fd[1]);
+		if (exec->outfile == -1 || exec->infile == -1)
+		{
+			close(lst->pipe_fd[0]);
+			close(lst->pipe_fd[1]);
+			ft_free_child(shell);
+			g_minishell.status = 1;
+			exit(g_minishell.status);
+		}
 		ft_check_child_execute(shell, lst);
 	}
 	g_minishell.is_in_loop = 2;
