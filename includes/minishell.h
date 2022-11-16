@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/15 16:08:00 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 10:29:50 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void	ft_getexport(t_shell *shell);
 void	ft_free_env_cpy(t_envcpy *cpy);
 void	ft_change_var(t_envcpy *lst, char *s);
 void	ft_check_var(t_envcpy *lst, char *s);
+void	ft_append_var(t_envcpy *lst, char *s);
+char	*ft_get_name_export(char *s);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
