@@ -6,17 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 17:39:38 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:53:44 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//A DEPLACER
-/* void	ft_add_file_to_tab_cmd(t_shell *shell) */
-/* { */
-/* 	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd, */
-/* 			shell->exec->file); */
-/* } */
 
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 {
@@ -49,11 +43,7 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst)
 		if (ft_sort_check_built(shell, lst, &i) == TRUE)
 			break ;
 		if (shell->exec->is_dir == 0)
-		{
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
-			if (shell->exec->is_dir == 1)
-				break ;
-		}
 		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)

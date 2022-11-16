@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 16:56:53 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/15 16:23:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:37:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
 	{
 		if (shell->exec->outfile > 2)
 			close(shell->exec->outfile);
+		if (shell->exec->outfile == -1)
+			return ;
 		if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == 0)
 			tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 		shell->exec->outfile = open(tab[i + 1],
@@ -49,6 +51,7 @@ static void	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
 		{
 			perror("File error");
 			g_minishell.status = 1;
+			return ;
 		}
 	}
 }
@@ -59,6 +62,8 @@ static void	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
 	{
 		if (shell->exec->outfile > 2)
 			close(shell->exec->outfile);
+		if (shell->exec->outfile == -1)
+			return ;
 		if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
 			tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 		shell->exec->outfile = open(tab[i + 1],
@@ -67,6 +72,7 @@ static void	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
 		{
 			perror("File error");
 			g_minishell.status = 1;
+			return ;
 		}
 	}
 }

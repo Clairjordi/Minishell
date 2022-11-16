@@ -6,12 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 16:26:46 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 17:47:49 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <unistd.h>
 
 int	ft_check_error_redirect(t_shell *shell)
 {
@@ -44,6 +43,8 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 {
 	if (i != 0 && ft_valid_redirect(tab[i - 1]) == 2)
 	{
+		if (exec->outfile == -1)
+			return (FALSE);
 		if (exec->infile > 2)
 		{
 			close(exec->infile);
@@ -71,12 +72,14 @@ static int	ft_check_outfile_append(t_shell *shell, char **tab, int i)
 {
 	if (shell->exec->outfile > 2)
 		close(shell->exec->outfile);
+	if (shell->exec->outfile == -1)
+		return (FALSE);
 	if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
 		tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 	shell->exec->outfile = open(tab[i], (O_RDWR | O_APPEND | O_CREAT), 0644);
 	if (shell->exec->outfile == -1)
 	{
-		perror("File error hohoho");
+		perror("File error ");
 		g_minishell.status = 1;
 		return (FALSE);
 	}
@@ -91,12 +94,14 @@ int	ft_check_outfile(t_shell *shell, char **tab, int i)
 	{
 		if (shell->exec->outfile > 2)
 			close(shell->exec->outfile);
+		if (shell->exec->outfile == -1)
+		return (FALSE);
 		if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
 			tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 		shell->exec->outfile = open(tab[i], (O_RDWR | O_TRUNC | O_CREAT), 0644);
 		if (shell->exec->outfile == -1)
 		{
-			perror("File error aled");
+			perror("File error ");
 			g_minishell.status = 1;
 			return (FALSE);
 		}	

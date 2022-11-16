@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:43:38 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 14:27:10 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 16:43:54 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_create_lst_env(t_shell *shell, char **envp)
 		envcpy = envcpy->next;
 		i++;
 	}
-	shell->env->last = new;
 }
 
 char	*ft_get_name(char *name_env)
