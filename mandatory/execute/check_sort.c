@@ -6,11 +6,12 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 10:56:50 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 14:23:45 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include <unistd.h>
 
 int	ft_check_error_redirect(t_shell *shell)
 {
@@ -44,14 +45,24 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 	if (i != 0 && ft_valid_redirect(tab[i - 1]) == 2)
 	{
 		if (exec->infile > 2)
+		{
 			close(exec->infile);
+			exec->infile = 0;
+		}
 		exec->infile = open(tab[i], O_RDONLY, 0644);
 		if (exec->infile == -1)
 		{
-		//	perror("File error");
+			free(exec->file);
+			exec->file = ft_strdup(tab[i]);
+			//ft_putendl_fd("File error", 2);
 			g_minishell.status = 1;
 			return (FALSE);
 		}
+		/* if (exec->infile > 2) */
+		/* { */
+		/* 	free(exec->file); */
+		/* 	exec->file = ft_strdup(tab[i]); */
+		/* } */
 	}
 	return (TRUE);
 }

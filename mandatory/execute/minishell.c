@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/14 16:27:41 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 13:17:22 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	ft_exec_builtins(t_shell *shell)
 {
+	if (shell->exec->infile == -1)
+	{
+		g_minishell.status = 1;
+		return ;
+	}
 	if (ft_strcmp(shell->exec->builtins[0], "pwd") == 0)
 		ft_pwd();
 	if (ft_strcmp(shell->exec->builtins[0], "env") == 0)

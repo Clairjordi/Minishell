@@ -6,31 +6,32 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 11:44:20 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 14:27:07 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 //A DEPLACER
-void	ft_add_file_to_tab_cmd(t_shell *shell, t_cmds *lst)
+void	ft_add_file_to_tab_cmd(t_shell *shell)
 {
-	int	i;
-
-	i = 0;
-	while (lst->value_split[i] != NULL)
-	{
-		if (i > 0 && ft_strcmp(lst->value_split[i - 1], "<") == 0)
-		{
-			shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd,
-					lst->value_split[i]);
-			if (shell->exec->infile != -1)
-				close(shell->exec->infile);
-			shell->exec->infile = 0;
-			g_minishell.status = 0;
-			return ;
-		}
-		i++;
-	}
+	/* int	i; */
+	/* int	fd; */
+    /*  */
+	/* i = 1; */
+	/* if (shell->exec->builtins != NULL) */
+	/* 	return ; */
+	/* while (shell->exec->cmd[i] != NULL) */
+	/* { */
+	/* 	fd = open(shell->exec->cmd[i], O_RDONLY, 0644); */
+	/* 	if (fd > 2) */
+	/* 	{ */
+	/* 		close(fd); */
+	/* 		return ; */
+	/* 	} */
+	/* 	i++; */
+	/* } */
+	shell->exec->cmd = ft_realloc_tab_char(shell->exec->cmd,
+			shell->exec->file);
 }
 //
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
@@ -82,8 +83,8 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 
 	wstatus = 0;
 	ft_sort_cmd_bis(shell, lst);
-	if (shell->exec->cmd != NULL && shell->exec->infile != 0)
-		ft_add_file_to_tab_cmd(shell, lst);
+	if (shell->exec->cmd != NULL && shell->exec->infile == -1)
+		ft_add_file_to_tab_cmd(shell);
 	if (shell->exec->builtins != NULL
 		&& ft_check_builtins_without_fork(shell) == TRUE)
 	{
@@ -100,10 +101,10 @@ void	ft_sort_cmd(t_shell *shell, t_cmds *lst)
 
 static void	ft_sort_cmd_pipe_bis(t_shell *shell, t_cmds *lst)
 {
-	if (shell->exec->cmd != NULL && shell->exec->infile != 0)
-		ft_add_file_to_tab_cmd(shell, lst);
+	if (shell->exec->cmd != NULL && shell->exec->infile == -1)
+		ft_add_file_to_tab_cmd(shell);
 	if (shell->exec->builtins != NULL || shell->exec->cmd != NULL)
-		ft_execute_pipe(shell, shell->exec, lst);
+			ft_execute_pipe(shell, shell->exec, lst);
 	ft_free_close_pipe(shell, lst);
 }
 

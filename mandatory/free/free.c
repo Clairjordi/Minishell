@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/15 16:42:46 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:43:06 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void	ft_free_exec(t_shell *shell)
 		close(shell->exec->infile);
 	if (shell->exec->outfile > 2)
 		close(shell->exec->outfile);
+	if (shell->exec->file != NULL)
+	{
+		free(shell->exec->file);
+		shell->exec->file = NULL;
+	}
 	shell->exec->infile = 0;
 	shell->exec->outfile = 0;
 	shell->exec->is_dir = 0;

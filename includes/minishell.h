@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 12:07:46 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:40:35 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_exec
 	char	*cmd_path;
 	char	**builtins;
 	int		is_dir;
+	char	*file;
 	pid_t	pid;
 }	t_exec;
 
