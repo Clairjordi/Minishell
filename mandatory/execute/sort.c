@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 10:59:58 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:44:20 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst)
 
 	i = 0;
 	while (lst->value_split[i])
-	{
+	{	
 		if (ft_sort_check_built(shell, lst, &i) == TRUE)
 			break ;
 		if (shell->exec->is_dir == 0)
@@ -66,8 +66,10 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst)
 		}
 		if (ft_check_outfile(shell, lst->value_split, i) == FALSE)
 			break ;
+		if (*lst->value_split[i] == '\0')
+			i++;
 		if (shell->exec->builtins == NULL && shell->exec->is_dir == 0
-			&& lst->cmd_found == TRUE)
+			&& lst->cmd_found == TRUE && lst->value_split[i] != NULL)
 			lst->cmd_found = ft_check_cmd(shell, lst->value_split, i);
 		if (lst->value_split[i] != NULL)
 			i++;
