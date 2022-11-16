@@ -6,38 +6,17 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 11:59:43 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:44:20 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 //A DEPLACER
-int	ft_verif_file(t_shell *shell)
-{
-	int	i;
-	int	fd;
-
-	i = 1;
-	while (shell->exec->cmd[i] != NULL)
-	{
-		fd = open(shell->exec->cmd[i], O_RDONLY, 0644);
-		if (fd > 2)
-		{
-			close(fd);
-			return (FALSE);
-		}
-		i++;
-	}
-	return (TRUE);
-}
-
 void	ft_add_file_to_tab_cmd(t_shell *shell, t_cmds *lst)
 {
 	int	i;
 
 	i = 0;
-	if (ft_verif_file(shell) == FALSE)
-		return ;
 	while (lst->value_split[i] != NULL)
 	{
 		if (i > 0 && ft_strcmp(lst->value_split[i - 1], "<") == 0)

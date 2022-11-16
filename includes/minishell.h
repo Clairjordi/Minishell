@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 11:54:01 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:07:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,6 @@ extern t_minishell	g_minishell;
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
 void		ft_print_envcpy(t_shell *shell);
-
-void	ft_write_export(t_envcpy *env);
-t_envcpy	*ft_cpy_env(t_envcpy *env_lst);
-void	ft_create_lst_export(t_shell *shell);
-void	ft_swap_var(t_envcpy *current, t_envcpy *next);
-void	ft_check_sorted(t_envcpy *sorted);
-void	ft_sorted_by_ascii(t_envcpy *export);
-int	ft_name_var(char *s);
-int	ft_check_name_var(char *s);
-char	*ft_get_value_export(char *s);
-t_envcpy	*ft_add_new_elem(char *s);
-void	ft_add_var_env(t_envcpy *env, char *s);
-void	ft_add_export(t_envcpy *export, char *s);
-void	ft_export(t_shell *shell);
-void	ft_getexport(t_shell *shell);
-void	ft_free_env_cpy(t_envcpy *cpy);
-void	ft_change_var(t_envcpy *lst, char *s);
-void	ft_check_var(t_envcpy *lst, char *s);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
@@ -231,7 +213,29 @@ void		ft_create_lst_env(t_shell *shell, char **envp);
 /*pwd*/
 void		ft_pwd(void);
 /*export*/
+void		ft_write_export(t_envcpy *env);
+int			ft_name_var(char *s);
+int			ft_check_name_var(char *s);
+int			ft_modify_var(t_shell *shell, int check, int i);
 void		ft_export(t_shell *shell);
+/*add_var*/
+char		*ft_get_value_export(char *s);
+t_envcpy	*ft_add_new_env(char *s);
+void		ft_add_var_env(t_envcpy *env, char *s);
+/*getexport*/
+t_envcpy	*ft_cpy_env(t_envcpy *env_lst);
+void		ft_create_lst_export(t_shell *shell);
+void		ft_sorted_by_ascii(t_envcpy *export);
+void		ft_getexport(t_shell *shell);
+/*getexport_utils*/
+char		*ft_get_name_export(char *s);
+void		ft_free_env_cpy(t_envcpy *cpy);
+void		ft_swap_var(t_envcpy *current, t_envcpy *next);
+void		ft_check_sorted(t_envcpy *sorted);
+/*modify_var*/
+void		ft_append_var(t_envcpy *lst, char *s);
+void		ft_change_var(t_envcpy *lst, char *s);
+void		ft_check_var(t_envcpy *lst, char *s);
 /*exit*/
 void		ft_exit(t_shell *shell, char **tab_exit);
 void		ft_exit_fork(t_shell *shell, char **tab_exit);
