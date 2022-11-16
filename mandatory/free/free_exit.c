@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:36:20 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 16:34:32 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/15 17:20:17 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_free_export_lst(t_shell *shell)
 {
 	t_envcpy	*tmp;
 	t_envcpy	*buf;
-	
+
 	if (shell->env->head == NULL)
 		return ;
 	tmp = shell->env->head;
@@ -27,6 +27,8 @@ void	ft_free_export_lst(t_shell *shell)
 			free(tmp->name);
 		if (tmp->value != NULL)
 			free(tmp->value);
+		if (tmp->var != NULL)
+			free(tmp->var);
 		free(tmp);
 		tmp = buf;
 	}

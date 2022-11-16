@@ -30,9 +30,9 @@ Cas a gerer :
 Exemple de quotes:
 	echo "lol papa" -> lol papa
 	echo "kwsv db'eb" -> kwsv db'eb
-	echo "gfd"tre" -> NE PAS LE GERER donc retirer la double quote : gfdtre
+	echo "gfd"tre" -> NE PAS LE GERER : wrong quote syntax
 	echo "'hihi 'ret'" -> 'hihi 'ret'
-	echo "$$" ->  récupère le pid de script courant : afficher $$ ou recuperer le pid du fork ?
+	echo "$$" ->  récupère le pid de script courant : afficher $$
 	echo "'$USER'" -> 'clorcery'
 	echo "$USER" -> clorcery
 	echo '$USER' -> $USER
@@ -74,18 +74,18 @@ exemples :
 		=> s'arrête et relance un prompt
 		
 Builtins : 
-- cd tout seul -> renvoi au HOME
+- cd tout seul -> renvoi au HOME (ne pas gerer)
 - cd + un path -> (gérer avec chdir)
-- < infile cd -> renvoi au HOME
-- cd ~ -> renvoi au HOME (a gerer)
+- < infile cd -> renvoi au HOME (ne pas gerer)
+- cd ~ -> renvoi au HOME (gerer)
 -----------------------
   MEMO : 
--gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
+- gerer : export lol -> export+var sans "=val", s'ajoute dans export mais pas dans env
 		possibilite de faire une specificite dans add_env - si pas de egal l'ajouter seulement a export sans "=""" - l'ajouter avec un realloc.
--verifier les includes dans le h vraiment necessaire
--gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure. pour tester : ulimits -30
+- verifier les includes dans le h vraiment necessaire
+OK -gestion des Pipes : ouverture de 2 fd pour 1 pipe, s'il a plus d'1 pipe alors fermer les fd ouvert au fur et a mesure. pour tester : ulimit -n 30; ./minishell
 OK - chaine vide dans le split
-- demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
+OK - demander si lorsque une variable d'environnement est renseignée seule, est-ce dans la gestion d'erreur l'afficher puis code errno ou non
 OK - Gérer lorsqu'on fait entrer dans le prompt directement
 OK - ctrl + \ : gerer dans cat (Quit core dumped) et autre cmd ouvrant un prompt si pas d'opt
 OK - retirer les quotes des noms des outfiles avant de les open
@@ -96,17 +96,20 @@ OK - quand wstatus a une autre valeur de 0 il faut l'interprete dans le waitpid(
 OK - gerer les espaces avec echo : actuellement on affiche la chaine vide - ex : a "" b
 OK - Ctrl C dans le double heredoc
 bof- < /dev/urandom cat|head -n 50|wc -w > file | wc -l > file -> a tester 
-- export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
-- unlink le heredoc
-- changer g_g par g_*nom de variable parlant*
+OK - export lol="echo zouzou" puis $lol -> execute echo donc marque zouzou
+OK - unlink le heredoc
+OK - changer g_g par g_*nom de variable parlant*
 OK - remplacer envp par env
+OK - lorsque l'on se deplace avec cd - mettre a jour oldpwd + pwd dans env et export
+- bouger ft_check_name_envcpy du fichier unset.c
+OK - a gerer : echo '> >> < * ? [ ] | ; [ ] | && ( ) & # $  <<' -> les doubles pipes ne doivent pas etre verifier dans les quotes
+- cat | cat < missing -> ne doit pas ouvrir le premier cat
+- echo "exit_code ->$? user ->$USER home -> $HOME" -> enleve exit_code avant le $?...
 
 NORME : 
 
 
 OK test a faire :
 < essai grep '>'>'>">'outfile [ok]
-gf>earhb>>rB>> [non gere]
-a >> w
-e > p
+cat infile >earhb>>rB>> [ok]
 

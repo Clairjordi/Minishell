@@ -27,7 +27,8 @@ void	ft_print_envcpy(t_shell *shell)
 	tmp = shell->env->first;
 	while (tmp != NULL)
 	{
-		ft_printf("~~~~~~name = %s~~~~~~~\n", tmp->name);
+		ft_printf("var = %s\n", tmp->var);
+		ft_printf("name = %s\n", tmp->name);
 		ft_printf("value = %s\n", tmp->value);
 		ft_printf("--------\n");
 		tmp = tmp->next;

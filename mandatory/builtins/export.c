@@ -3,116 +3,133 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 11:48:59 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/11 18:28:55 by mcloarec         ###   ########.fr       */
+/*   Created: 2022/11/12 09:28:03 by mcloarec          #+#    #+#             */
+/*   Updated: 2022/11/16 11:02:55 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_write_export(t_envcpy *env)
+{
+	t_envcpy	*tmp;
 
+	tmp = env;
+	while (tmp)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(tmp->name, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd("\"", 1);
+		if (tmp->value != NULL)
+			ft_putstr_fd(tmp->value, 1);
+		ft_putendl_fd("\"", 1);
+		tmp = tmp->next;
+	}
+	g_minishell.status = 0;
+}
 
-/* void	ft_sort_export(t_shell *shell) */
-/* { */
-/* 	int		i; */
-/* 	char	*tmp; */
-/* 	int		j; */
-/*  */
-/* 	i = 0; */
-/* 	while (shell->copy_export[i] != NULL) */
-/* 	{ */
-/* 		j = i + 1; */
-/* 		while (shell->copy_export[j] != NULL) */
-/* 		{ */
-/* 			if (ft_strncmp(shell->copy_export[i], */
-/* 					shell->copy_export[j], 13) > 0) */
-/* 			{ */
-/* 				tmp = shell->copy_export[j]; */
-/* 				shell->copy_export[j] = shell->copy_export[i]; */
-/* 				shell->copy_export[i] = tmp; */
-/* 			} */
-/* 			j++; */
-/* 		} */
-/* 		i++; */
-/* 	} */
-/* } */
-/*  */
-/* static char	*add_quotes(char *tab_val, t_shell *shell) */
-/* { */
-/* 	tab_val = ft_strjoin_free("\"", tab_val, '2'); */
-/* 	if (tab_val == NULL) */
-/* 		ft_free_malloc(shell); */
-/* 	tab_val = ft_strjoin_free(tab_val, "\"", '1'); */
-/* 	if (tab_val == NULL) */
-/* 		ft_free_malloc(shell); */
-/* 	return (tab_val); */
-/* } */
-/*  */
-/* void	ft_create_copy_export(t_shell *shell) */
-/* { */
-/* 	int		i; */
-/* 	char	*tab_var; */
-/* 	char	*tab_val; */
-/* 	int		size; */
-/*  */
-/* 	i = 0; */
-/* 	while (shell->copy_envp[i] != NULL) */
-/* 	{ */
-/* 		size = ft_len_va(shell->copy_envp[i], 0, '='); */
-/* 		tab_var = ft_substr(shell->copy_envp[i], 0, size); */
-/* 		if (tab_var == NULL) */
-/* 			ft_free_malloc(shell); */
-/* 		tab_val = ft_substr(shell->copy_envp[i], size, */
-/* 				ft_len_va(shell->copy_envp[i], size, '\0')); */
-/* 		if (tab_val == NULL) */
-/* 			ft_free_malloc(shell); */
-/* 		tab_val = add_quotes(tab_val, shell); */
-/* 		shell->copy_export[i] = ft_strjoin_free(tab_var, tab_val, 3); */
-/* 		free(tab_var); */
-/* 		free(tab_val); */
-/* 		i++; */
-/* 	} */
-/* 	shell->copy_export[i] = NULL; */
-/* } */
-/*  */
-/* void	ft_export(char **envp, t_shell *shell) */
-/* { */
-/* 	int		i; */
-/* 	int		len_double_array; */
-/*  */
-/* 	i = 0; */
-/* 	len_double_array = 0; */
-/* 	if (!shell->copy_envp) */
-/* 		ft_recup_env(shell, envp); */
-/* 	while (shell->copy_envp[len_double_array] != NULL) */
-/* 		len_double_array++; */
-/* 	shell->copy_export = ft_calloc(sizeof(char *), (len_double_array + 1)); */
-/* 	if (!shell->copy_export) */
-/* 		ft_free_malloc(shell); */
-/* 	ft_create_copy_export(shell); */
-/* 	ft_sort_export(shell); */
-/* 	while (shell->copy_export[i] != NULL) */
-/* 	{ */
-/* 		shell->copy_export[i] = ft_strjoin_free("declare -x ", */
-/* 				shell->copy_export[i], '2'); */
-/* 		if (shell->copy_export[i] == NULL) */
-/* 			ft_free_malloc(shell); */
-/* 		i++; */
-/* 	} */
-/* } */
-/*  */
-/* void	ft_print_export(char **envp, t_shell *shell) */
-/* { */
-/* 	int		i; */
-/*  */
-/* 	i = 0; */
-/* 	if (!shell->copy_export) */
-/* 		ft_export(envp, shell); */
-/* 	while (shell->copy_export[i] != NULL) */
-/* 	{ */
-/* 		ft_printf("%s\n", shell->copy_export[i]); */
-/* 		i++; */
-/* 	} */
-/* } */
+int	ft_name_var(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (ft_isalpha(s[0]) == 1 || s[0] == '_')
+		i++;
+	if (s[i] == '\0')
+		return (2);
+	while (s[i])
+	{
+		while (ft_isalnum(s[i]) == 1)
+			i++;
+		if (s[i] == '=')
+			return (1);
+		if (s[i] == '\0')
+			return (2);
+		if (s[i] == '+')
+		{
+			i++;
+			if (s[i] == '=')
+				return (3);
+		}
+		else
+			break ;
+	}
+	return (0);
+}
+
+int	ft_check_name_var(char *s)
+{
+	int	check;
+
+	check = 0;
+	if (ft_isalpha(s[0]) == 0 && s[0] != '_')
+		return (check);
+	check = ft_name_var(s);
+	if (check == 1)
+		return (1);
+	else if (check == 2)
+		return (2);
+	else if (check == 3)
+		return (3);
+	return (check);
+}
+
+int	ft_modify_var(t_shell *shell, int check, int i)
+{
+	if (check == 1)
+	{
+		ft_check_var(shell->env->first, shell->exec->builtins[i]);
+		ft_check_var(shell->env->head, shell->exec->builtins[i]);
+		return (TRUE);
+	}
+	else if (check == 2)
+	{
+		ft_add_var_env(shell->env->head, shell->exec->builtins[i]);
+		return (TRUE);
+	}
+	else if (check == 3)
+	{
+		ft_append_var(shell->env->first, shell->exec->builtins[i]);
+		ft_append_var(shell->env->head, shell->exec->builtins[i]);
+		return (TRUE);
+	}
+	else
+	{
+		ft_putendl_fd("bash : export: not a valid identifier", 2);
+		g_minishell.status = 1;
+		return (check);
+	}
+	return (FALSE);
+}
+
+void	ft_export(t_shell *shell)
+{
+	int			i;
+	int			check;
+
+	i = 1;
+	check = 0;
+	if (ft_size_tab(shell->exec->builtins) == 1)
+	{
+		ft_sorted_by_ascii(shell->env->head);
+		ft_write_export(shell->env->head);
+		return ;
+	}
+	while (shell->exec->builtins[i])
+	{
+		check = ft_check_name_var(shell->exec->builtins[i]);
+		if (check == 0)
+		{
+			ft_putendl_fd("bash : export: not a valid identifier", 2);
+			g_minishell.status = 1;
+			return ;
+		}
+		else if (ft_modify_var(shell, check, i) == FALSE)
+			break ;
+		i++;
+	}
+	g_minishell.status = 0;
+}

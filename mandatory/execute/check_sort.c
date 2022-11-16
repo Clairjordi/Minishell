@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/03 16:31:19 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 10:56:50 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 		exec->infile = open(tab[i], O_RDONLY, 0644);
 		if (exec->infile == -1)
 		{
-			perror("File error");
+		//	perror("File error");
 			g_minishell.status = 1;
 			return (FALSE);
 		}

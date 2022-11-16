@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 18:01:30 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 12:07:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,23 +101,7 @@ extern t_minishell	g_minishell;
 
 //A SUPPR ////////////////////////////////////////////////////////////////////////
 void		ft_print_test(t_shell *shell);
-void	ft_write_export(t_envcpy *env);
-t_envcpy	*ft_cpy_env(t_envcpy *env_lst);
-void	ft_create_lst_export(t_shell *shell);
-void	ft_swap_var(t_envcpy *current, t_envcpy *next);
-void	ft_check_sorted(t_envcpy *sorted);
-void	ft_sorted_by_ascii(t_envcpy *export);
-int	ft_name_var(char *s);
-int	ft_check_name_var(char *s);
-char	*ft_get_value_export(char *s);
-t_envcpy	*ft_add_new_elem(char *s);
-void	ft_add_var_env(t_envcpy *env, char *s);
-void	ft_add_export(t_envcpy *export, char *s);
-void	ft_export(t_shell *shell);
-void	ft_getexport(t_shell *shell);
-void	ft_free_env_cpy(t_envcpy *cpy);
-void	ft_change_var(t_envcpy *lst, char *s);
-void	ft_check_var(t_envcpy *lst, char *s);
+void		ft_print_envcpy(t_shell *shell);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
@@ -149,17 +133,19 @@ int			ft_check_redirect(char *s);
 int			ft_verif_redirect(char *s);
 /*replace*/
 char		*ft_rep(t_shell *shell, int i, int *j, t_cmds *lst);
-void		ft_replace_value_split(t_shell *shell, int i, t_cmds *lst);
+void		ft_replace_value_split(t_shell *shell, int *i, t_cmds *lst);
 void		ft_replace_value(t_shell *shell);
 /*replace_utils*/
 int			ft_check_redir(char *s);
 int			ft_open_quote(t_shell *shell, char c);
 char		*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
+void		ft_realloc_value_split(t_shell *shell, int *i, t_cmds *lst);
+void		ft_verif_space_value(t_shell *shell, int *i, t_cmds *lst);
 /*dollar*/
 char		*ft_rep_if_dollar(t_shell *shell, int i, int *j, t_cmds *lst);
 /*dollar_utils*/
 int			ft_check_dollar(char *s, int i);
-char    	*ft_getenv(t_shell *shell, char *name);
+char		*ft_getenv(t_shell *shell, char *name);
 
 //////EXECUTE
 /*minishell*/
@@ -197,7 +183,7 @@ void		ft_sort_cmd(t_shell *shell, t_cmds *lst);
 void		ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst);
 /*sort_utils*/
 int			ft_check_shell_pipe(t_shell *shell, t_cmds *lst);
-void		ft_waitpid_pipe(t_shell *shell);
+void		ft_waitpid_pipe(t_shell *shell, int wstatus);
 void		ft_add_pid(t_shell *shell);
 /*sort_utils_bis*/
 int			ft_is_a_path(char *str);
@@ -227,7 +213,29 @@ void		ft_create_lst_env(t_shell *shell, char **envp);
 /*pwd*/
 void		ft_pwd(void);
 /*export*/
+void		ft_write_export(t_envcpy *env);
+int			ft_name_var(char *s);
+int			ft_check_name_var(char *s);
+int			ft_modify_var(t_shell *shell, int check, int i);
 void		ft_export(t_shell *shell);
+/*add_var*/
+char		*ft_get_value_export(char *s);
+t_envcpy	*ft_add_new_env(char *s);
+void		ft_add_var_env(t_envcpy *env, char *s);
+/*getexport*/
+t_envcpy	*ft_cpy_env(t_envcpy *env_lst);
+void		ft_create_lst_export(t_shell *shell);
+void		ft_sorted_by_ascii(t_envcpy *export);
+void		ft_getexport(t_shell *shell);
+/*getexport_utils*/
+char		*ft_get_name_export(char *s);
+void		ft_free_env_cpy(t_envcpy *cpy);
+void		ft_swap_var(t_envcpy *current, t_envcpy *next);
+void		ft_check_sorted(t_envcpy *sorted);
+/*modify_var*/
+void		ft_append_var(t_envcpy *lst, char *s);
+void		ft_change_var(t_envcpy *lst, char *s);
+void		ft_check_var(t_envcpy *lst, char *s);
 /*exit*/
 void		ft_exit(t_shell *shell, char **tab_exit);
 void		ft_exit_fork(t_shell *shell, char **tab_exit);
@@ -238,10 +246,9 @@ void		ft_print_env(t_shell *shell);
 void		ft_echo(char **tab);
 int			ft_size_tab(char **tab);
 /*cd*/
-void		ft_cd(char **tab);
+void		ft_cd(t_shell *shell, char **tab);
 /*unset*/
 int			ft_check_valid_name(char *s);
-void		ft_unset(t_shell *shell);
 t_envcpy	*ft_check_name_envcpy(t_envcpy *lst, char *s);
 
 //////SIGNALS
@@ -254,6 +261,9 @@ int			ft_len_va(char *var, int start, char c);
 int			ft_sep(char c);
 int			ft_check_q(char c);
 void		ft_close_std(void);
+/*utils_bis*/
+void		ft_verif_malloc(t_shell *shell, char *s);
+void		ft_unset(t_shell *shell);
 /*realloc*/
 char		**ft_realloc_tab_char(char **old_tab, char *new_var);
 char		*ft_cdup(char c);
