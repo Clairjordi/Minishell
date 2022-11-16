@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 17:08:26 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:58:51 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_exec
 	char	*cmd_path;
 	char	**builtins;
 	int		is_dir;
-	char	*file;
 	pid_t	pid;
 }	t_exec;
 
@@ -98,10 +97,6 @@ typedef struct s_shell
 }	t_shell;
 
 extern t_minishell	g_minishell;
-
-//A SUPPR ////////////////////////////////////////////////////////////////////////
-void		ft_print_test(t_shell *shell);
-void		ft_print_envcpy(t_shell *shell);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
@@ -177,6 +172,7 @@ void		ft_add_builtins(t_shell *shell, char *cmd_built);
 void		ft_create_builtins_tab(t_shell *shell, char **tab, int *i);
 /*builtins_utils.c*/
 int			ft_check_is_builtins(t_shell *shell, char **tab, int *i);
+int			ft_verif_opt_builtins(t_shell *shell);
 int			ft_check_builtins_without_fork(t_shell *shell);
 /*sort*/	
 void		ft_sort_cmd(t_shell *shell, t_cmds *lst);

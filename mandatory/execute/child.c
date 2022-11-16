@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:40:40 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/11 17:59:27 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:56:37 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	ft_first_child(t_exec *exec, t_cmds *lst)
 	}
 	if (exec->cmd != NULL)
 		close (lst->pipe_fd[0]);
-	/* if (dup2(STDIN_FILENO, lst->pipe_fd[0]) == ERROR) */
-	/* 	perror("ERROR dup"); */
 	if (exec->outfile > 2)
 	{
 		if (dup2(exec->outfile, lst->pipe_fd[1]) == ERROR)
