@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 17:58:18 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:33:02 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_check_error_redirect(t_shell *shell)
 				&& (lst->value_split[i + 1] == NULL
 					|| ft_valid_redirect(lst->value_split[i + 1]) != FALSE))
 			{
-				ft_free(shell, "Syntax error near unexpected token");
+				ft_free(shell, "Syntax error near unexpected token ");
 				g_minishell.status = 2;
 				return (FALSE);
 			}
@@ -53,17 +53,10 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 		exec->infile = open(tab[i], O_RDONLY, 0644);
 		if (exec->infile == -1)
 		{
-			/* free(exec->file); */
-			/* exec->file = ft_strdup(tab[i]); */
-			ft_putendl_fd("File error", 2);
+			ft_putendl_fd("File error ", 2);
 			g_minishell.status = 1;
 			return (FALSE);
 		}
-		/* if (exec->infile > 2) */
-		/* { */
-		/* 	free(exec->file); */
-		/* 	exec->file = ft_strdup(tab[i]); */
-		/* } */
 	}
 	return (TRUE);
 }

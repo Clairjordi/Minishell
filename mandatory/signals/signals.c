@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:45:27 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/04 08:24:42 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:56:47 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handler(int sig)
 		free(g_minishell.line);
 		free(g_minishell.limiter);
 		close(g_minishell.fd_hdoc);
-		exit (130);
+		exit(130);
 	}
 	else if (sig == SIGINT && g_minishell.is_in_loop == 0)
 	{

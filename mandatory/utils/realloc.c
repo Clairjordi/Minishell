@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:59:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/15 15:17:26 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:58:10 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**ft_realloc_tab_char(char **old_tab, char *new_var)
 	new_tab[i] = ft_strdup(new_var);
 	if (new_tab[i] == NULL)
 		return (NULL);
-	i++;
+	i = i + 1;
 	new_tab[i] = NULL;
 	free(old_tab);
 	return (new_tab);

@@ -6,22 +6,25 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:05:07 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/15 11:47:05 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:22:33 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_envcpy	*ft_cpy_env(t_envcpy *env_lst)
+t_envcpy	*ft_cpy_env(t_shell *shell, t_envcpy *env_lst)
 {
 	t_envcpy	*new;
 
 	new = malloc(sizeof(t_envcpy));
 	if (!new)
-		return (NULL);
+		ft_free_malloc(shell);
 	new->name = ft_strdup(env_lst->name);
+	ft_verif_malloc(shell, new->name);
 	new->value = ft_strdup(env_lst->value);
+	ft_verif_malloc(shell, new->value);
 	new->var = ft_strdup(env_lst->var);
+	ft_verif_malloc(shell, new->var);
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
@@ -33,13 +36,13 @@ void	ft_create_lst_export(t_shell *shell)
 	t_envcpy	*add;
 	t_envcpy	*cpy;
 
-	shell->env->head = ft_cpy_env(shell->env->first);
+	shell->env->head = ft_cpy_env(shell, shell->env->first);
 	tmp = shell->env->head;
 	cpy = shell->env->first;
 	cpy = cpy->next;
 	while (cpy)
 	{
-		add = ft_cpy_env(cpy);
+		add = ft_cpy_env(shell, cpy);
 		tmp->next = add;
 		add->prev = tmp;
 		tmp = add;

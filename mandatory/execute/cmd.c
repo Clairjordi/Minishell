@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:25:34 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 18:14:32 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:34:29 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_add_cmd(t_shell *shell, char *s)
 	if (shell->exec->cmd != NULL
 		&& ft_get_path(shell, s) != NULL)
 	{
-		perror("ERROR cmd");
+		perror("ERROR cmd ");
 		g_minishell.status = 1;
 		return (FALSE);
 	}

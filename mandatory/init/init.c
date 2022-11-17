@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:33:44 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 12:40:57 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:48:07 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ void	ft_init_shell(t_shell *shell)
 {
 	shell->arg = NULL;
 	shell->exec = malloc(sizeof(t_exec));
+	if (!shell->exec)
+		ft_free_malloc(shell);
 	shell->built = malloc(sizeof(t_built));
+	if (!shell->built)
+		ft_free_malloc(shell);
 	shell->pid_hdoc = 0;
 	shell->quote = 0;
 	shell->dollar = 0;
@@ -35,7 +39,6 @@ void	ft_init_exec(t_shell *shell)
 	shell->exec->cmd_path = NULL;
 	shell->exec->builtins = NULL;
 	shell->exec->is_dir = 0;
-	shell->exec->file = NULL;
 }
 
 void	ft_init_cmds(t_cmds *cmd)

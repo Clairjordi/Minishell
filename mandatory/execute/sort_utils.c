@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 10:50:18 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:52:04 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_check_shell_pipe(t_shell *shell, t_cmds *lst)
 	{
 		if (pipe(lst->pipe_fd) == ERROR)
 		{
-			perror("ERROR pipe");
+			perror("ERROR pipe ");
 			return (ERROR);
 		}
 		shell->pipe--;
@@ -57,7 +57,7 @@ void	ft_waitpid_pipe(t_shell *shell, int wstatus)
 	while (shell->tab_pid[i])
 	{
 		if (waitpid(ft_atoi(shell->tab_pid[i]), &wstatus, 0) == ERROR)
-			perror("ERROR waitpid");
+			perror("ERROR waitpid ");
 		i++;
 	}
 	ft_status_child(wstatus);

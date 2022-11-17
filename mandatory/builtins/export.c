@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 09:28:03 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 11:02:55 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:47:22 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,19 +81,19 @@ int	ft_modify_var(t_shell *shell, int check, int i)
 {
 	if (check == 1)
 	{
-		ft_check_var(shell->env->first, shell->exec->builtins[i]);
-		ft_check_var(shell->env->head, shell->exec->builtins[i]);
+		ft_check_var(shell, shell->env->first, shell->exec->builtins[i]);
+		ft_check_var(shell, shell->env->head, shell->exec->builtins[i]);
 		return (TRUE);
 	}
 	else if (check == 2)
 	{
-		ft_add_var_env(shell->env->head, shell->exec->builtins[i]);
+		ft_add_var_env(shell, shell->env->head, shell->exec->builtins[i]);
 		return (TRUE);
 	}
 	else if (check == 3)
 	{
-		ft_append_var(shell->env->first, shell->exec->builtins[i]);
-		ft_append_var(shell->env->head, shell->exec->builtins[i]);
+		ft_append_var(shell, shell->env->first, shell->exec->builtins[i]);
+		ft_append_var(shell, shell->env->head, shell->exec->builtins[i]);
 		return (TRUE);
 	}
 	else

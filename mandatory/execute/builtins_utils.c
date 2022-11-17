@@ -6,13 +6,13 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 19:03:07 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 18:38:15 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:33:25 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_is_builtins_bis(t_shell *shell, char **tab, int *i)
+static int	ft_check_is_builtins_bis(t_shell *shell, char **tab, int *i)
 {
 	if (ft_strcmp(tab[*i], "cd") == 0)
 	{
@@ -59,21 +59,55 @@ int	ft_check_is_builtins(t_shell *shell, char **tab, int *i)
 	return (FALSE);
 }
 
-int	ft_check_builtins_without_fork(t_shell *shell)
-{	
+int	ft_verif_opt_builtins(t_shell *shell)
+{
+	if (ft_strcmp(shell->exec->builtins[0], "pwd") == 0
+		|| ft_strcmp(shell->exec->builtins[0], "cd") == 0
+		|| ft_strcmp(shell->exec->builtins[0], "export") == 0
+		|| ft_strcmp(shell->exec->builtins[0], "unset") == 0)
+	{
+		if (shell->exec->builtins[1] != NULL
+			&& shell->exec->builtins[1][0] == '-')
+		{
+			ft_putendl_fd("bash : invalid option ", 2);
+			g_minishell.status = 2;
+			return (FALSE);
+		}
+	}
+	if (ft_strcmp(shell->exec->builtins[0], "env") == 0)
+	{
+		if (shell->exec->builtins[1] != NULL
+			&& shell->exec->builtins[1][0] == '-')
+		{
+			ft_putendl_fd("bash : invalid option ", 2);
+			g_minishell.status = 125;
+			return (FALSE);
+		}
+	}
+	return (TRUE);
+}
 
+static int	ft_verif_opt_builtins_without_fork(t_shell *shell)
+{
 	if (ft_strcmp(shell->exec->builtins[0], "cd") == 0
 		|| ft_strcmp(shell->exec->builtins[0], "export") == 0
 		|| ft_strcmp(shell->exec->builtins[0], "unset") == 0)
 	{
 		if (shell->exec->builtins[1] != NULL
-				&& shell->exec->builtins[1][0] == '-')
+			&& shell->exec->builtins[1][0] == '-')
 		{
-			ft_putendl_fd("bash : invalid option", 2);
+			ft_putendl_fd("bash : invalid option ", 2);
 			g_minishell.status = 2;
-			return (TRUE);
+			return (FALSE);
 		}
 	}
+	return (TRUE);
+}
+
+int	ft_check_builtins_without_fork(t_shell *shell)
+{	
+	if (ft_verif_opt_builtins_without_fork(shell) == FALSE)
+		return (TRUE);
 	if (ft_strcmp(shell->exec->builtins[0], "cd") == 0)
 	{
 		ft_cd(shell, shell->exec->builtins);

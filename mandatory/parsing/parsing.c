@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 16:07:27 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/16 18:54:07 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_parsing(char *str, t_shell *shell)
 {
 	if (ft_verif_parsing(str) == ERROR)
 	{
-		//ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
 		ft_free(shell, NULL);
 		return ;
 	}
@@ -54,7 +53,6 @@ void	ft_parsing(char *str, t_shell *shell)
 		ft_free_malloc(shell);
 	if (ft_check_space_pipe(shell) == ERROR)
 	{
-		//ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
 		ft_free(shell, NULL);
 		return ;
 	}
@@ -62,8 +60,6 @@ void	ft_parsing(char *str, t_shell *shell)
 	ft_replace_value(shell);
 	ft_recup_env(shell);
 	ft_minishell(shell);
-	//ft_printf("g_minishell status = %d\n", g_minishell.status); // A SUPPR
-	//ft_print_test(shell); //A SUPPR
 	ft_free(shell, NULL);
 	if (access(".heredoc", F_OK) == 0)
 		unlink(".heredoc");

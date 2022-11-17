@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 17:08:26 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:03:18 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct s_exec
 	char	*cmd_path;
 	char	**builtins;
 	int		is_dir;
-	char	*file;
 	pid_t	pid;
 }	t_exec;
 
@@ -98,10 +97,6 @@ typedef struct s_shell
 }	t_shell;
 
 extern t_minishell	g_minishell;
-
-//A SUPPR ////////////////////////////////////////////////////////////////////////
-void		ft_print_test(t_shell *shell);
-void		ft_print_envcpy(t_shell *shell);
 
 //////INIT
 void		ft_init_shell(t_shell *shell);
@@ -177,6 +172,7 @@ void		ft_add_builtins(t_shell *shell, char *cmd_built);
 void		ft_create_builtins_tab(t_shell *shell, char **tab, int *i);
 /*builtins_utils.c*/
 int			ft_check_is_builtins(t_shell *shell, char **tab, int *i);
+int			ft_verif_opt_builtins(t_shell *shell);
 int			ft_check_builtins_without_fork(t_shell *shell);
 /*sort*/	
 void		ft_sort_cmd(t_shell *shell, t_cmds *lst);
@@ -208,7 +204,7 @@ char		*ft_find_path(t_shell *shell);
 /*getenv*/
 char		*ft_get_name(char *name_env);
 char		*ft_get_value(char *value_env);
-t_envcpy	*ft_new_elem_env(char *str);
+t_envcpy	*ft_new_elem_env(t_shell *shell, char *str);
 void		ft_create_lst_env(t_shell *shell, char **envp);
 /*pwd*/
 void		ft_pwd(void);
@@ -220,10 +216,10 @@ int			ft_modify_var(t_shell *shell, int check, int i);
 void		ft_export(t_shell *shell);
 /*add_var*/
 char		*ft_get_value_export(char *s);
-t_envcpy	*ft_add_new_env(char *s);
-void		ft_add_var_env(t_envcpy *env, char *s);
+t_envcpy	*ft_add_new_env(t_shell *shell, char *s);
+void		ft_add_var_env(t_shell *shell, t_envcpy *env, char *s);
 /*getexport*/
-t_envcpy	*ft_cpy_env(t_envcpy *env_lst);
+t_envcpy	*ft_cpy_env(t_shell *shell, t_envcpy *env_lst);
 void		ft_create_lst_export(t_shell *shell);
 void		ft_sorted_by_ascii(t_envcpy *export);
 void		ft_getexport(t_shell *shell);
@@ -233,12 +229,13 @@ void		ft_free_env_cpy(t_envcpy *cpy);
 void		ft_swap_var(t_envcpy *current, t_envcpy *next);
 void		ft_check_sorted(t_envcpy *sorted);
 /*modify_var*/
-void		ft_append_var(t_envcpy *lst, char *s);
-void		ft_change_var(t_envcpy *lst, char *s);
-void		ft_check_var(t_envcpy *lst, char *s);
+void		ft_append_var(t_shell *shell, t_envcpy *lst, char *s);
+void		ft_change_var(t_shell *shell, t_envcpy *lst, char *s);
+void		ft_check_var(t_shell *shell, t_envcpy *lst, char *s);
 /*exit*/
 void		ft_exit(t_shell *shell, char **tab_exit);
 void		ft_exit_fork(t_shell *shell, char **tab_exit);
+void		ft_exit(t_shell *shell, char **tab_exit);
 /*env*/
 void		ft_recup_env(t_shell *shell);
 void		ft_print_env(t_shell *shell);
