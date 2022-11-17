@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:34:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 18:53:27 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:06:06 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	ft_realloc_value_split(t_shell *shell, int *i, t_cmds *lst)
 		ft_free_malloc(shell);
 	lst->value_split[*i] = ft_free_ptr(lst->value_split[*i]);
 	lst->value_split[*i] = ft_strdup(value_space[0]);
+	ft_verif_malloc(shell, lst->value_split[*i]);
 	while (value_space[j] != NULL)
 	{
 		lst->value_split = ft_realloc_tab_char(lst->value_split,

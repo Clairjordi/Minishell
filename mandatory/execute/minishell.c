@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 18:55:20 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:35:49 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_execute_cmd(t_shell *shell, int wstatus)
 {
 	shell->exec->pid = fork();
 	if (shell->exec->pid == ERROR)
-		perror("ERROR pid");
+		perror("ERROR pid ");
 	if (shell->exec->pid == 0)
 	{
 		g_minishell.is_in_loop = 3;
@@ -51,7 +51,7 @@ int	ft_execute_cmd(t_shell *shell, int wstatus)
 	}
 	g_minishell.is_in_loop = 2;
 	if (waitpid(shell->exec->pid, &wstatus, 0) == ERROR)
-		perror("ERROR waitpid");
+		perror("ERROR waitpid ");
 	g_minishell.is_in_loop = 0;
 	return (wstatus);
 }
@@ -60,7 +60,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 {
 	exec->pid = fork();
 	if (exec->pid == ERROR)
-		perror("ERROR pid");
+		perror("ERROR pid ");
 	if (exec->pid == 0)
 	{
 		g_minishell.is_in_loop = 3;

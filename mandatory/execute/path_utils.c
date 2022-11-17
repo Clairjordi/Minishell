@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:32:15 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 17:08:32 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:38:04 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@ int	ft_check_access(t_shell *shell, char *path_cmd)
 	if (access(path_cmd, X_OK) == 0)
 	{
 		if (shell->exec->cmd_path == NULL)
+		{
 			shell->exec->cmd_path = ft_strdup(path_cmd);
+			if (shell->exec->cmd_path == NULL)
+				ft_free_malloc(shell);
+		}
 		else
 		{
 			free(shell->exec->cmd_path);
 			shell->exec->cmd_path = ft_strdup(path_cmd);
+			if (shell->exec->cmd_path == NULL)
+				ft_free_malloc(shell);
 		}
 		return (TRUE);
 	}

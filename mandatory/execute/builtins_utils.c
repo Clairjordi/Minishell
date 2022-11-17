@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 19:03:07 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 18:53:57 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:33:25 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_verif_opt_builtins(t_shell *shell)
 		if (shell->exec->builtins[1] != NULL
 			&& shell->exec->builtins[1][0] == '-')
 		{
-			ft_putendl_fd("bash : invalid option", 2);
+			ft_putendl_fd("bash : invalid option ", 2);
 			g_minishell.status = 2;
 			return (FALSE);
 		}
@@ -79,7 +79,7 @@ int	ft_verif_opt_builtins(t_shell *shell)
 		if (shell->exec->builtins[1] != NULL
 			&& shell->exec->builtins[1][0] == '-')
 		{
-			ft_putendl_fd("bash : invalid option", 2);
+			ft_putendl_fd("bash : invalid option ", 2);
 			g_minishell.status = 125;
 			return (FALSE);
 		}
@@ -96,7 +96,7 @@ static int	ft_verif_opt_builtins_without_fork(t_shell *shell)
 		if (shell->exec->builtins[1] != NULL
 			&& shell->exec->builtins[1][0] == '-')
 		{
-			ft_putendl_fd("bash : invalid option", 2);
+			ft_putendl_fd("bash : invalid option ", 2);
 			g_minishell.status = 2;
 			return (FALSE);
 		}

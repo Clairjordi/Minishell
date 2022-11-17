@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/14 15:52:26 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:34:53 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_fork_heredoc(t_shell *shell, int wstatus, t_cmds *lst)
 	free(g_minishell.limiter);
 	close(g_minishell.fd_hdoc);
 	if (waitpid(shell->pid_hdoc, &wstatus, 0) == ERROR)
-		perror("ERROR waitpid heredoc");
+		perror("ERROR waitpid heredoc ");
 	g_minishell.is_in_loop = 0;
 	return (wstatus);
 }

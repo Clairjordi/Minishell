@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 16:56:53 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 17:37:46 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:32:45 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
 				(O_RDWR | O_TRUNC | O_CREAT), 0644);
 		if (shell->exec->outfile == -1)
 		{
-			perror("File error");
+			perror("File error ");
 			g_minishell.status = 1;
 			return ;
 		}
@@ -70,7 +70,7 @@ static void	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
 				(O_RDWR | O_APPEND | O_CREAT), 0644);
 		if (shell->exec->outfile == -1)
 		{
-			perror("File error");
+			perror("File error ");
 			g_minishell.status = 1;
 			return ;
 		}
@@ -95,7 +95,7 @@ void	ft_create_builtins_tab(t_shell *shell, char **tab, int *i)
 			shell->exec->infile = open(tab[*i + 1], O_RDONLY, 0644);
 			if (shell->exec->infile == -1)
 			{
-				perror("File error");
+				perror("File error ");
 				g_minishell.status = 1;
 				return ;
 			}

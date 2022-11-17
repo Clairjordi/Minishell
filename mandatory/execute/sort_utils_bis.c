@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 07:57:34 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 17:29:47 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:02:45 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	ft_is_directory(char *str)
 	}
 	if (S_ISDIR(s->st_mode))
 	{
-		ft_putstr_fd(str, 2);
-		ft_putendl_fd(": Is a directory", 2);
+		ft_putendl_fd("Is a directory", 2);
 		g_minishell.status = 126;
 		free(s);
 		return (1);
