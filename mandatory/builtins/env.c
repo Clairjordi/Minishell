@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:47:52 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/09 17:24:36 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 09:42:37 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	ft_recup_env(t_shell *shell)
 	while (tmp)
 	{
 		shell->built->env[i] = ft_strdup(tmp->var);
-		if (shell->built->env[i] == NULL)
-			ft_free_malloc(shell);
+		ft_verif_malloc(shell, shell->built->env[i]);
 		tmp = tmp->next;
 		i++;
 	}
