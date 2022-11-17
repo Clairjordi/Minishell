@@ -49,7 +49,7 @@ int	ft_execute_cmd(t_shell *shell, int wstatus)
 		}
 		ft_child_cmd(shell, shell->exec);
 	}
-	g_minishell.is_in_loop = 2;
+	g_minishell.is_in_loop = 4;
 	if (waitpid(shell->exec->pid, &wstatus, 0) == ERROR)
 		perror("ERROR waitpid ");
 	g_minishell.is_in_loop = 0;
@@ -77,7 +77,7 @@ void	ft_execute_pipe(t_shell *shell, t_exec *exec, t_cmds *lst)
 		}
 		ft_check_child_execute(shell, lst);
 	}
-	g_minishell.is_in_loop = 2;
+	g_minishell.is_in_loop = 4;
 	if (lst->next != NULL)
 	{
 		close(lst->pipe_fd[1]);

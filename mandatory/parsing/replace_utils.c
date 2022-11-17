@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:34:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 10:06:06 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 12:53:10 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst)
 			&& ft_sep(lst->value_split[i][*j + 1]) == 2
 			&& lst->value_split[i][*j + 2] == '\0')
 	{
-		space = ft_charjoin(shell->tmp, ' ');
+		space = ft_cdup('\0');
 		if (space == NULL)
 			ft_free_malloc(shell);
 	}
@@ -73,7 +73,7 @@ char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst)
 			&& ft_sep(lst->value_split[i][*j + 1]) == 4
 			&& lst->value_split[i][*j + 2] == '\0')
 	{
-		space = ft_charjoin(shell->tmp, ' ');
+		space = ft_cdup('\0');
 		if (space == NULL)
 			ft_free_malloc(shell);
 	}

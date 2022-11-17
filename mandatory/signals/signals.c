@@ -27,6 +27,11 @@ void	handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_minishell.status = 130;
+	}
+	else if (sig == SIGINT && g_minishell.is_in_loop == 4)
+	{
+		ft_putstr_fd("\n", 1);
 	}
 }
 
