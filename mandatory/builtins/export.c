@@ -6,30 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 09:28:03 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:47:22 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:14:13 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_write_export(t_envcpy *env)
-{
-	t_envcpy	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(tmp->name, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd("\"", 1);
-		if (tmp->value != NULL)
-			ft_putstr_fd(tmp->value, 1);
-		ft_putendl_fd("\"", 1);
-		tmp = tmp->next;
-	}
-	g_minishell.status = 0;
-}
 
 int	ft_name_var(char *s)
 {
@@ -60,9 +41,38 @@ int	ft_name_var(char *s)
 	return (0);
 }
 
-int	ft_check_name_var(char *s)
+int	ft_check_existing_var(t_env *env, char *s)
 {
-	int	check;
+	char		*var;
+	t_envcpy	*var_env;
+	t_envcpy	*var_export;
+
+	var = NULL;
+	var_env = NULL;
+	var_export = NULL;
+	var = ft_get_name_export(s);
+	if (var != NULL)
+	{
+		var_env = ft_check_name_envcpy(env->first, var);
+		if (var_env != NULL)
+		{
+			free(var);
+			return (TRUE);
+		}
+		var_export = ft_check_name_envcpy(env->head, var);
+		if (var_export != NULL)
+		{
+			free(var);
+			return (TRUE);
+		}
+		free(var);
+	}
+	return (FALSE);
+}
+
+int	ft_check_name_var(t_env *env, char *s)
+{
+	int			check;
 
 	check = 0;
 	if (ft_isalpha(s[0]) == 0 && s[0] != '_')
@@ -73,7 +83,12 @@ int	ft_check_name_var(char *s)
 	else if (check == 2)
 		return (2);
 	else if (check == 3)
-		return (3);
+	{
+		if (ft_check_existing_var(env, s) == FALSE)
+			return (1);
+		else
+			return (3);
+	}
 	return (check);
 }
 
@@ -120,7 +135,7 @@ void	ft_export(t_shell *shell)
 	}
 	while (shell->exec->builtins[i])
 	{
-		check = ft_check_name_var(shell->exec->builtins[i]);
+		check = ft_check_name_var(shell->env, shell->exec->builtins[i]);
 		if (check == 0)
 		{
 			ft_putendl_fd("bash : export: not a valid identifier", 2);

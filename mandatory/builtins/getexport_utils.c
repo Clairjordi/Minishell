@@ -6,11 +6,32 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:07:49 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 10:35:56 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:20:20 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*ft_get_name_env(t_shell *shell, char *s)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	while ((s[i] && s[i] != '+') && (s[i] && s[i] != '='))
+		i++;
+	if ((s[i] == '+' || s[i] == '=') && s[i + 1] != '\0')
+	{
+		i++;
+		if (s[i] == '=')
+			i++;
+	}
+	else if (s[i] != '+' && s[i] != '=' && s[i] != '\0')
+		return (NULL);
+	name = ft_create_name_env(s, i);
+	ft_verif_malloc(shell, name);
+	return (name);
+}
 
 char	*ft_get_name_export(char *s)
 {

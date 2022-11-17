@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 11:49:40 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:33:49 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	ft_replace_value_split(t_shell *shell, int *i, t_cmds *lst)
 			lst->value_split[*i] = shell->tmp;
 		}
 	}
-	/* if (shell->tmp == NULL) */
-	/* 	lst->value_split[*i] = shell->tmp; */
+	if (shell->tmp == NULL)
+		lst->value_split[*i] = shell->tmp;
 }
 
 static void	ft_replace_value_bis(t_shell *shell, int i, int *j, t_cmds *lst)
