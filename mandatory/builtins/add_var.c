@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:54:24 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:35:38 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:28:24 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_get_value_export(char *s)
 	while (*s && *s != '=')
 		s++;
 	if (*s != '=')
-		return (NULL);
+		return (ft_cdup('\0'));
 	s++;
 	len = ft_strlen(s);
 	value = malloc(sizeof(char) * (len + 1));

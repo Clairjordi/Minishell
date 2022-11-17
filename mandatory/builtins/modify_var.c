@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 17:26:04 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:52:42 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 12:10:46 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	ft_append_var(t_shell *shell, t_envcpy *lst, char *s)
 	name = ft_get_name_export(s);
 	ft_verif_malloc(shell, name);
 	var = ft_check_name_envcpy(lst, name);
+	if (var == NULL)
+	{
+		ft_add_var_env(shell, lst, s);
+		return ;
+	}
 	value_add = ft_get_value_export(s);
 	ft_verif_malloc(shell, value_add);
 	value = ft_strdup(var->value);
