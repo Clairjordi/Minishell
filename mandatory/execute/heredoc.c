@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:25:29 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/17 10:59:29 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:25:56 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	ft_heredoc(t_shell *shell)
 		g_minishell.line = readline (">");
 		if (!g_minishell.line)
 		{
-			ft_putstr_fd("bash: warning: here-document ", 1);
-			ft_putstr_fd("at g_minishell.line 1 delimited by end-of-file\n", 1);
+			ft_putstr_fd("heredoc delimited by end-of-file\n", 1);
 			g_minishell.status = 0;
 			break ;
 		}

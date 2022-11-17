@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:54:59 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 11:49:40 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:23:13 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*ft_rep_bis(t_shell *shell, int i, int *j, t_cmds *lst)
 		&& lst->value_split[i][*j - 1] == '$'))
 			&& ft_check_q(lst->value_split[i][*j + 1]) == 1)
 	{
-		new = ft_rep_quotes_space(shell, i, j, lst);
+		new = ft_rep_quotes_space(i, j, lst);
 		if (new)
 		{
 			(*j)++;
@@ -73,8 +73,11 @@ void	ft_replace_value_split(t_shell *shell, int *i, t_cmds *lst)
 			lst->value_split[*i] = shell->tmp;
 		}
 	}
-	/* if (shell->tmp == NULL) */
-	/* 	lst->value_split[*i] = shell->tmp; */
+	if (shell->tmp == NULL)
+	{
+		lst->value_split[*i] = ft_free_ptr(lst->value_split[*i]);
+		lst->value_split[*i] = ft_cdup('\0');
+	}
 }
 
 static void	ft_replace_value_bis(t_shell *shell, int i, int *j, t_cmds *lst)

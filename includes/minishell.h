@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 12:33:49 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/17 10:03:18 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:22:32 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void		ft_replace_value(t_shell *shell);
 /*replace_utils*/
 int			ft_check_redir(char *s);
 int			ft_open_quote(t_shell *shell, char c);
-char		*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst);
+char		*ft_rep_quotes_space(int i, int *j, t_cmds *lst);
 void		ft_realloc_value_split(t_shell *shell, int *i, t_cmds *lst);
 void		ft_verif_space_value(t_shell *shell, int *i, t_cmds *lst);
 /*dollar*/
@@ -163,9 +163,10 @@ void		ft_add_opt_arg(t_shell *shell, char **tab, int i);
 int			ft_add_cmd(t_shell *shell, char *s);
 int			ft_check_point(t_shell *shell, char **tab, int i);
 int			ft_check_cmd(t_shell *shell, char **tab, int i);
-/*builtins*/
+/*builtins_bis*/
 void		ft_add_opt_arg_builtins(t_shell *shell, char **tab, int i);
 void		ft_add_builtins(t_shell *shell, char *cmd_built);
+/*builtins*/
 void		ft_create_builtins_tab(t_shell *shell, char **tab, int *i);
 /*builtins_utils.c*/
 int			ft_check_is_builtins(t_shell *shell, char **tab, int *i);
@@ -231,8 +232,8 @@ void		ft_change_var(t_shell *shell, t_envcpy *lst, char *s);
 void		ft_check_var(t_shell *shell, t_envcpy *lst, char *s);
 /*exit*/
 void		ft_exit(t_shell *shell, char **tab_exit);
-void		ft_exit_fork(t_shell *shell, char **tab_exit);
-void		ft_exit(t_shell *shell, char **tab_exit);
+void		ft_exit_fork(char **tab_exit);
+int			ft_check_arg_exit(char *arg_exit);
 /*env*/
 void		ft_recup_env(t_shell *shell);
 void		ft_print_env(t_shell *shell);

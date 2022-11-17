@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 10:03:11 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 14:58:54 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 {
-	int	j;
-
-	j = 0;
+	/* int	j; */
+    /*  */
+	/* j = 0; */
 	if ((*i == 0
 			|| (*i > 0 && ft_valid_redirect(lst->value_split[*i - 1]) == FALSE))
 		&& shell->exec->cmd == NULL)
@@ -24,12 +24,12 @@ static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 		if (ft_check_is_builtins(shell, lst->value_split, i) == TRUE)
 			return (TRUE);
 	}
-	if (lst->value_split[*i][j] == '\0')
-	{
-		(*i)++;
-		if (lst->value_split[*i] == NULL)
-			return (TRUE);
-	}
+	/* if (lst->value_split[*i][j] == '\0') */
+	/* { */
+	/* 	(*i)++; */
+	/* 	if (lst->value_split[*i] == NULL) */
+	/* 		return (TRUE); */
+	/* } */
 	return (FALSE);
 }
 

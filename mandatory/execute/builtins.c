@@ -6,43 +6,18 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 16:56:53 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:32:45 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:16:18 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_add_opt_arg_builtins(t_shell *shell, char **tab, int i)
-{
-	if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
-		tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
-	shell->exec->builtins = ft_realloc_tab_char(shell->exec->builtins, tab[i]);
-	if (shell->exec->builtins == NULL)
-		ft_free_malloc(shell);
-}
-
-void	ft_add_builtins(t_shell *shell, char *cmd_built)
-{
-	if (shell->exec->builtins == NULL)
-	{
-		shell->exec->builtins = ft_calloc(sizeof(char *), 2);
-		if (!shell->exec->builtins)
-			ft_free_malloc(shell);
-		shell->exec->builtins[0] = ft_strdup(cmd_built);
-		if (shell->exec->builtins[0] == NULL)
-			ft_free_malloc(shell);
-		shell->exec->builtins[1] = NULL;
-	}
-}
-
-static void	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
+static int	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
 {
 	if (ft_valid_redirect(tab[i]) == 4)
 	{
 		if (shell->exec->outfile > 2)
 			close(shell->exec->outfile);
-		if (shell->exec->outfile == -1)
-			return ;
 		if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == 0)
 			tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 		shell->exec->outfile = open(tab[i + 1],
@@ -51,19 +26,18 @@ static void	ft_create_builtins_tab_append(t_shell *shell, char **tab, int i)
 		{
 			perror("File error ");
 			g_minishell.status = 1;
-			return ;
+			return (FALSE);
 		}
 	}
+	return (TRUE);
 }
 
-static void	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
+static int	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
 {
 	if (ft_valid_redirect(tab[i]) == 3)
 	{
 		if (shell->exec->outfile > 2)
 			close(shell->exec->outfile);
-		if (shell->exec->outfile == -1)
-			return ;
 		if (ft_check_q(tab[i][0]) == 1 && ft_is_not_redirection(tab[i]) == TRUE)
 			tab[i] = ft_delete_quotes_redirect(shell, tab[i]);
 		shell->exec->outfile = open(tab[i + 1],
@@ -72,9 +46,24 @@ static void	ft_create_builtins_tab_outfile(t_shell *shell, char **tab, int i)
 		{
 			perror("File error ");
 			g_minishell.status = 1;
-			return ;
+			return (FALSE);
 		}
 	}
+	return (TRUE);
+}
+
+static int	ft_create_builtins_tab_infile(t_shell *shell, char **tab, int i)
+{
+	if (shell->exec->infile > 2)
+		close(shell->exec->infile);
+	shell->exec->infile = open(tab[i + 1], O_RDONLY, 0644);
+	if (shell->exec->infile == -1)
+	{
+		perror("File error ");
+		g_minishell.status = 1;
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 void	ft_create_builtins_tab(t_shell *shell, char **tab, int *i)
@@ -90,18 +79,13 @@ void	ft_create_builtins_tab(t_shell *shell, char **tab, int *i)
 			ft_add_opt_arg_builtins(shell, tab, (*i));
 		else if (ft_valid_redirect(tab[*i]) == 2)
 		{
-			if (shell->exec->infile > 2)
-				close(shell->exec->infile);
-			shell->exec->infile = open(tab[*i + 1], O_RDONLY, 0644);
-			if (shell->exec->infile == -1)
-			{
-				perror("File error ");
-				g_minishell.status = 1;
+			if (ft_create_builtins_tab_infile(shell, tab, (*i)) == FALSE)
 				return ;
-			}
 		}
-		ft_create_builtins_tab_append(shell, tab, (*i));
-		ft_create_builtins_tab_outfile(shell, tab, (*i));
+		if (ft_create_builtins_tab_append(shell, tab, (*i)) == FALSE)
+			return ;
+		if (ft_create_builtins_tab_outfile(shell, tab, (*i)) == FALSE)
+			return ;
 		(*i)++;
 	}
 }

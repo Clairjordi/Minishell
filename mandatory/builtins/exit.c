@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:15:09 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/17 09:54:04 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:46:31 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ static int	ft_check_long_arg_exit(char *arg_exit)
 	return (TRUE);
 }
 
-int	ft_check_arg_exit(t_shell *shell, char *arg_exit)
+int	ft_check_arg_exit(char *arg_exit)
 {
 	int	i;
 
-	(void) shell;
 	i = 0;
 	if (arg_exit[i] == '+' || arg_exit[i] == '-')
 		i++;
@@ -78,34 +77,36 @@ void	ft_exit(t_shell *shell, char **tab_exit)
 
 	size = ft_size_tab(tab_exit);
 	ft_putendl_fd("exit", 1);
-	arg = ft_check_arg_exit(shell, tab_exit[1]);
-	if (size > 2 && arg == TRUE)
+	if (tab_exit[1] != NULL)
 	{
-		ft_putendl_fd("too many arguments", 2);
-		g_minishell.status = 1;
-		return ;
-	}
-	if (arg == TRUE)
-	{
-		status = ft_atoll(tab_exit[1]);
-		status = status % 256;
-		g_minishell.status = status;
+		arg = ft_check_arg_exit(tab_exit[1]);
+		if (size > 2 && arg == TRUE)
+		{
+			ft_putendl_fd("too many arguments", 2);
+			g_minishell.status = 1;
+			return ;
+		}
+		if (arg == TRUE)
+		{
+			status = ft_atoll(tab_exit[1]);
+			status = status % 256;
+			g_minishell.status = status;
+		}
 	}
 	ft_free_envcpy(shell);
 	ft_free(shell, NULL);
 	exit (g_minishell.status);
 }
 
-void	ft_exit_fork(t_shell *shell, char **tab_exit)
+void	ft_exit_fork(char **tab_exit)
 {
 	int			size;
 	long long	status;
 
-	size = 0;
 	size = ft_size_tab(tab_exit);
 	if (tab_exit[1] == NULL)
 		return ;
-	status = ft_check_arg_exit(shell, tab_exit[1]);
+	status = ft_check_arg_exit(tab_exit[1]);
 	if (status == FALSE)
 		return ;
 	if (size > 2 && status == TRUE)

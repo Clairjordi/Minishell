@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:34:30 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 12:53:10 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:21:50 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_open_quote(t_shell *shell, char c)
 	return (shell->quote);
 }
 
-char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst)
+char	*ft_rep_quotes_space(int i, int *j, t_cmds *lst)
 {
 	char	*space;
 
@@ -64,19 +64,11 @@ char	*ft_rep_quotes_space(t_shell *shell, int i, int *j, t_cmds *lst)
 	if (ft_sep(lst->value_split[i][*j]) == 2
 			&& ft_sep(lst->value_split[i][*j + 1]) == 2
 			&& lst->value_split[i][*j + 2] == '\0')
-	{
 		space = ft_cdup('\0');
-		if (space == NULL)
-			ft_free_malloc(shell);
-	}
 	else if (ft_sep(lst->value_split[i][*j]) == 4
 			&& ft_sep(lst->value_split[i][*j + 1]) == 4
 			&& lst->value_split[i][*j + 2] == '\0')
-	{
 		space = ft_cdup('\0');
-		if (space == NULL)
-			ft_free_malloc(shell);
-	}
 	return (space);
 }
 

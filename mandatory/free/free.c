@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 16:36:41 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 18:56:08 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 14:39:23 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_free_cmds(t_shell *shell)
 		buf = tmp->next;
 		if (tmp->value != NULL)
 			free(tmp->value);
-		if (tmp->value_split != NULL)
+		if (tmp->value_split)
 			ft_free_tab_char(tmp->value_split);
 		free(tmp);
 		tmp = buf;

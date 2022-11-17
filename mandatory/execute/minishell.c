@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:35:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:35:49 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 15:56:32 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exec_builtins(t_shell *shell)
 	if (ft_strcmp(shell->exec->builtins[0], "export") == 0)
 		ft_export(shell);
 	if (ft_strcmp(shell->exec->builtins[0], "exit") == 0)
-		ft_exit_fork(shell, shell->exec->builtins);
+		ft_exit_fork(shell->exec->builtins);
 	if (ft_strcmp(shell->exec->builtins[0], "unset") == 0)
 		ft_unset(shell);
 }

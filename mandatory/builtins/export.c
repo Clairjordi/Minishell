@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 09:28:03 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:47:22 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:30:03 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	ft_modify_var(t_shell *shell, int check, int i)
 	else if (check == 3)
 	{
 		ft_append_var(shell, shell->env->first, shell->exec->builtins[i]);
-		ft_append_var(shell, shell->env->head, shell->exec->builtins[i]);
+		ft_append_var(shell->env->head, shell->exec->builtins[i]);
 		return (TRUE);
 	}
 	else

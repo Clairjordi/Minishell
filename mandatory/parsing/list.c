@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:45:51 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/17 09:50:54 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:19:33 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_create_lst(t_shell *shell)
 	i = 1;
 	shell->arg = ft_lstnew_cmd(shell->tab_cmd[0], shell);
 	if (shell->arg == NULL)
-			ft_free_malloc(shell);
+		ft_free_malloc(shell);
 	if (shell->arg == NULL)
 		ft_free_malloc(shell);
 	while (shell->tab_cmd[i] != NULL)
