@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 17:25:41 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:16:30 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	ft_check_valid_name(char *s)
 		ft_putendl_fd("bash: unset: not a valid identifier", 2);
 		g_minishell.status = 1;
 	}
-	if (s[1] == '\0')
-		return (1);
 	else if (ft_valid_name(s) == 1)
 		return (1);
 	return (0);
@@ -54,23 +52,24 @@ void	ft_remove_export(t_env *env, char *s)
 	tmp = ft_check_name_envcpy(env->head, s);
 	if (tmp == NULL)
 		return ;
-	else
+	if (tmp->next != NULL)
 	{
 		prev = tmp->prev;
 		next = tmp->next;
 		prev->next = next;
-		if (next->prev == NULL)
-			next->prev = NULL;
-		else
-			next->prev = prev;
-		if (tmp->name != NULL)
-			free(tmp->name);
-		if (tmp->value != NULL)
-			free(tmp->value);
-		if (tmp->var != NULL)
-			free(tmp->var);
-		free(tmp);
+		next->prev = prev;
 	}
+	else
+	{
+		prev = tmp->prev;
+		prev->next = NULL;
+	}
+	if (tmp->name != NULL)
+		free(tmp->name);
+	if (tmp->value != NULL)
+		free(tmp->value);
+	free(tmp->var);
+	free(tmp);
 }
 
 void	ft_remove(t_env *env, char *s)
