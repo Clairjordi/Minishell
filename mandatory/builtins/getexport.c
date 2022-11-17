@@ -6,30 +6,11 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 15:05:07 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 15:43:43 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:46:06 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_write_export(t_envcpy *env)
-{
-	t_envcpy	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(tmp->name, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd("\"", 1);
-		if (tmp->value != NULL)
-			ft_putstr_fd(tmp->value, 1);
-		ft_putendl_fd("\"", 1);
-		tmp = tmp->next;
-	}
-	g_minishell.status = 0;
-}
 
 t_envcpy	*ft_cpy_env(t_shell *shell, t_envcpy *env_lst)
 {

@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:56:35 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 14:58:54 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:06:58 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 {
-	/* int	j; */
-    /*  */
-	/* j = 0; */
 	if ((*i == 0
 			|| (*i > 0 && ft_valid_redirect(lst->value_split[*i - 1]) == FALSE))
 		&& shell->exec->cmd == NULL)
@@ -24,12 +21,6 @@ static int	ft_sort_check_built(t_shell *shell, t_cmds *lst, int *i)
 		if (ft_check_is_builtins(shell, lst->value_split, i) == TRUE)
 			return (TRUE);
 	}
-	/* if (lst->value_split[*i][j] == '\0') */
-	/* { */
-	/* 	(*i)++; */
-	/* 	if (lst->value_split[*i] == NULL) */
-	/* 		return (TRUE); */
-	/* } */
 	return (FALSE);
 }
 
@@ -39,12 +30,12 @@ static void	ft_sort_cmd_bis(t_shell *shell, t_cmds *lst)
 
 	i = 0;
 	while (lst->value_split[i])
-	{	
+	{
 		if (ft_sort_check_built(shell, lst, &i) == TRUE)
 			break ;
 		if (shell->exec->is_dir == 0 && shell->exec->outfile != -1)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
-		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
+		if (ft_check_infile(shell->exec, lst->value_split, &i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
 		{
@@ -101,7 +92,7 @@ void	ft_sort_cmd_pipe(t_shell *shell, t_cmds *lst)
 			break ;
 		if (shell->exec->is_dir == 0 && shell->exec->cmd == NULL)
 			shell->exec->is_dir = ft_is_directory(lst->value_split[i]);
-		if (ft_check_infile(shell->exec, lst->value_split, i) == FALSE)
+		if (ft_check_infile(shell->exec, lst->value_split, &i) == FALSE)
 			break ;
 		if (lst->hdoc == TRUE && lst->value_split[i + 1] == NULL)
 		{

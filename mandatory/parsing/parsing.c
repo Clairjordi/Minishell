@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 16:01:37 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/16 18:54:07 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:14:58 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_verif_if_str(char *str)
 	i = 0;
 	while (str[i] == ' ')
 	{
-		if (str[i] == ' ' && str[i + 1] == '\0')
+		if (str[i + 1] == '\0')
 			return (ERROR);
 		i++;
 	}

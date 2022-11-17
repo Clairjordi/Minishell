@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 11:23:42 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:33:02 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:17:18 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_check_error_redirect(t_shell *shell)
 	int		i;
 	t_cmds	*lst;
 
-	i = 0;
 	lst = shell->arg;
 	while (lst)
 	{
@@ -39,9 +38,15 @@ int	ft_check_error_redirect(t_shell *shell)
 	return (TRUE);
 }
 
-int	ft_check_infile(t_exec *exec, char **tab, int i)
-{
-	if (i != 0 && ft_valid_redirect(tab[i - 1]) == 2)
+int	ft_check_infile(t_exec *exec, char **tab, int *i)
+{	
+	if (tab[*i][0] == '\0')
+	{
+		(*i)++;
+		if (tab[*i] == NULL)
+			return (FALSE);
+	}
+	if (*i != 0 && ft_valid_redirect(tab[*i - 1]) == 2)
 	{
 		if (exec->outfile == -1)
 			return (FALSE);
@@ -50,7 +55,7 @@ int	ft_check_infile(t_exec *exec, char **tab, int i)
 			close(exec->infile);
 			exec->infile = 0;
 		}
-		exec->infile = open(tab[i], O_RDONLY, 0644);
+		exec->infile = open(tab[*i], O_RDONLY, 0644);
 		if (exec->infile == -1)
 		{
 			ft_putendl_fd("File error ", 2);

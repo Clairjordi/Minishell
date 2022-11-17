@@ -6,7 +6,7 @@
 /*   By: clorcery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 17:07:17 by clorcery          #+#    #+#             */
-/*   Updated: 2022/11/17 14:44:39 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:10:48 by clorcery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,4 @@ int	ft_sep(char c)
 	else if (c == '<' || c == '>')
 		return (3);
 	return (0);
-}
-
-int	ft_len_va(char *var, int start, char c)
-{
-	int	i;
-
-	i = start;
-	while (var[i])
-	{
-		if (var[i] == c)
-		{
-			i++;
-			return (i);
-		}
-		i++;
-	}
-	if (var[i] == '\0')
-		i++;
-	return (i);
 }
