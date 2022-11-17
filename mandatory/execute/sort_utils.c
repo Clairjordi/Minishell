@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 09:40:58 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:52:04 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_waitpid_pipe(t_shell *shell, int wstatus)
 		g_minishell.status = 0;
 	else if ((ft_size_lst(shell->arg) != i && ft_check_last(shell) == 2)
 		|| (ft_size_lst(shell->arg) != i && tmp == 1)
-		|| g_minishell.status == 141)
+		|| g_minishell.status == 141 || tmp == 127)
 		g_minishell.status = tmp;
 	g_minishell.is_in_loop = 0;
 }
