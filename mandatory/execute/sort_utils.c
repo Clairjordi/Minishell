@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:32:37 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 09:48:28 by clorcery         ###   ########.fr       */
+/*   Updated: 2022/11/17 10:50:18 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	ft_check_last(t_shell *shell)
 		return (1);
 	else if (lst->cmd_found == FALSE)
 		return (2);
-	/* else if (lst->cmd_found == TRUE && shell->exec->infile != -1) */
-	/* 	return (1); */
 	else
 		return (0);
 }
@@ -63,11 +61,11 @@ void	ft_waitpid_pipe(t_shell *shell, int wstatus)
 		i++;
 	}
 	ft_status_child(wstatus);
-	if (ft_check_last(shell) == 1 /*&& tmp != 1*/)
+	if (ft_check_last(shell) == 1)
 		g_minishell.status = 0;
 	else if ((ft_size_lst(shell->arg) != i && ft_check_last(shell) == 2)
 		|| (ft_size_lst(shell->arg) != i && tmp == 1)
-		|| g_minishell.status == 141)
+		|| g_minishell.status == 141 || tmp == 127)
 		g_minishell.status = tmp;
 	g_minishell.is_in_loop = 0;
 }
