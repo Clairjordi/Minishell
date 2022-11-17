@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/17 16:28:14 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 17:25:41 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,16 @@ void	ft_remove_export(t_env *env, char *s)
 		prev = tmp->prev;
 		next = tmp->next;
 		prev->next = next;
-		next->prev = prev;
-		free(tmp->name);
-		free(tmp->value);
-		free(tmp->var);
+		if (next->prev == NULL)
+			next->prev = NULL;
+		else
+			next->prev = prev;
+		if (tmp->name != NULL)
+			free(tmp->name);
+		if (tmp->value != NULL)
+			free(tmp->value);
+		if (tmp->var != NULL)
+			free(tmp->var);
 		free(tmp);
 	}
 }
@@ -75,7 +81,10 @@ void	ft_remove(t_env *env, char *s)
 
 	tmp = ft_check_name_envcpy(env->first, s);
 	if (tmp == NULL)
+	{
+		ft_remove_export(env, s);
 		return ;
+	}
 	else
 	{
 		prev = tmp->prev;
@@ -105,13 +114,12 @@ void	ft_unset(t_shell *shell)
 	}
 	while (shell->exec->builtins[i])
 	{
-		if (ft_check_valid_name(shell->exec->builtins[i]) == 1)
+		if (ft_strlen(shell->exec->builtins[i]) == 1)
+			ft_remove_export(shell->env, shell->exec->builtins[i]);
+		else if (ft_check_valid_name(shell->exec->builtins[i]) == 1)
 			ft_remove(shell->env, shell->exec->builtins[i]);
 		else
-		{
 			break ;
-			return ;
-		}
 		i++;
 	}
 	g_minishell.status = 0;
