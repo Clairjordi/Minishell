@@ -6,7 +6,7 @@
 /*   By: mcloarec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:27:26 by mcloarec          #+#    #+#             */
-/*   Updated: 2022/11/16 16:48:45 by mcloarec         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:28:14 by mcloarec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	ft_check_valid_name(char *s)
 		ft_putendl_fd("bash: unset: not a valid identifier", 2);
 		g_minishell.status = 1;
 	}
+	if (s[1] == '\0')
+		return (1);
 	else if (ft_valid_name(s) == 1)
 		return (1);
 	return (0);
