@@ -1,6 +1,7 @@
 # Minishell_gr
 
 Projet Ecole 42 :
+(en groupe)
 
 Recréer un bash (avec moins de fonctionnalités) :
 
