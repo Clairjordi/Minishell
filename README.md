@@ -1,6 +1,6 @@
 # Minishell
 
-School Project 42: (in a group)
+(2/7) School Project 42: (in a group)
 
 Recreate a shell with the following features :
 
