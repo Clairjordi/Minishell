@@ -1,6 +1,6 @@
 # Minishell
 
-(2/7) School Project 42: (common core - in group)
+(2/7) Common core school project 42 (in group) : 
 
 Recreate a shell with the following features :
 
